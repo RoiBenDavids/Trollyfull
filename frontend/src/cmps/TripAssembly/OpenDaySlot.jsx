@@ -1,18 +1,29 @@
 
 import React from 'react'
+import { useDrop } from 'react-dnd'
 import { utils } from '../../services/utils'
+import { ItemTypes } from '../../services/dndItems'
+export function OpenDaySlot({ act, getRowIdx, onDragMove }) {
 
-export function OpenDaySlot({ act, getRowIdx, onRemoveAct, onEdit }) {
-    const startTime = utils.getTimeDayStr(act.at)
-    const endTime = utils.getTimeDayStr(act.at + (+act.duration / 2) * 60 * 60 * 1000)
+    const [{ isOver }, drop] = useDrop({
+        accept: ItemTypes.ACTIVITIE,
+        drop: (item, monitor) => { onDragMove(act, item.id) },
+
+        collect: monitor => ({
+            isOver: !!monitor.isOver()
+        })
+    })
+
     const rowIdx = getRowIdx(act.at)
-    const activitieClass = (act.duration) ? 'activitie-assembly' : 'empty-assembly'
     const isFirstCol = (act.col === 0) ? 'first-col' : ''
     const isDayHeadClass = (act.literalDay) ? 'literal-day' : ''
-
+    const bgc = (isOver) ? 'blue' : 'inherit'
+    if (isOver) {
+        // console.log("act", act)
+    }
     return (
-        <div className={`activitie-prev-assembly empty-assembly ${isFirstCol}`} style={{ gridRow: `${rowIdx || 'auto'}/span 1` }} key={utils.makeId()}>
-            
+        <div ref={drop} className={`activity-prev-assembly empty-assembly ${isFirstCol} ${isDayHeadClass}`} style={{ gridRow: `${rowIdx || 'auto'}/span 1`, backgroundColor: bgc }} key={utils.makeId()}>
+            {act.literalDay && act.date}
         </div>
     )
 }

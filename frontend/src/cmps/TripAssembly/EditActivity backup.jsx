@@ -73,8 +73,6 @@ export class EditActivity extends Component {
     handleChange = ({ target }) => {
         const field = target.name;
         const value = target.value;
-        console.log("EditActivity -> handleChange -> field", field)
-        console.log("EditActivity -> handleChange -> value", value)
         if (target.type === 'checkbox') this.setState({ [field]: target.checked });
         else if (target.type === 'number') this.setState({ activitie: { ...this.state.activitie, [field]: +value } });
         else this.setState({ activitie: { ...this.state.activitie, [field]: value } });
@@ -93,7 +91,6 @@ export class EditActivity extends Component {
 
     render() {
         const { activitie, minTime, maxTime } = this.state
-        console.log("render -> this.state", this.state)
         // if (!activitie.id) return <div>Loading...</div>
         return (
             <form className="edit-attraction flex column" onSubmit={this.onSaveAct}>
