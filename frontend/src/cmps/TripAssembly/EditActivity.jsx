@@ -83,7 +83,6 @@ export class EditActivity extends Component {
         const { activitie } = this.state
         let datetime = new Date(activitie.at)
         activitie.at = datetime.getTime()
-        console.log("onSaveAct -> isOccTimeSlot(activitie)", isOccTimeSlot(activitie))
         if (isOccTimeSlot(activitie)) {
             alert('You aleardy have plans for that date! please choose a different one.')
             return

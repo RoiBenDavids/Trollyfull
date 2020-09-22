@@ -9,6 +9,7 @@ const router = express.Router()
 router.get('/:id', getTrip)
 router.get('/', getTrips)
 // router.post('/',  requireAuth, addTrip)
+router.put('/:id', addTrip)
 router.post('/', addTrip)
 router.delete('/:id',  requireAuth, deleteTrip)
 

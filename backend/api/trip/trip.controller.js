@@ -4,7 +4,6 @@ const tripService = require('./trip.service')
 // TODO: needs error handling! try, catch
 
 async function getTrips(req, res) {
-    console.log('tripController');
     try {
         console.log(req.params,'parmas');
         console.log(req.query,'query');
@@ -19,7 +18,6 @@ async function getTrips(req, res) {
 }
 
 async function getTrip(req,res){
-    console.log('insideGet');
     try {
     console.log(req.params)
     const trip = await tripService.getById(req.params.id)
@@ -45,10 +43,19 @@ async function deleteTrip(req, res) {
 async function addTrip(req, res) {
     var trip = req.body;
     // trip.byUserId = req.session.user._id;
-    console.log(trip,'controller');
-    trip = await tripService.add(trip)
-    console.log(trip,'controller after');
-    res.json(trip)
+    try {
+        if (trip._id) {
+            trip = await tripService.update(trip)
+        } else {
+
+            trip = await tripService.add(trip)
+        }
+        res.json(trip)
+    } catch(error) {
+        logger.error('Cannot save trip', error);
+        res.status(500).send({ error: 'cannot save trip' })
+    }
+    
 }
 
 module.exports = {

@@ -12,7 +12,6 @@ async function query(filterBy = {}) {
         const trips = await collection.find(criteria).toArray();
         return trips
     } catch (err) {
-        console.log('ERROR: cannot find trips')
         throw err;
     }
 }
@@ -24,7 +23,6 @@ async function getById(id){
         console.log(trips);
         return trips
     } catch (err) {
-        console.log('ERROR: cannot find trips')
         throw err;
     }
 
@@ -35,10 +33,10 @@ async function update(trip) {
     trip._id = ObjectId(trip._id);
 
     try {
-        await collection.replaceOne({ "_id": trip._id }, { $set: trip })
+        await collection.updateOne({ "_id": trip._id }, { $set: trip })
+        
         return trip
     } catch (err) {
-        console.log(`ERROR: cannot update trip ${trip._id}`)
         throw err;
     }
 }
@@ -48,11 +46,9 @@ async function add(trip) {
 
     const collection = await dbService.getCollection('trip')
     try {
-        console.log('service');
         await collection.insertOne(trip);
         return trip;
     } catch (err) {
-        console.log(`ERROR: cannot insert trip`)
         throw err;
     }
 }
