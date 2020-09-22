@@ -10,9 +10,6 @@ export class UserPreview extends Component {
         this.setState({ expand: !this.state.expand })
     }
 
-
-
-
     render() {
         return (
             <React.Fragment>

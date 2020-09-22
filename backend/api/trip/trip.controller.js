@@ -38,12 +38,11 @@ async function deleteTrip(req, res) {
 
 async function addTrip(req, res) {
     var trip = req.body;
-    // trip.byUserId = req.session.user._id;
     try {
         if (trip._id) {
             trip = await tripService.update(trip)
         } else {
-
+            trip.createdBy = req.session.user? req.session.user._id:"guest"
             trip = await tripService.add(trip)
         }
         res.json(trip)
