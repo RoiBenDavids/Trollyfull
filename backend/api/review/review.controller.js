@@ -26,11 +26,9 @@ async function deleteReview(req, res) {
 
 async function addReview(req, res) {
     var review = req.body;
-    review.byUserId = req.session.user._id;
+    // review.byUserId = req.session.user._id;
     review = await reviewService.add(review)
     // review.byUser = req.session.user;
-    // TODO - need to find aboutUser
-    // review.aboutUser = {}
     res.send(review)
 }
 

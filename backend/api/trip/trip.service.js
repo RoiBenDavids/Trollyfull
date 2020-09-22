@@ -4,10 +4,8 @@ const ObjectId = require('mongodb').ObjectId
 
 
 async function query(filterBy = {}) {
-    console.log(filterBy, 'service!!!!!!!');
     const criteria = _buildCriteria(filterBy)
     const collection = await dbService.getCollection('trip')
-    console.log(criteria, 'service!!!!!!!');
     try {
         const trips = await collection.find(criteria).toArray();
         return trips
@@ -20,7 +18,6 @@ async function getById(id){
     const collection = await dbService.getCollection('trip')
     try {
         const trips = await collection.findOne({"_id":ObjectId(id)});
-        console.log(trips);
         return trips
     } catch (err) {
         throw err;
