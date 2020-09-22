@@ -10,19 +10,16 @@ import { logout } from '../../store/actions/userActions'
 class _MainNavBar extends Component {
     state = {
         navBar: '',
-        loggedInUser: ''
     }
 
     componentDidMount() {
-        this.setState({ loggedInUser: this.props.usersData.loggedInUser })
         window.addEventListener('scroll', this.backgroundChanged);
+  
 
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (this.props.location.pathname !== prevProps.location.pathname) this.backgroundChanged()
-        if (this.state.loggedInUser === this.props.usersData.loggedinUser) return
-        this.setState({ loggedInUser: this.props.usersData.loggedinUser })
     }
 
 
@@ -47,7 +44,9 @@ class _MainNavBar extends Component {
                 <div className="flex Justify-between main-navbar-links">
                     <Link to="/trip">All Trips</Link>
                     <NavLink to="/about" >About</NavLink>
-                    {this.state.loggedInUser ? <UserPreview logout={this.props.logout} user={this.state.loggedInUser} /> : <div onClick={() => this.props.showModal('login')}>Login</div>}
+                    {this.props.usersData.loggedInUser ? <UserPreview logout={this.props.logout} user={this.props.usersData.loggedInUser} /> : <div onClick={() => this.props.showModal('login')}>Login</div>}
+                    {/* {this.state.loggedInUser ? <UserPreview logout={this.props.logout} user={this.state.loggedInUser} /> : <div onClick={() => this.props.showModal('login')}>Login</div>} */}
+                    {/* {this.state.loggedInUser ? <UserPreview logout={this.props.logout} user={this.state.loggedInUser} /> : <NavLink to="/loginSignup" >Login</NavLink>} */}
                 </div>
             </div>
         )

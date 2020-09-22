@@ -1,6 +1,10 @@
+
+let localLoggedinUser = null;
+if (sessionStorage.user) localLoggedinUser = JSON.parse(sessionStorage.user);
+
 const initialState = {
     users: [],
-    loggedInUser: null
+    loggedInUser: localLoggedinUser
 }
 
 export function userReducer(state = initialState, action) {
@@ -8,7 +12,7 @@ export function userReducer(state = initialState, action) {
         case 'SET_USER':
             return {
                 users:[...state.users],
-                loggedinUser: action.user
+                loggedInUser: action.user
             }
         case 'SET_USERS':
             return {

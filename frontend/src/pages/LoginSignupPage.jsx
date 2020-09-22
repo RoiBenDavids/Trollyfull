@@ -3,17 +3,21 @@ import { connect } from 'react-redux'
 import { Login } from './Login';
 import { Signup } from './Signup';
 import { signup,login } from '../store/actions/userActions'
-import { closeModal } from '../store/actions/modalActions'
+import { closeModal ,showModal} from '../store/actions/modalActions'
 
 class _LoginSignupPage extends Component {
     state = {
         login: true
     }
     componentDidMount() {
+        if (this.props.page !== this.state.login){
+            this.setState({ login: this.props.page })
+        }
     }
     componentDidUpdate() {
-        if (this.props.page !== this.state.login)
+        if (this.props.page !== this.state.login){
             this.setState({ login: this.props.page })
+        }
     }
     handleForm = async (props, action) => {
         if (action === 'signup') {
@@ -44,7 +48,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     signup,
     login,
-    closeModal
+    closeModal,
+    showModal
 
 }
 

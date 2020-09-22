@@ -12,7 +12,6 @@ export function TripRoute({ trip,changeOrder }) {
             return {location:dest.location,name:dest.name}})
         
     }
-    console.log(trip);
 
     return (
         <div className="trip-route flex justify-center align-center">

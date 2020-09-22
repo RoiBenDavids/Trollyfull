@@ -15,34 +15,26 @@ window.userService = userService;
 
 function getUsers() {
     return httpService.get('user')
-    // return storageService.query('user')
 }
 
 function getById(userId) {
     return httpService.get(`user/${userId}`)
-    // return storageService.get('user', userId)
 }
 function remove(userId) {
     return httpService.delete(`user/${userId}`)
-    // return storageService.remove('user', userId)
 }
 
 function update(user) {
-    // return storageService.put('user', user)
     return httpService.put(`user/${user._id}`, user)
 }
 
 async function login(userCred) {
     const user = await httpService.post('auth/login', userCred)
-    // const users = await storageService.query('user')
-    // const user = users.find(user => user.email === userCred.email)
     if (user) return _handleLogin(user)
     return Promise.reject('user not found'+userCred)
 }
 async function signup(userCred) {
-    console.log(userCred,'userService');
     const user = await httpService.post('auth/signup', userCred)
-    // const user = await storageService.post('user', userCred)
     return _handleLogin(user)
 }
 async function logout() {
