@@ -19,7 +19,6 @@ async function getTrips(req, res) {
 
 async function getTrip(req,res){
     try {
-    console.log(req.params)
     const trip = await tripService.getById(req.params.id)
     res.json(trip)
     }catch(err){
@@ -42,12 +41,11 @@ async function deleteTrip(req, res) {
 
 async function addTrip(req, res) {
     var trip = req.body;
-    // trip.byUserId = req.session.user._id;
     try {
         if (trip._id) {
             trip = await tripService.update(trip)
         } else {
-
+            trip.createdBy = req.session.user? req.session.user._id:"guest"
             trip = await tripService.add(trip)
         }
         res.json(trip)
