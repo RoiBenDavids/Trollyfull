@@ -10,7 +10,6 @@ class _Chat extends Component {
     }
 
     componentDidMount() {
-        console.log('Chat', this.props);
         // socketService.setup();
         // socketService.emit('chat trip', this.props.toyId);
         // socketService.emit('chat history');
@@ -24,7 +23,6 @@ class _Chat extends Component {
     }
     loadHistory = history => {
         this.setState({ msgs: history || [] });
-        console.log('history:', history);
     }
     addMsg = newMsg => {
         this.setState(prevState => ({ msgs: [...prevState.msgs, newMsg] }));
@@ -47,7 +45,6 @@ class _Chat extends Component {
         })
     }
     render() {
-        console.log(this.state);
         return (
             <div className={`chat-container flex column  ${this.props.chatOpen ? 'open' : ''}`}>
                 <div className="chat-header styled-header">

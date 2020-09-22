@@ -1,0 +1,27 @@
+.members-preview{
+    position: absolute;
+    left: 20px;
+.member-preview{
+    position: relative;
+    max-width: 39px;
+    max-height: 39px;
+    margin-right: 10px;
+    .image-preview{
+        height: 100%;
+        width: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .is-active-circle{
+        width: 25%;
+        height: 25%;
+        background-color: green;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        border: 1px solid black;
+    }
+
+}
+}

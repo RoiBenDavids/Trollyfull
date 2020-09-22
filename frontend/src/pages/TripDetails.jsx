@@ -36,6 +36,7 @@ class _TripDetails extends Component {
         // review.byUserId = this.props.loggedInUser._id
         console.log(this.state.trip);
         review.aboutTrip = this.state.trip._id
+        console.log(review,'trip detail');
         await reviewActions.addReview(review)
         await this.props.loadReviews({ tripId: this.state.trip._id })
     }

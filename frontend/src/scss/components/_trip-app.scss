@@ -15,7 +15,8 @@
             align-items: center;
         }
         >a{
-            margin-right: 20px;
+            position: absolute;
+            right: 20px;
         }
         .trip-routes{
             flex:1;

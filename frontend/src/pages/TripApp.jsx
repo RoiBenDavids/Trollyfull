@@ -22,12 +22,12 @@ class _TripApp extends Component {
     }
 
     async componentDidMount() {
-
         const { id } = this.props.match.params
         try {
-            console.log(this.props,'trip app');
-
             const trip = await this.props.loadTrip(id)
+            if(this.props.match.params.openSignup==='true'){
+                this.props.showModal('signup')
+            }
             this.setState({ trip })
         }
         catch (err) {
@@ -49,7 +49,6 @@ class _TripApp extends Component {
             newDest.endDate += (constant)
             if (newTrip.activities) {
                 newTrip.activities = newTrip.activities.map((act, idx) => {
-                    console.log(act.destination);
                     if (act.destination === newDest.name) act.at += constant
                     return act
                 })
@@ -71,7 +70,6 @@ class _TripApp extends Component {
     }
 
     changeOrder = (dest, direction) => {
-        console.log(dest);
         const destinations = [...this.state.trip.destinations]
         if (direction) {
             const destinationsToSwap = destinations.splice(dest - 1, 2)
@@ -116,11 +114,11 @@ class _TripApp extends Component {
                 <Switch>
                     <Route path="/trip/:id/triproute">
                         <img className="trip-main-img full" src={this.state.trip.imgUrl}></img>
-                        <TripNavBar tripId={trip._id} settingsOpen={this.state.settingsOpen} toggleSettings={this.toggleSettings} />
+                        <TripNavBar trip={trip} settingsOpen={this.state.settingsOpen} toggleSettings={this.toggleSettings} />
                         <TripRoute trip={trip} changeOrder={this.changeOrder}></TripRoute>
                     </Route>
                     <Route path="/trip/:id/tripassembly">
-                        <TripNavBar tripId={trip._id}  settingsOpen={this.state.settingsOpen} toggleSettings={this.toggleSettings}/>
+                        <TripNavBar trip={trip}  settingsOpen={this.state.settingsOpen} toggleSettings={this.toggleSettings}/>
                         <TripAssembly trip={trip} updateTripAct={this.updateTripAct} showModal={this.props.showModal} closeModal={this.props.closeModal}></TripAssembly>
                     </Route>
                 </Switch>
