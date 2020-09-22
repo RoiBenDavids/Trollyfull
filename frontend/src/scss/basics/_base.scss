@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: rem(18px);
+    margin: 0;
+    font-family: Gayathri;
+
+}
+
+ul,li,p{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ustyled-button{
+    border: 0;
+    background-color: transparent;
+}
+
+.styled-input {
+    margin: 5px;
+    outline: none;
+    border: none;
+    height: 40px;
+    padding: 20px 5px 5px;
+    border-bottom: 1px solid #dcd0d0;
+    &:focus {
+        box-shadow: none;
+        outline: none;
+        background-position: 0 0;
+        &::-webkit-input-placeholder {
+            color: rgb(128, 166, 236);
+            font-size: 11px;
+            transform: translateY(-20px);
+            visibility: visible !important;
+        }
+    }
+}
+
+.styled-input::-webkit-input-placeholder {
+    font-family: "roboto", sans-serif;
+    transition: all 0.3s ease-in-out;
+}
+
+.error-msg{
+    margin:0;
+    color: red;
+    padding: 0;
+}
+
+.dest-0 {
+    background-color: $clr1 !important;
+     @include shadow($clr1)
+    
+}
+.dest-1 {
+    background-color: $clr2;
+    @include shadow($clr2)
+}
+.dest-2 {
+    background-color: $clr3;
+    @include shadow($clr3)
+}
+.dest-3 {
+    background-color: $clr4;
+    @include shadow($clr4)
+}
+.dest-4 {
+    background-color: $clr5;
+    @include shadow($clr5)
+}
+.dest-5 {
+    background-color: $clr6;
+    @include shadow($clr6)
+}
+.dest-6 {
+    background-color: $clr7;
+    @include shadow($clr7)
+}
+// inset 0px -1px 7px -4px #350053, inset 0px 4px 5px #edceff;
+.styled-header{
+    background-color: $clr5;
+    box-shadow: inset 0px -1px 7px -4px darken($clr5, 68%), inset  0px 4px 5px lighten($clr5, 6%);
+}

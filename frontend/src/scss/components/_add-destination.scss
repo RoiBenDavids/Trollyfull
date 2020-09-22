@@ -1,0 +1,82 @@
+
+.add-destination-form-wraper{
+    width: 800px;
+    height: fit-content;
+    box-shadow: 0px 5px 6px 3px rgba(0, 0, 0, 0.2);    
+    border-radius: 10px;
+    margin:20px auto ;
+
+
+    .add-destination-form{
+        min-height: 400px;
+        label{
+        font-family: 'roboto', sans-serif;
+        color:#434a72;
+        }
+
+        padding: 60px;
+        >*:not(button){
+            padding-bottom: 20px;
+        }
+      }
+        
+
+        
+        
+    
+.add-dest-img-wraper{
+    position: relative;
+    // height:  -webkit-fill-available;
+    width: 100%;
+    
+    img{
+        border-radius: 0 10px 10px 0;
+        height:100%;  
+        width: 100%;
+        object-fit: cover;
+        position: absolute;
+        }
+    }
+}
+
+
+.trip-list-add-form{
+ padding-inline-start: 0;
+ align-items: center;
+ counter-reset: item;
+    list-style-type: none;
+    line-height: 2.2;
+    margin-left: -40px;
+    li {
+        position: relative;
+        align-items: baseline;
+        width: 100%;
+        >p{
+            flex-grow: 1;
+        }
+        p{
+            margin:0 5px 5px;
+        }
+      }
+}
+  
+  
+ .trip-list-add-form li span {
+    margin-left: 40px;
+  }
+  
+ .trip-list-add-form li:before {
+    content: counter(item) " ";
+    counter-increment: item;
+    color: #787a7d;
+    position: relative;
+    margin: 0 10px 0;
+    background: #e5d8fb;
+    height: 1.7em;
+    width: 1.7em;
+    text-align: center;
+    border-radius: 2em;
+    font-weight: 700;
+  }
+
+  

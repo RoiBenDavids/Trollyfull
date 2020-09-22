@@ -1,0 +1,75 @@
+
+.main-navbar{
+
+    padding: 20px 40px;
+    width: 100%;
+    position: fixed;
+    color: white;
+    z-index: 20;
+    letter-spacing: rem(1.5px);
+    mix-blend-mode: hard-light;
+    background: linear-gradient(180deg, #4a4949, #595959, #5b5a5a, transparent);
+    // -webkit-transition: all 0.3s ease-in ease-out;
+        // -moz-transition: all 0.3s  ease-in ease-out;
+        // -o-transition: all 0.3s ease-in  ease-out;
+        // -ms-transition: all 0.3s ease-in  ease-out;
+        transition: all 0.7s  ease ;
+    
+    .logo{
+        font-family: kaushan;
+        margin: 0;
+    }
+    >div>div{
+        position:relative;
+    }
+    .user-preview-expand{
+        position: absolute;
+        top: 45px;
+        left: -21px;
+        width: 140px;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.3s;
+        background-color: $clr10;
+        &.open{
+            height: 150px;
+            padding: 20px;
+        }
+    }
+    }
+ 
+
+   
+.main-navbar-links{
+    font-size: 1rem;
+    text-transform: uppercase;
+    flex-grow: 1;
+    justify-content: flex-end;
+    >*{
+    padding: 0;
+    margin-right: 20px;
+    }
+
+}
+
+.navBar-background{
+    
+    padding: 5px 40px;
+    mix-blend-mode: inherit;
+    background: #222222;
+    display: flex!important;
+    // -webkit-transition: all ease-in 0.3s ;
+    // -moz-transition: all ease-in 0.3s ;
+
+    
+        transition: all 0.3s ease;
+
+    }
+
+    .main-navbar-links{
+
+        >*{
+            padding: 10px 0;
+        }
+
+    }

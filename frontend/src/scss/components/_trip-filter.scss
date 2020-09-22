@@ -1,0 +1,25 @@
+
+.trip-filter{
+    border: 1px solid #ccc5c57a;
+    border-radius: 5px;
+    width: 95%;
+    margin: 0 auto 20px;
+    justify-content: center;
+    align-items: baseline;
+    flex-wrap: wrap;
+    >p, p>input{
+        margin: 5px;
+        background-color: inherit;
+        align-items: baseline;
+        border: none;
+    }
+
+    >p input{
+        border-bottom: 1px solid #bcb7b7;
+        outline: none;
+    }
+    &:focus-within {
+        background-color: #dee5fc;
+        border: 1px solid black;
+    }
+}

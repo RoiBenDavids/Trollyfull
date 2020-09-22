@@ -1,0 +1,56 @@
+.route-calendar{
+    border-collapse: collapse;
+    text-align: center;
+    max-width: 500px;
+   .table-header{
+       background-color: $clr8;
+      
+   }
+   tr{
+       border:0.1px solid rgba(128, 128, 128, 0.5)  ;
+   }
+    td,th{
+        padding:15px;
+        border-right:0.1px solid rgba(128, 128, 128, 0.5) ;
+        overflow-x: hidden
+    }
+    th:first-child{
+        border-top-left-radius: 5px;
+    }
+    th:last-child{
+        border-top-right-radius: 5px;
+
+    }
+    td{
+        position:relative;
+    }
+    .start, .full, .end{
+        position: absolute;
+        height: 50%;
+        top: 25%;
+        position: absolute;
+        z-index: -1;
+        
+    }
+    .start{
+        right: 0;
+        border-top-left-radius: 50%;
+        border-bottom-left-radius: 50%;
+        width: 45%;
+    }
+    .full{
+        width: 100%;
+        left: 0;
+    }
+    .end{
+        left: 0;
+        border-top-right-radius:50% ;
+        border-bottom-right-radius: 50%;
+        width: 45%;
+    }
+    .faded{
+        opacity: 0.5;
+    }
+   
+   
+}

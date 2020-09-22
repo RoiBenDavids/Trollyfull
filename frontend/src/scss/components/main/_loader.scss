@@ -1,0 +1,65 @@
+@keyframes spin-right {
+    100% {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes flying {
+   
+  
+   0% {
+     font-size: 60px;
+   }
+  
+   15% {
+     font-size: 63px;
+   }
+  
+   25% {
+     font-size: 70px;
+   }
+  
+   75% {
+     font-size: 70px;
+   }
+  
+   85% {
+     font-size: 63px;
+   }
+   100% {
+     font-size: 60px;
+   }
+  }
+  .positioning-container {
+    position: absolute;
+    z-index: 500;
+    height: 500px;
+    width: 50%;
+    text-align: center;
+    right: 25%;
+  }
+  .spinning-container{
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    height: 75%;
+    animation: spin-right 4s ease-in-out infinite;
+    padding: 25px;
+  
+    
+  }
+  .airplane-container{
+    .plane{
+        width: 100px;
+        transform: rotate(90deg);
+        margin: 0;
+        color: #00ACE4;
+        animation: flying 4s linear infinite;
+    }
+  }
+
+  

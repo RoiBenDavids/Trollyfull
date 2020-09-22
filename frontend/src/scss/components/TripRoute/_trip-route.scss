@@ -1,0 +1,9 @@
+.trip-route{
+    flex-wrap: wrap;
+    width: 60%;
+    margin: 0 auto;
+    >*{
+        width:50%;
+        margin-bottom: 50px;
+    }
+}

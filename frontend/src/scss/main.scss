@@ -1,0 +1,39 @@
+//setup
+@import "setup/vars.scss";
+@import "setup/functions.scss";
+@import "setup/mixins.scss";
+@import "setup/typography.scss";
+
+//basics
+@import "basics/helpers.scss";
+@import "basics/layouts.scss";
+@import "basics/links.scss";
+@import "basics/base.scss";
+@import "basics/buttons.scss";
+
+//component
+@import './components/main/footer';
+@import './components/main/loader.scss';
+@import './components/TripRoute/trip-route';
+@import './components/trip-app.scss';
+@import './components/main/modal.scss';
+@import './components/tripAssembly.scss';
+@import './components/main-navbar.scss';
+@import './components/trip-preview.scss';
+@import './components/trip-filter.scss';
+@import './components/TripRoute/routeTimeLine.scss';
+@import './components/add-destination.scss';
+@import './components/TripRoute/route-calendar';
+@import './components/trip-reviews.scss';
+@import './components/user-flow.scss';
+
+
+
+//views
+@import "./views/home-page.scss";
+
+
+
+main>*:not(.home-page){
+    padding-top: 52px
+}
