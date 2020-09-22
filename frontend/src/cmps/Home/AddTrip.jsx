@@ -53,7 +53,6 @@ class _AddTrip extends Component {
         }
         const trip = {
             tripName: this.state.tripName,
-            createdBy: this.props.loggedInUser || 'Guest',
             imgUrl: utils.getRandomPic(),
             activities: [],
             destinations: this.state.destinations

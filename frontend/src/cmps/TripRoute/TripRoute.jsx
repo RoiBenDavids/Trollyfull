@@ -11,6 +11,7 @@ export function TripRoute({ trip,changeOrder }) {
         return trip.destinations.map(dest=>{
             return {location:dest.location,name:dest.name}})
     }
+
     return (
         <div className="trip-route flex justify-center align-center">
             <RouteTimeLine trip={trip} changeOrder={changeOrder} />

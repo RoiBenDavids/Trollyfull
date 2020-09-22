@@ -27,7 +27,8 @@ export function App() {
         <Loader />
         <Switch>
           <Route component={LoginSignupPage} path='/lognsignup' />
-          <Route component={TripApp} path='/trip/:id/:triproute' />
+          <Route component={TripApp} path='/trip/:id/:triproute/:openSignup?' />
+          {/* <Route component={TripApp} path='/trip/:id/:triproute' /> */}
           <Route component={TripDetails} path='/trip/:id/' />
           <Route component={UserTrips} path='/user/:id' />
           <Route component={TripStock} path='/trip' />

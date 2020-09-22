@@ -40,9 +40,10 @@ function createMat(cols, rows) {
     for (let i = 0; i < rows; i++) {
         mat[i] = []
         for (let j = 0; j < cols; j++) {
-            mat[i][j] = {}
+            mat[i][j] = {pos: {i, j}}
+
             if (j === 0) {
-                mat[i][j] = { col: 0 }
+                mat[i][j] = {...mat[i][j], col: 0 }
             }
         }
     }

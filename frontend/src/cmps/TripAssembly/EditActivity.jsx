@@ -3,7 +3,7 @@ import { utils } from '../../services/utils';
 
 export class EditActivity extends Component {
     state = {
-        activitie: {
+        activity: {
             name: 'nice place',
             at: '',
             time: '',
@@ -27,22 +27,22 @@ export class EditActivity extends Component {
             const destIdx = destinations.findIndex(dest => dest.name === act.destination)
             minTime = utils.getIsoTime(destinations[destIdx].startDate)
             maxTime = utils.getIsoTime(destinations[destIdx].endDate)
-            this.setState({ activitie: { ...act, price: act.price.amount, at: utils.getIsoTime(act.at), 
+            this.setState({ activity: { ...act, price: act.price.amount, at: utils.getIsoTime(act.at), 
                         destination: act.destination }, minTime, maxTime })
         } else {
 
             minTime = utils.getIsoTime(destinations[0].startDate)
             maxTime = utils.getIsoTime(destinations[destinations.length - 1].endDate)
 
-            await this.setState({activitie: {...this.state.activitie, destination: destinations[0].name}, minTime, maxTime })
+            await this.setState({activity: {...this.state.activity, destination: destinations[0].name}, minTime, maxTime })
         }
     }
 
     componentDidUpdate(prevProps, prevState) {
         const { destinations } = this.props.props
-        const { destination } = this.state.activitie
-        if (prevState.activitie.destination === destination) return
-        if (destination && !this.state.activitie.id) {
+        const { destination } = this.state.activity
+        if (prevState.activity.destination === destination) return
+        if (destination && !this.state.activity.id) {
             const destIdx = destinations.findIndex(dest => dest.name === destination)
             const minTime = utils.getIsoTime(destinations[destIdx].startDate)
             const maxTime = utils.getIsoTime(destinations[destIdx].endDate)
@@ -73,34 +73,34 @@ export class EditActivity extends Component {
         }
 
         if (target.type === 'checkbox') this.setState({ [field]: target.checked });
-        else if (target.type === 'number') this.setState({ activitie: { ...this.state.activitie, [field]: +value } });
-        else this.setState({ activitie: { ...this.state.activitie, [field]: value } });
+        else if (target.type === 'number') this.setState({ activity: { ...this.state.activity, [field]: +value } });
+        else this.setState({ activity: { ...this.state.activity, [field]: value } });
     }
 
     onSaveAct = (ev) => {
         ev.preventDefault()
         var { saveAct, isOccTimeSlot } = this.props.props
-        const { activitie } = this.state
-        let datetime = new Date(activitie.at)
-        activitie.at = datetime.getTime()
-        if (isOccTimeSlot(activitie)) {
+        const { activity } = this.state
+        let datetime = new Date(activity.at)
+        activity.at = datetime.getTime()
+        if (isOccTimeSlot(activity)) {
             alert('You aleardy have plans for that date! please choose a different one.')
             return
         }
-        activitie.price = { amount: activitie.price, currency: '$' }
-        saveAct(this.state.activitie)
+        activity.price = { amount: activity.price, currency: '$' }
+        saveAct(this.state.activity)
     }
 
 
     render() {
-        const { activitie, minTime, maxTime } = this.state
+        const { activity, minTime, maxTime } = this.state
         const { destinations } = this.props.props
         return (
             <form className="edit-attraction flex column" onSubmit={this.onSaveAct}>
                 <label htmlFor="name">Name</label>
-                <input placeholder="name" name="name" id="name" value={this.state.activitie.name} onChange={this.handleChange}></input>
-                <label htmlFor="dest-input">{(!activitie.id)?'Destination':activitie.destination}</label>
-                {!activitie.id && <select value={this.state.activitie.destination} placeholder="destination" name="destination" id="dest-input" onChange={this.handleChange}>
+                <input placeholder="name" name="name" id="name" value={this.state.activity.name} onChange={this.handleChange}></input>
+                <label htmlFor="dest-input">{(!activity.id)?'Destination':activity.destination}</label>
+                {!activity.id && <select value={this.state.activity.destination} placeholder="destination" name="destination" id="dest-input" onChange={this.handleChange}>
                     <option value="" disabled selected>Select Destination</option>
                     {destinations.map((dest, idx) => {
                         return <option key={utils.makeId()} value={dest.name}>{dest.name}</option>
@@ -109,14 +109,14 @@ export class EditActivity extends Component {
                 </select>}
                 <label htmlFor="start-time-activity-input">Time</label>
                 <input type="datetime-local" id="start-time-activity-input" min={minTime} max={maxTime} name="at"
-                    onChange={this.handleChange} value={this.state.activitie.at}
+                    onChange={this.handleChange} value={this.state.activity.at}
                     required="required" id="date-activity-input" />
                 <label htmlFor="duration">Duration</label>
-                <input placeholder="duration" id="duration" type="number" name="duration" value={this.state.activitie.duration} onChange={this.handleChange}></input>
+                <input placeholder="duration" id="duration" type="number" name="duration" value={this.state.activity.duration} onChange={this.handleChange}></input>
                 <label htmlFor="notes">Notes</label>
-                <textarea placeholder="notes" onChange={this.handleChange} name="notes" id="notes" value={this.state.activitie.notes} ></textarea>
+                <textarea placeholder="notes" onChange={this.handleChange} name="notes" id="notes" value={this.state.activity.notes} ></textarea>
                 <label htmlFor="price" id="price">Price</label>
-                <input type="number" placeholder="price" name="price" id="price" onChange={this.handleChange} placeholder="price" value={this.state.activitie.price}></input>
+                <input type="number" placeholder="price" name="price" id="price" onChange={this.handleChange} placeholder="price" value={this.state.activity.price}></input>
                 <button className="styled-button" onClick={this.onSaveAct}>Save</button>
             </form>
         )
