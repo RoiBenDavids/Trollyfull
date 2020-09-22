@@ -28,7 +28,6 @@ export function addTrip(newTrip) {
         try {
             dispatch({ type: 'SET_LOADER' })
             const trip = await tripService.save(newTrip)
-            console.log(trip,'action');
             dispatch({ type: 'EDIT_TRIP', trip })
             dispatch({ type: 'CLOSE_LOADER' })
             return trip

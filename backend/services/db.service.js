@@ -12,7 +12,6 @@ const dbName = 'TROL_DB';
 var dbConn = null;
 
 async function getCollection(collectionName) {
-    console.log(collectionName,'db service');
     const db = await connect()
     return db.collection(collectionName);
 }

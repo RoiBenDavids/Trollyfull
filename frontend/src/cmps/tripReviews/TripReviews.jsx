@@ -16,7 +16,6 @@ class _TripReviews extends Component {
     }
 
     async componentDidMount() {
-        console.log(this.props);
         const trip = this.props.props
         try {
             await this.setState({ trip })

@@ -7,7 +7,6 @@ export class UserPreview extends Component {
         expand: false
     }
     toggleExpand = () => {
-        console.log('toggleExpand');
         this.setState({ expand: !this.state.expand })
     }
 

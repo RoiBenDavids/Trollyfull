@@ -565,7 +565,6 @@ async function query(filterBy) {
 async function getById(tripId) {
     // const trip = await storageService.getById('trips', tripId)
     // return Promise.resolve(trip)
-    console.log(tripId,'tripservice');
     return httpService.get(`trip/${tripId}`,tripId)
 
 }
@@ -581,7 +580,6 @@ function save(trip) {
         return httpService.put(`trip/${trip._id}`, trip)
 
     } else {
-        console.log(trip,'service');
         // return storageService.post('trips', trip)
         return httpService.post('trip', trip)
     }

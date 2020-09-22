@@ -15,7 +15,6 @@ async function query(filterBy) {
     if (filterBy) var queryStr = `?tripId=${filterBy.tripId}`;
     // return httpService.get(`review${queryStr}`);
     const reviews = await storageService.query(`review`);
-    console.log(reviews);
     return reviews.filter(review => review.aboutTrip === filterBy.tripId)
 
 }

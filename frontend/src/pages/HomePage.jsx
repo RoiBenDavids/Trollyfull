@@ -4,12 +4,15 @@ import { AddTrip } from '../cmps/Home/AddTrip';
 import { TripSlider } from '../cmps/Home/TripSlider';
 import { UserFlow } from '../cmps/Home/UserFlow';
 import { loadTrips } from '../store/actions/tripActions'
+import { HashLink as Link } from 'react-router-hash-link';
+
 
 
 class _HomePage extends Component {
     state = {
         trips: ''
     }
+
 
     async componentDidMount() {
         await this.props.loadTrips()
@@ -21,24 +24,26 @@ class _HomePage extends Component {
 
 
     render() {
-        if (!this.props.trips[0]) return <p>Loading Trips . . .</p>
+        if (!this.props.trips[0]) return <p> </p>
         return (
 
             <div className="home-page ">
                 <div className="home-page-hero" >
                 </div>
-                <UserFlow />
 
+                    <UserFlow id="userFlow"/>
                 <div className="main-container main-home-page">
                     <AddTrip />
                     <div className="description-section">
                         <h3>Explore planned trips of professional travelers
                             </h3>
                         <h3>and personalize them</h3>
-                        <button className="styled-button"> Get Started</button>
+                        <Link smooth to="#userFlow" scroll={el => el.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
+                            <button className="styled-button"> Get Started</button>
+                        </Link>
                     </div>
                     <h2>Our top rated planned trips</h2>
-                    <section className="slideShow">
+                    <section className="slideShow" >
                         <TripSlider trips={this.props.trips.slice(0, 4)} />
                     </section>
                 </div>

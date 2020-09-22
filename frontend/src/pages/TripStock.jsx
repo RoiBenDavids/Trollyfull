@@ -12,7 +12,6 @@ class _TripStock extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
         this.props.loadTrips()
     }
 

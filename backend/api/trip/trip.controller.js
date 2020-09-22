@@ -5,9 +5,6 @@ const tripService = require('./trip.service')
 
 async function getTrips(req, res) {
     try {
-        console.log(req.params,'parmas');
-        console.log(req.query,'query');
-        console.log(req.body,'body');
         const trips = await tripService.query(req.params)
         res.send(trips)
     } catch (err) {
@@ -19,7 +16,6 @@ async function getTrips(req, res) {
 
 async function getTrip(req,res){
     try {
-    console.log(req.params)
     const trip = await tripService.getById(req.params.id)
     res.json(trip)
     }catch(err){

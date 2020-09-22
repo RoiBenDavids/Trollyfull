@@ -2,7 +2,7 @@ import React from 'react'
 
 export function UserFlow() {
     return (
-        <div className="flex user-flow">
+        <div className="flex user-flow" id="userFlow" >
             <div className="flex">
                 <img src="https://res.cloudinary.com/idanrozen/image/upload/v1600728256/choosing-a-destination-royalty-free-vector-clip-art-illustration-697687_hksyth.png" alt="choose-travel" />
                 <div>
@@ -18,7 +18,7 @@ export function UserFlow() {
                 </div>
             </div>
             <div className="flex">
-                <img src="https://i.dlpng.com/static/png/5081720-best-beach-vacation-illustrations-royalty-free-vector-graphics-beach-clip-art-612_612_preview.png" alt="" />
+                <img src="https://res.cloudinary.com/idanrozen/image/upload/v1600808285/5081720-best-beach-vacation-illustrations-royalty-free-vector-graphics-beach-clip-art-612_612_miffdv.jpg" alt="" />
                 <div>
                 <p className="flow-headline">Have fun</p>
                 <p className="flow-content">You can invite friends, chat with them, print the trip and enjoy your planned travel</p>

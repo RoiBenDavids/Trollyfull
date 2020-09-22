@@ -40,7 +40,6 @@ async function login(userCred) {
     return Promise.reject('user not found'+userCred)
 }
 async function signup(userCred) {
-    console.log(userCred,'userService');
     const user = await httpService.post('auth/signup', userCred)
     // const user = await storageService.post('user', userCred)
     return _handleLogin(user)

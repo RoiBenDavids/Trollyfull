@@ -6,7 +6,7 @@ import { closeModal, showModal } from '../../store/actions/modalActions'
 import { closeMsg, showMsg } from '../../store/actions/msgActions';
 import { EditActivity } from '../TripAssembly/EditActivity';
 import { AddReview } from '../tripReviews/AddReview';
-
+import { AddMember } from './AddMember';
 
 class _Modal extends React.Component {
     state = {
@@ -35,10 +35,14 @@ class _Modal extends React.Component {
                 nameToDisplay = 'Edit activity'
                 break
             case 'add-review':
-                console.log(this.props);
                 dynamicCmp = <AddReview props={this.props.modal.props.addReview} showMsg={this.props.showMsg}
                 closeMsg={this.props.closeMsg} closeModal={this.closeModal} />
                 nameToDisplay = 'Add Review'
+                break
+                case 'add-member':
+                dynamicCmp = <AddMember props={this.props.modal.props.tripId} 
+                closeModal={this.closeModal} />
+                nameToDisplay = 'Add Member'
                 break
             default:
                 dynamicCmp = <div>proplem loading modal</div>

@@ -14,6 +14,7 @@ class _AddTrip extends Component {
 
 
     state = {
+        tripName: '',
         currTrip: {
             name: '',
             startDate: '',
@@ -51,6 +52,7 @@ class _AddTrip extends Component {
             return
         }
         const trip = {
+            tripName: this.state.tripName,
             createdBy: this.props.loggedInUser || 'Guest',
             imgUrl: utils.getRandomPic(),
             activities: [],
@@ -91,6 +93,11 @@ class _AddTrip extends Component {
     handleInput = (ev, name) => {
         let value;
         let targetName;
+        if (ev.target.name === 'tripName') {
+            this.setState({ ...this.state, tripName: ev.target.value })
+            return
+        }
+
         if (ev.target) {
             value = ev.target.value;
             targetName = ev.target.name
@@ -100,6 +107,7 @@ class _AddTrip extends Component {
             value = new Date(ev).getTime();
             targetName = name
         }
+
         this.setState({ ...this.state, currTrip: { ...this.state.currTrip, [targetName]: value } })
     }
 
@@ -110,19 +118,29 @@ class _AddTrip extends Component {
     render() {
         const startDate = (this.state.destinations.length && this.state.destinations[this.state.destinations.length - 1].endDate) ||
             Date.now()
-        const endDate = this.state.endDate
         return (
             <div className="flex add-destination-form-wraper">
                 <form className="flex column add-destination-form" onSubmit={this.onSetDestinations}>
                     <div className="flex column">
-                        <label htmlFor="add-dest-input">Add Destination:</label>
+                        <label htmlFor="add-dest-name">Add name to your trip:</label>
+                        <input className="styled-input" type="text"
+                            name="tripName"
+                            placeholder="Enter Trip Name"
+                            id="add-dest-name"
+                            value={this.state.tripName}
+                            required
+                            onChange={this.handleInput}
+                        />
+                    </div>
+
+                    <div className="flex column">
+                        <label htmlFor="add-dest-city">Add Destination:</label>
                         <input className="styled-input" type="text"
                             name="name"
                             placeholder="Enter City Name"
-                            id="add-dest-input"
+                            id="add-dest-city"
                             value={this.state.currTrip.name}
                             required
-                            onInvalid={() => { console.log('invalid'); }}
                             onChange={this.handleInput}
                         />
                     </div>

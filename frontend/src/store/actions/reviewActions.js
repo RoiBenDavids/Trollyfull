@@ -12,6 +12,7 @@ function loadReviews(tripId) {
             const reviews = await reviewService.query(tripId);
             console.log(reviews);
             dispatch({ type: 'SET_REVIEWS', reviews });
+            return reviews
 
         } catch (err) {
             console.log('ReviewActions: err in loadReviews', err);
@@ -25,7 +26,7 @@ function addReview(review) {
         try {
             const addedReview = await reviewService.add(review);
             dispatch({ type: 'REVIEW_ADD', review: addedReview });
-        } 
+        }
         catch (err) {
             console.log('ReviewActions: err in addReview', err);
         }
