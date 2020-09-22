@@ -76,13 +76,13 @@
                 padding: 0;
             }
 
-            .activitie-time {
+            .activity-time {
                 position: absolute;
                 left: -33%;
                 top: -10px;
             }
         }
-        .activitie-assembly:not(.literal-day) {
+        .activity-assembly:not(.literal-day) {
             background-color: #a6c2f5;
             border-radius: 10px;
             box-shadow: 0.4px -0.4px 1.9px black;
@@ -137,11 +137,11 @@
     }
 }
 
-.activitie-prev-assembly {
+.activity-prev-assembly {
     position: relative;
     // padding: 10px;
 
-    .delete-activitie {
+    .delete-activity {
         position: absolute;
         padding: 5px;
         bottom: -10px;
@@ -159,7 +159,7 @@
         }
     }
 
-    .edit-activitie {
+    .edit-activity {
         position: absolute;
         padding: 5px;
         bottom: -10px;
