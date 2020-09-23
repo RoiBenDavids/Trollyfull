@@ -21,13 +21,11 @@ export class AddMember extends Component {
     
 
     handleInput = (value, name) => {
-        console.log(name, value);
         this.setState({ emailToSend: { ...this.state.emailToSend, [name]: value } })
     }
 
     onAddMember(ev, mail) {
         ev.preventDefault()
-        console.log(mail);
 
         this.props.closeModal()
 

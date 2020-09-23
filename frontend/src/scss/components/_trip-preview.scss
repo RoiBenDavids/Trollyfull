@@ -30,8 +30,11 @@
     box-shadow: 1px 4px 7px 1px #00000036;
     letter-spacing: 1.3px;
     .rating-star{
-        height:20px;
-        width: 20px;
+        font-size: medium;
+        img{
+        height:15px;
+        width: 15px;
+        }
     }
 
     .trip-preview-details{
@@ -48,6 +51,9 @@
         *{
             margin-bottom: 10px;
         }  
+        img, i{
+            margin-right: 10px;
+        }
     }
 
     &.slider{

@@ -16,7 +16,7 @@ export function TripNavBar({ trip, settingsOpen, toggleSettings }) {
                 <NavLink to={`/trip/${trip.tripId}/tripassembly`}>Assembly</NavLink>
             </div>
             <a className='see' onClick={toggleSettings}>settings</a>
-            <TripSettings settingsOpen={settingsOpen} tripId={tripId}/>
+            <TripSettings settingsOpen={settingsOpen} tripId={trip.tripId}/>
         </div>
     )
 }

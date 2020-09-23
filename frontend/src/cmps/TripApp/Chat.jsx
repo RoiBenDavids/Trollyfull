@@ -6,20 +6,27 @@ class _Chat extends Component {
     state = {
         msg: { from: 'Me', txt: '' },
         msgs: [],
+        isTyping: ''
 
     }
 
     componentDidMount() {
-        // socketService.setup();
-        // socketService.emit('chat trip', this.props.toyId);
+        socketService.emit('chat topic', this.props.trip._id);
+        socketService.on('chat addMsg', this.addMsg);
+        socketService.on('isTyping', this.userTyping);
+        socketService.on('notTyping', this.userTyping);
+
         // socketService.emit('chat history');
         // socketService.on('load history', this.loadHistory)
-        // socketService.on('chat addMsg', this.addMsg);
     }
     componentWillUnmount() {
-        // socketService.off('chat addMsg', this.addMsg);
+        socketService.off('chat addMsg', this.addMsg);
+        socketService.off('isTyping', this.userTyping);
+        socketService.off('notTyping', this.userTyping);
+
+
         // socketService.off('chat history', this.loadHistory)
-        // socketService.terminate();
+        socketService.terminate();
     }
     loadHistory = history => {
         this.setState({ msgs: history || [] });
@@ -29,12 +36,26 @@ class _Chat extends Component {
     }
     sendMsg = ev => {
         ev.preventDefault();
-        // socketService.emit('chat newMsg', this.state.msg);
-        this.addMsg(this.state.msg)//remove
+        socketService.emit('chat newMsg', this.state.msg);
+        socketService.emit("stopTyping", "");
+
+        // this.addMsg(this.state.msg)//remove
+        // const user = if (this.props.loggedInUser === ?)
         this.setState({ msg: { from: 'Me', txt: '' } });
     }
+    userTyping = isTyping => {
+        this.setState({ isTyping });
+    }
+
     msgHandleChange = ev => {
         const { name, value } = ev.target;
+        if ((value.trim()).length > 0) {
+            socketService.emit('user typing', 'Guest');
+
+        }
+        else {
+            socketService.emit("stopTyping", "");
+        }
         this.setState(prevState => {
             return {
                 msg: {
@@ -43,6 +64,8 @@ class _Chat extends Component {
                 }
             }
         })
+
+
     }
     render() {
         return (
@@ -60,13 +83,14 @@ class _Chat extends Component {
                         </li>
                     ))}
                 </ul>
-
+                {(this.state.isTyping && this.state.isTyping !== this.props.loggedInUser) ? <p>{this.state.isTyping} is Typing</p> : ''}
                 <form className="chat-send flex align-center" onSubmit={this.sendMsg}>
                     <input
                         type="text"
                         value={this.state.msg.txt}
                         onChange={this.msgHandleChange}
                         name="txt"
+                        autoComplete="false"
                         placeholder="New message"
 
                     />
@@ -81,7 +105,7 @@ class _Chat extends Component {
 
 const mapStateToProps = state => {
     return {
-
+        loggedInUser: state.userReducer.loggedInUser
     }
 }
 

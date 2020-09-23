@@ -10,6 +10,7 @@ class _TripPreview extends Component {
 
     async componentDidMount() {
         const reviews = await this.props.loadReviews({ tripId: this.props.trip._id })
+        if (!reviews) reviews = []
         this.setState({ reviews })
 
     }
@@ -35,13 +36,12 @@ class _TripPreview extends Component {
 
     getReviewsAvg = () => {
         try {
-            let reviwers;
             const rating = this.state.reviews.reduce((acc, currRev) => {
-                reviwers++
-                acc = acc + (+currRev.rating)
+                if (this.state.reviews.length) acc = acc + (+currRev.rating)
+                else acc = 0
                 return acc
             }, 0)
-            return rating
+            return rating ? (rating / this.state.reviews.length).toFixed(1) : 0
         }
         catch (err) {
         }
@@ -53,8 +53,7 @@ class _TripPreview extends Component {
         const price = this.getTripPrice(trip.activities)
         const days = utils.calculateDays(trip.destinations[0].startDate, trip.destinations[trip.destinations.length - 1].endDate)
         const style = (this.props.style ? this.props.style : '')
-        // const reviews = this.getReviewsAvg()
-        // console.log(reviews);
+        const reviews = this.getReviewsAvg()
 
         return (
             <div style={{ pointerEvents: (style.pointerEvents ? style.pointerEvents : 'inherit') }} onClick={this.handleClick} className={'trip-preview flex column ' + (addClass ? addClass : '')} >
@@ -63,11 +62,14 @@ class _TripPreview extends Component {
                 </div>
                 <div className="trip-preview-details">
                     <h3>{trip.destinations[0].name}</h3>
-                    <p>{days} days</p>
-                    <p>Price:  ${price}</p>
-                    <div>
-                        <img className="rating-star" src="https://res.cloudinary.com/idanrozen/image/upload/v1600689776/450716_preview_uyyiz1.png" alt="" />
-                        {/* <p>{this.getReviewsAvg()}</p> */}
+                    <div className="flex Justify-between">
+                        <p><i className="fas fa-hourglass-half"></i>{days} days</p>
+                        <p><i className="fas fa-dollar-sign"></i> {price}</p>
+                    </div>
+                    <div className="flex rating-star">
+                        <img src="https://res.cloudinary.com/idanrozen/image/upload/v1600689776/450716_preview_uyyiz1.png" alt="" />
+                        {reviews ? <span>{reviews} <span>({this.state.reviews.length})</span></span> : '(0)'}
+
                     </div>
                 </div>
             </div >
