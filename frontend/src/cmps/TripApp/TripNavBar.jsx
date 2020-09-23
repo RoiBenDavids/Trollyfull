@@ -12,11 +12,11 @@ export function TripNavBar({ trip, settingsOpen, toggleSettings }) {
                 {trip.members.map(member=><MembersPreview member={member}/>)}
             </div>
             <div className="trip-routes flex justify-center">
-                <NavLink to={`/trip/${trip.tripId}/triproute`}>Route</NavLink>
-                <NavLink to={`/trip/${trip.tripId}/tripassembly`}>Assembly</NavLink>
+                <NavLink to={`/trip/${trip._id}/triproute`}>Route</NavLink>
+                <NavLink to={`/trip/${trip._id}/tripassembly`}>Assembly</NavLink>
             </div>
             <a className='see' onClick={toggleSettings}>settings</a>
-            <TripSettings settingsOpen={settingsOpen} tripId={trip.tripId}/>
+            <TripSettings settingsOpen={settingsOpen} tripId={trip._id}/>
         </div>
     )
 }

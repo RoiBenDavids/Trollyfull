@@ -27,13 +27,8 @@ class _HomePage extends Component {
         if (!this.props.trips[0]) return <p> </p>
         return (
 
-            <div className="home-page ">
-                <div className="home-page-hero" >
-                </div>
-
-                    <UserFlow id="userFlow"/>
-                <div className="main-container main-home-page">
-                    <AddTrip />
+            <div className="home-page  main-container ">
+                <div className="home-page-hero full" >
                     <div className="description-section">
                         <h3>Explore planned trips of professional travelers
                             </h3>
@@ -42,10 +37,24 @@ class _HomePage extends Component {
                             <button className="styled-button"> Get Started</button>
                         </Link>
                     </div>
-                    <h2>Our top rated planned trips</h2>
-                    <section className="slideShow" >
-                        <TripSlider trips={this.props.trips.slice(0, 4)} />
-                    </section>
+                </div>
+
+                <div className="main-home-page full">
+                    <div className="flow-container">
+                        <UserFlow id="userFlow" />
+                        <Link smooth to="#top-rated-trips" scroll={el => el.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+                            <button className="styled-button"> Let's Trolly!</button>
+                        </Link>
+                    </div>
+                    <div className="slideShow-area" id="top-rated-trips">
+                        <div id="top-rated-trips"></div>
+                        <h2 className="" >Top rated planned trips</h2>
+                        <section className="slideShow" >
+                            <TripSlider trips={this.props.trips.slice(0, 4)} />
+                        </section>
+                        <Link><button className="styled-button"> Show me more</button></Link>
+                    </div>
+                    <AddTrip />
                 </div>
             </div>
         )

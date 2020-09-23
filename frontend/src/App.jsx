@@ -20,7 +20,7 @@ export function App() {
 
   return (
 
-    <div style={{position:"relative"}} className="App">
+    <div style={{position:"relative"}} className="App ">
       <MainNavBar />
       <main>
         <Modal />

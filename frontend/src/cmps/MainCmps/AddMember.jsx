@@ -16,7 +16,7 @@ export class AddMember extends Component {
     }
 
     componentDidMount() {
-    this.setState({value:`http://localhost:3000/#/trip/5f69033fbd018f1ed4ae24ba/triproute/true`})
+    this.setState({value:`http://localhost:3000/#/trip/${this.props.props}/triproute/true`})
     }
     
 
@@ -26,7 +26,6 @@ export class AddMember extends Component {
 
     onAddMember(ev, mail) {
         ev.preventDefault()
-
         this.props.closeModal()
 
     }

@@ -31,8 +31,8 @@ class _TripApp extends Component {
         const { id } = this.props.match.params
         try {
             const trip = await this.props.loadTrip(id)
-            if (this.props.match.params.openSignup === 'true') {
-                this.props.showModal('signup')
+            if(this.props.match.params.openSignup==='true'){
+                this.props.showModal('signup',id)
             }
             this.setState({ trip })
         }
@@ -44,6 +44,14 @@ class _TripApp extends Component {
         // socketService.off('tripUpdated', this.loadTrip());
     }
 
+    async componentDidUpdate(prevProps,prevState){
+        if(prevProps!==this.props){
+            const trip = await this.props.loadTrip(this.props.match.params.id)
+            this.setState({ trip })
+        }
+
+        
+    }
     changeDates(newTrip, direction, newDest, by) {
         const constant = 1000 * 60 * 60 * 24 * (by - 1)
         if (direction) {

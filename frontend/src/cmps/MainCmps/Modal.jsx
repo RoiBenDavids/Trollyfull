@@ -27,7 +27,9 @@ class _Modal extends React.Component {
                 nameToDisplay = 'Please Login'
                 break
             case 'signup':
-                dynamicCmp = <LoginSignupPage page={false} handleClick={this.handleClick} />
+                const tripId=this.props.modal.props
+                console.log(tripId);
+                dynamicCmp = <LoginSignupPage page={false} handleClick={this.handleClick} tripId={tripId} />
                 nameToDisplay = 'Please Sign Up'
                 break
             case 'editActivity':

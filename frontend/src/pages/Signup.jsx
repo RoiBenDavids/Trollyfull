@@ -15,7 +15,7 @@ export class Signup extends React.Component {
     }
     onSubmit=(ev)=>{
         ev.preventDefault()
-        this.props.handleForm(this.state,'signup')
+        this.props.handleForm(this.state,'signup',this.props.tripToRed)
 
     }
 

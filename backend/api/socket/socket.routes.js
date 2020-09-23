@@ -25,5 +25,9 @@ function connectSockets(io) {
             io.to(socket.myTopic).emit('notTyping', data)
             // socket.broadcast.emit('typing', data);
         });
+        socket.on('tripToUpdate', trip => {
+            io.to(socket.myTopic).emit('tripUpdated', trip)
+            // socket.broadcast.emit('typing', data);
+        });
     })
 }
