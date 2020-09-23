@@ -68,7 +68,7 @@ class _AddTrip extends Component {
         }
         else trip.members = []
         const newTrip = await this.props.addTrip(trip)
-        this.props.history.push(`/trip/${newTrip._id}/triproute`)
+        this.props.history.push(`/trip/${newTrip._id}/assembly`)
     }
 
     getRandomLatLng() {
@@ -90,9 +90,10 @@ class _AddTrip extends Component {
 
 
     handleInput = (ev, name) => {
+        console.log("handleInput -> ev", ev.target)
         let value;
         let targetName;
-        if (ev.target.name === 'tripName') {
+        if (ev.target && ev.target.name === 'tripName') {
             this.setState({ ...this.state, tripName: ev.target.value })
             return
         }
