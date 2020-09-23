@@ -16,19 +16,16 @@ export class AddMember extends Component {
     }
 
     componentDidMount() {
-    this.setState({value:`http://localhost:3000/#/trip/5f69033fbd018f1ed4ae24ba/triproute/true`})
+    this.setState({value:`http://localhost:3000/#/trip/${this.props.props}/triproute/true`})
     }
     
 
     handleInput = (value, name) => {
-        console.log(name, value);
         this.setState({ emailToSend: { ...this.state.emailToSend, [name]: value } })
     }
 
     onAddMember(ev, mail) {
         ev.preventDefault()
-        console.log(mail);
-
         this.props.closeModal()
 
     }

@@ -26,12 +26,22 @@ class _TripApp extends Component {
         try {
             const trip = await this.props.loadTrip(id)
             if(this.props.match.params.openSignup==='true'){
-                this.props.showModal('signup')
+                this.props.showModal('signup',id)
+                console.log('after shiw midal');
             }
             this.setState({ trip })
         }
         catch (err) {
         }
+    }
+    async componentDidUpdate(prevProps,prevState){
+        console.log(this.state,'updaaateeeeee');
+        if(prevProps!==this.props){
+            const trip = await this.props.loadTrip(this.props.match.params.id)
+            this.setState({ trip })
+        }
+
+        
     }
     changeDates(newTrip, direction, newDest, by) {
         const constant = 1000 * 60 * 60 * 24 * (by - 1)

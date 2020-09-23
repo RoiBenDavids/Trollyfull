@@ -1,12 +1,9 @@
 .user-flow{
-width: 1300px;
 margin: 0 auto;
 justify-content: space-evenly;
-align-items: self-end;
 >div{
-    align-items: center;
-    width: 450px;
-    margin: 0 10px;
+    max-width: 450px;
+    margin-bottom: 30px;
     }
     img{
         width: 90px;
@@ -15,12 +12,17 @@ align-items: self-end;
         }
         .flow-headline{
             font-size: rem(20px);
-            color:rgb(255, 166, 0) ;
+            color:#D826C7 ;
+            padding-bottom: 15px;
+            text-decoration: underline;
+            text-underline-position: under;
+            text-decoration-style: double;
         }
         .flow-content{
-            margin: 0 15px;
             color: rgb(82, 82, 82);
         }
 
-
+        >div:nth-child(2)>img{
+            margin-right: 45px;
+        }
 }
