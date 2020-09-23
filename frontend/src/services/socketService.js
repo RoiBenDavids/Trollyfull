@@ -1,62 +1,62 @@
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
 
 const baseUrl = (process.env.NODE_ENV === 'production')? '' : '//localhost:3030'
-// const socketService = createSocketService();
-export const socketService = createDummySocketService();
+export const socketService = createSocketService();
+// export const socketService = createDummySocketService();
 
-window.socketService = socketService;
-// export const socketService;
+// window.socketService = socketService;
+// export socketService;
 
-// function createSocketService() {
-//   var socket;
-//   const socketService = {
-//     setup() {
-//       socket = io(baseUrl);
-//     },
-//     on(eventName, cb) {
-//       socket.on(eventName, cb);
-//     },
-//     off(eventName, cb) {
-//       socket.off(eventName, cb);
-//     },
-//     emit(eventName, data) {
-//       socket.emit(eventName, data);
-//     },
-//     terminate() {
-//       socket = null;
-//     }
-//   }
-//   return socketService;
-// }
-
-function createDummySocketService() {
-  var listenersMap = {}
+function createSocketService() {
+  var socket;
   const socketService = {
     setup() {
-      listenersMap = {}
-      window.listenersMap = listenersMap;
-    },
-    terminate() {
-      listenersMap = {}
+      socket = io(baseUrl);
     },
     on(eventName, cb) {
-      listenersMap[eventName] = [...(listenersMap[eventName]) || [], cb]
+      socket.on(eventName, cb);
     },
     off(eventName, cb) {
-      listenersMap[eventName] = listenersMap[eventName].filter(l => l !== cb)
+      socket.off(eventName, cb);
     },
     emit(eventName, data) {
-      if (!listenersMap[eventName]) return;
-      listenersMap[eventName].forEach(listener => {
-        listener(data)
-      });
+      socket.emit(eventName, data);
     },
-    debugMsg() {
-      this.emit('chat addMsg', {from: 'Someone', txt: 'Aha it worked!'})
-    },
+    terminate() {
+      socket = null;
+    }
   }
   return socketService;
 }
+
+// function createDummySocketService() {
+//   var listenersMap = {}
+//   const socketService = {
+//     setup() {
+//       listenersMap = {}
+//       window.listenersMap = listenersMap;
+//     },
+//     terminate() {
+//       listenersMap = {}
+//     },
+//     on(eventName, cb) {
+//       listenersMap[eventName] = [...(listenersMap[eventName]) || [], cb]
+//     },
+//     off(eventName, cb) {
+//       listenersMap[eventName] = listenersMap[eventName].filter(l => l !== cb)
+//     },
+//     emit(eventName, data) {
+//       if (!listenersMap[eventName]) return;
+//       listenersMap[eventName].forEach(listener => {
+//         listener(data)
+//       });
+//     },
+//     debugMsg() {
+//       this.emit('chat addMsg', {from: 'Someone', txt: 'Aha it worked!'})
+//     },
+//   }
+//   return socketService;
+// }
 
 
 // Basic Tests

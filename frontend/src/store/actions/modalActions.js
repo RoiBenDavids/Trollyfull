@@ -1,8 +1,5 @@
 
 
-
-
-
 export function showModal(cmp,props) {
     return dispatch => {
         dispatch({type:'SET_MODAL',cmp,props})

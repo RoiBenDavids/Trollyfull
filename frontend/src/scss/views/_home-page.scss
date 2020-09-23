@@ -28,7 +28,7 @@
     background: url(https://cdn.hipwallpaper.com/i/14/16/mQRH5A.jpg);
     object-fit: cover;
     background-repeat: no-repeat;
-    background-attachment: scroll;
+    background-attachment: fixed;
     background-position-x: -214px;
     background-position-y: -69px;
     background-position: cente;
@@ -36,12 +36,29 @@
 }
 
 .main-home-page{
-margin-top: 250px;
+    .flow-container{
+        height: 80vh;
+        a{
+            margin: 0 auto;
+            display: block
+        }
+    }
+   .slideShow-area{
+       padding-top: 50px;
+       background-color: lighten(#D826C7, 48%);
+       #top-rated-trips{
+           height: 50px;
+       }
+       h2{
+       }
+   }
 }
 
 .slideShow{
+    margin: 0 auto;
     height: 550px;
-    width: 100%;
+    // width: 100%;
+    width: 90vw;
     right: 5%;
     top: 140px;
     margin-bottom:20px ;

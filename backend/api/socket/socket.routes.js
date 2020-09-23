@@ -17,5 +17,17 @@ function connectSockets(io) {
             // emits only to sockets in the same room
             io.to(socket.myTopic).emit('chat addMsg', msg)
         })
+        socket.on('user typing', data => {
+            io.to(socket.myTopic).emit('isTyping', data)
+            // socket.broadcast.emit('typing', data);
+        });
+        socket.on('stopTyping', data => {
+            io.to(socket.myTopic).emit('notTyping', data)
+            // socket.broadcast.emit('typing', data);
+        });
+        socket.on('tripToUpdate', trip => {
+            io.to(socket.myTopic).emit('tripUpdated', trip)
+            // socket.broadcast.emit('typing', data);
+        });
     })
 }

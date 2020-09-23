@@ -35,7 +35,7 @@ export function TripSlider({ trips }) {
             navigation
             rotate={-20}
             stretch={0}
-            depth={500}
+            depth={200}
             modifier={5}
             centeredSlides={ true}
             autoplay={true}

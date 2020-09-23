@@ -46,6 +46,7 @@ export function signup(userCreds) {
   return async dispatch => {
     const user = await userService.signup(userCreds);
     dispatch({ type: 'SET_USER', user });
+    return user
   };
 }
 export function logout() {

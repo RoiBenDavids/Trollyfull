@@ -11,27 +11,46 @@ import { TripRoute } from '../cmps/TripRoute/TripRoute'
 import { utils } from '../services/utils'
 import { logDOM } from '@testing-library/react'
 import { Chat } from '../cmps/TripApp/Chat'
+import { socketService } from '../services/socketService'
 // import locationCevtorRed from 'https://res.cloudinary.com/roidinary/image/upload/v1600377967/locationVectorRed_vzufx4.png'
+
 
 class _TripApp extends Component {
 
     state = {
         trip: '',
-        chatOpen:false,
-        settingsOpen:false
+        chatOpen: false,
+        settingsOpen: false
     }
 
     async componentDidMount() {
+        socketService.setup();
+        // socketService.on('tripUpdated', this.loadTrip());
+  
+
         const { id } = this.props.match.params
         try {
             const trip = await this.props.loadTrip(id)
             if(this.props.match.params.openSignup==='true'){
-                this.props.showModal('signup')
+                this.props.showModal('signup',id)
             }
             this.setState({ trip })
         }
         catch (err) {
         }
+    }
+
+    componentWillUnmount() {
+        // socketService.off('tripUpdated', this.loadTrip());
+    }
+
+    async componentDidUpdate(prevProps,prevState){
+        if(prevProps!==this.props){
+            const trip = await this.props.loadTrip(this.props.match.params.id)
+            this.setState({ trip })
+        }
+
+        
     }
     changeDates(newTrip, direction, newDest, by) {
         const constant = 1000 * 60 * 60 * 24 * (by - 1)
@@ -94,14 +113,15 @@ class _TripApp extends Component {
         let newTrip = { ...this.state.trip, activities }
         this.setState({ trip: newTrip }, () => {
             this.props.addTrip(newTrip)
+            // socketService.emit('tripToUpdate', this.state.trip);
         })
     }
 
-    toggleChat=()=>{
-        this.setState({chatOpen:!this.state.chatOpen})
+    toggleChat = () => {
+        this.setState({ chatOpen: !this.state.chatOpen })
     }
-    toggleSettings=()=>{
-        this.setState({settingsOpen:!this.state.settingsOpen})
+    toggleSettings = () => {
+        this.setState({ settingsOpen: !this.state.settingsOpen })
     }
 
     render() {
@@ -116,11 +136,11 @@ class _TripApp extends Component {
                         <TripRoute trip={trip} changeOrder={this.changeOrder}></TripRoute>
                     </Route>
                     <Route path="/trip/:id/tripassembly">
-                        <TripNavBar trip={trip}  settingsOpen={this.state.settingsOpen} toggleSettings={this.toggleSettings}/>
+                        <TripNavBar trip={trip} settingsOpen={this.state.settingsOpen} toggleSettings={this.toggleSettings} />
                         <TripAssembly trip={trip} updateTripAct={this.updateTripAct} showModal={this.props.showModal} closeModal={this.props.closeModal}></TripAssembly>
                     </Route>
                 </Switch>
-                <Chat chatOpen={this.state.chatOpen} trip={this.state.trip}/>
+                <Chat chatOpen={this.state.chatOpen} trip={this.state.trip} />
                 <button className="chat-button styled-button" onClick={this.toggleChat}>C</button>
             </div >
         )

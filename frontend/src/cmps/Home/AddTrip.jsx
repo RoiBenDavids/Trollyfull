@@ -60,9 +60,9 @@ class _AddTrip extends Component {
         if (this.props.loggedInUser) {
             trip.members = [
                 {
-                    _id: this.props.loggedInUser._id,
-                    fullName: this.props.loggedInUser.name,
-                    imgUrl: '',
+                    id: this.props.loggedInUser._id,
+                    usename: this.props.loggedInUser.username,
+                    imgUrl: this.props.loggedInUser.imgUrl,
                 }
             ]
         }
@@ -97,13 +97,11 @@ class _AddTrip extends Component {
             this.setState({ ...this.state, tripName: ev.target.value })
             return
         }
-
         if (ev.target) {
             value = ev.target.value;
             targetName = ev.target.name
         }
         else {
-
             value = new Date(ev).getTime();
             targetName = name
         }
