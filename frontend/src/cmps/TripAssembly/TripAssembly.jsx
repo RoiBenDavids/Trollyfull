@@ -91,12 +91,14 @@ export class TripAssembly extends Component {
 
 
     isOccTimeSlot = (activity) => {
+        console.log("isOccTimeSlot -> activity", activity)
         const { activities } = this.state
         const currStartTime = activity.at
 
         const currEndTime = currStartTime + activity.duration * 30 * 60 * 1000
         for (let i = 0; i < activities.length; i++) {
             const act = activities[i]
+            console.log("isOccTimeSlot -> act", act)
             const checkedStartTime = act.at
             const checkedEndTime = act.at + act.duration * 30 * 60 * 1000
             if (activity.id && activity.id === act.id) continue
@@ -171,11 +173,9 @@ export class TripAssembly extends Component {
 
         const activity = this.state.activities.find(act => act.id === id)
 
-        if (activity.col === pos.j && activity.row-pos.i===1) {
-            pos.i += activity.duration
-            // let numOfActs = this.getDayNumOfAct(this.state.weekMat, col)
-            // console.log("onDragMove -> numOfActs", numOfActs)
-            // pos.i += numOfActs
+        if (activity.col === pos.j && activity.row-pos.i === 1) {
+            pos.i += 1
+            
 
         }
         let newTime = this.getTimeFromIdx(pos)
