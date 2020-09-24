@@ -10,7 +10,6 @@ function loadReviews(tripId) {
     return async dispatch => {
         try {
             const reviews = await reviewService.query(tripId);
-            console.log(reviews);
             dispatch({ type: 'SET_REVIEWS', reviews });
             return reviews
 
@@ -21,7 +20,6 @@ function loadReviews(tripId) {
 }
 
 async function addReview(review) {
-    console.log(review,"actionssssss");
     await reviewService.add(review)
     return async dispatch => {
         try {

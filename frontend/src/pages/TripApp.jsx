@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Route, Router, Switch, withRouter } from 'react-router-dom'
-import { loadTrip, addTrip } from '../store/actions/tripActions'
+import { loadTrip, addTrip,addTripFast } from '../store/actions/tripActions'
 import { closeModal, showModal } from '../store/actions/modalActions'
 // import { TripRoute } from '../cmps/TripRoute'
 import { tripService } from '.././services/tripService'
@@ -18,40 +18,34 @@ import { socketService } from '../services/socketService'
 class _TripApp extends Component {
 
     state = {
-        trip: '',
         chatOpen: false,
-        settingsOpen: false
+        settingsOpen: false,
+        isSocketSetup:false
     }
 
     async componentDidMount() {
         socketService.setup();
         // socketService.on('tripUpdated', this.loadTrip());
-  
-
         const { id } = this.props.match.params
         try {
-            const trip = await this.props.loadTrip(id)
-            if(this.props.match.params.openSignup==='true'){
-                this.props.showModal('signup',id)
+            await this.props.loadTrip(id)
+            if (this.props.match.params.openSignup === 'true') {
+                this.props.showModal('signup', id)
             }
-            this.setState({ trip })
+            this.setState({isSocketSetup:true})
         }
         catch (err) {
         }
     }
-
     componentWillUnmount() {
         // socketService.off('tripUpdated', this.loadTrip());
     }
 
-    async componentDidUpdate(prevProps,prevState){
-        if(prevProps!==this.props){
-            const trip = await this.props.loadTrip(this.props.match.params.id)
-            this.setState({ trip })
-        }
-
-        
+    async componentDidUpdate(prevProps, prevState) {
+      
     }
+
+
     changeDates(newTrip, direction, newDest, by) {
         const constant = 1000 * 60 * 60 * 24 * (by - 1)
         if (direction) {
@@ -89,32 +83,29 @@ class _TripApp extends Component {
     }
 
     changeOrder = (dest, direction) => {
-        const destinations = [...this.state.trip.destinations]
+        const destinations = [...this.props.trip.destinations]
         if (direction) {
             const destinationsToSwap = destinations.splice(dest - 1, 2)
-            const ans = this.swapDestinations(destinationsToSwap, this.state.trip)
+            const ans = this.swapDestinations(destinationsToSwap, this.props.trip)
             ans.newTrip.destinations[dest - 1] = ans.swapped[0]
             ans.newTrip.destinations[dest] = ans.swapped[1]
-            this.setState({ trip: ans.newTrip })
             this.props.addTrip(ans.newTrip)
 
         }
         else {
             const destinationsToSwap = destinations.splice(dest, 2)
-            const ans2 = this.swapDestinations(destinationsToSwap, this.state.trip)
+            const ans2 = this.swapDestinations(destinationsToSwap, this.props.trip)
             ans2.newTrip.destinations[dest] = ans2.swapped[0]
             ans2.newTrip.destinations[dest + 1] = ans2.swapped[1]
-            this.setState({ trip: ans2.newTrip })
             this.props.addTrip(ans2.newTrip)
         }
     }
 
-    updateTripAct = (activities) => {
-        let newTrip = { ...this.state.trip, activities }
-        this.setState({ trip: newTrip }, () => {
-            this.props.addTrip(newTrip)
-            // socketService.emit('tripToUpdate', this.state.trip);
-        })
+    updateTripAct = async(activities) => {
+        let newTrip = { ...this.props.trip, activities }
+        await this.props.addTrip(newTrip)
+        // socketService.emit('tripToUpdate', this.state.trip);
+
     }
 
     toggleChat = () => {
@@ -125,22 +116,22 @@ class _TripApp extends Component {
     }
 
     render() {
-        const { trip } = this.state
+        const { trip } = this.props
         if (!trip) return <div>Loading....</div>
         return (
             <div className="trip-app main-container ">
                 <Switch>
                     <Route path="/trip/:id/triproute">
-                        <img className="trip-main-img full" src={this.state.trip.imgUrl}></img>
-                        <TripNavBar trip={trip} settingsOpen={this.state.settingsOpen} toggleSettings={this.toggleSettings} />
+                        <img className="trip-main-img full" src={trip.imgUrl}></img>
+                        <TripNavBar trip={trip} settingsOpen={this.state.settingsOpen} toggleSettings={this.toggleSettings} showModal={this.props.showModal}/>
                         <TripRoute trip={trip} changeOrder={this.changeOrder}></TripRoute>
                     </Route>
                     <Route path="/trip/:id/tripassembly">
-                        <TripNavBar trip={trip} settingsOpen={this.state.settingsOpen} toggleSettings={this.toggleSettings} />
+                        <TripNavBar trip={trip} settingsOpen={this.state.settingsOpen} toggleSettings={this.toggleSettings} showModal={this.props.showModal}/>
                         <TripAssembly trip={trip} updateTripAct={this.updateTripAct} showModal={this.props.showModal} closeModal={this.props.closeModal}></TripAssembly>
                     </Route>
                 </Switch>
-                <Chat chatOpen={this.state.chatOpen} trip={this.state.trip} />
+               {this.state.isSocketSetup && <Chat chatOpen={this.state.chatOpen} trip={trip} />}
                 <button className="chat-button styled-button" onClick={this.toggleChat}>C</button>
             </div >
         )
@@ -150,13 +141,14 @@ class _TripApp extends Component {
 
 const mapStateToProps = state => {
     return {
-        trips: state.tripReducer.trips
+        trip: state.tripReducer.currTrip
     }
 }
 const mapDispatchToProps = {
     loadTrip,
     showModal,
     closeModal,
-    addTrip
+    addTrip,
+    addTripFast
 }
 export const TripApp = connect(mapStateToProps, mapDispatchToProps)(withRouter(_TripApp))

@@ -68,7 +68,7 @@ class _AddTrip extends Component {
         }
         else trip.members = []
         const newTrip = await this.props.addTrip(trip)
-        this.props.history.push(`/trip/${newTrip._id}/assembly`)
+        this.props.history.push(`/trip/${newTrip._id}/tripRoute`)
     }
 
     getRandomLatLng() {

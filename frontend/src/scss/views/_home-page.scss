@@ -1,9 +1,16 @@
 .home-page{
     h2{
         font-family: Dosis;
+        font-size: 3rem;
         text-transform: uppercase;
         text-align: center;
-         margin: 0 auto 30px};
+         margin: 0 auto 30px;
+         color:#D826C7
+        };
+
+    .flow-container{
+        margin-bottom: 50px;
+    }
 
 .trips-pagination{
     cursor: pointer;

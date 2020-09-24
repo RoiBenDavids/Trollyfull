@@ -10,7 +10,7 @@ export class EditActivity extends Component {
             labels: ['relax'],
             duration: 1,
             notes: '',
-            price: '',
+            price: 0,
             destination: '',
             id: null
         },

@@ -19,9 +19,8 @@ class _TripDetails extends Component {
     async componentDidMount() {
         const { id } = this.props.match.params
         try {
-            const trip = await this.props.loadTrip(id)
-            await this.setState({ trip })
-            await this.props.loadReviews({ tripId: this.state.trip._id })
+           await this.props.loadTrip(id)
+            await this.props.loadReviews({ tripId: this.props.trip._id })
         }
         catch (err) {
         }
@@ -34,14 +33,13 @@ class _TripDetails extends Component {
 
     addReview = async (review) => {
         // review.byUserId = this.props.loggedInUser._id
-        review.aboutTrip = this.state.trip._id
-        console.log(review,'trip detail');
+        review.aboutTrip = this.props.trip._id
         await reviewActions.addReview(review)
-        await this.props.loadReviews({ tripId: this.state.trip._id })
+        await this.props.loadReviews({ tripId: this.props.trip._id })
     }
 
     render() {
-        const { trip } = this.state
+        const { trip } = this.props
         if (!trip) return <p> Loading . . .</p>
         const days = utils.calculateDays(trip.destinations[0].startDate, trip.destinations[trip.destinations.length - 1].endDate)
 
@@ -73,6 +71,7 @@ class _TripDetails extends Component {
 const mapStateToProps = state => {
     return {
         reviews: state.reviewReducer.reviews,
+        trip: state.tripReducer.currTrip,
     }
 }
 

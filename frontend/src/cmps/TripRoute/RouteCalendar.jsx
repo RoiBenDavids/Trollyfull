@@ -6,7 +6,7 @@ import { WeekPreview } from './WeekPreview'
 
 export function RouteCalendar({ trip }) {
 
-    function generateCalendar(trip) {
+    function generateCalendar() {
         const tripStart = trip.destinations[0].startDate
         const tripEnd = trip.destinations[trip.destinations.length - 1].endDate
         const destinationsTimes = trip.destinations.map((destination,idx) => {
@@ -78,7 +78,7 @@ export function RouteCalendar({ trip }) {
     }
 
 
-    const calendarData = generateCalendar(trip)
+    const calendarData = generateCalendar()
     return (
         <table className="route-calendar">
             <thead className="table-header">
