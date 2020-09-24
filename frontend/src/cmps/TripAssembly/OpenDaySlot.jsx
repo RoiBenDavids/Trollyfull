@@ -17,12 +17,12 @@ export function OpenDaySlot({ act, getRowIdx, onDragMove }) {
     const rowIdx = getRowIdx(act.at)
     const isFirstCol = (act.col === 0) ? 'first-col' : ''
     const isDayHeadClass = (act.literalDay) ? 'literal-day' : ''
-    const bgc = (isOver) ? 'blue' : 'inherit'
+    const _isOver = (isOver) ? 'is-over' : ''
     if (isOver) {
-        // console.log("act", act)
+        console.log(act);
     }
     return (
-        <div ref={drop} className={`activity-prev-assembly empty-assembly ${isFirstCol} ${isDayHeadClass}`} style={{ gridRow: `${rowIdx || 'auto'}/span 1`, backgroundColor: bgc }} key={utils.makeId()}>
+        <div ref={drop} className={`activity-prev-assembly empty-assembly ${isFirstCol} ${isDayHeadClass}  ${_isOver}`} style={{ gridRow: `${rowIdx || 'auto'}/span 1`}} key={utils.makeId()}>
             {act.literalDay && act.date}
         </div>
     )

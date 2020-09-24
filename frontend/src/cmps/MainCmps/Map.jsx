@@ -3,7 +3,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { utils } from '../../services/utils';
 
 
-const API_KEY = 'AIzaSyBXIyfwpDtmz9fLAQI-MUqWuhQtc-GQYoo'
+// const API_KEY = 'AIzaSyBXIyfwpDtmz9fLAQI-MUqWuhQtc-GQYoo'
 // const API_KEY =''
 
 class _MapContainer extends React.Component {
@@ -96,5 +96,5 @@ class _MapContainer extends React.Component {
 }
 
 export const MapContainer = GoogleApiWrapper({
-    // apiKey: (API_KEY)
+    apiKey: (API_KEY)
 })(_MapContainer)

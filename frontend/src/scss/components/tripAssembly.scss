@@ -34,7 +34,7 @@
     display: grid;
     // overflow-y: scroll;
 
-    grid-template-columns: repeat(7, minmax(100px, 1fr));
+    grid-template-columns: repeat(7, minmax(70px, 1fr));
     // grid-template-rows: repeat(35);
 
     .time-line-assembly {
@@ -45,12 +45,12 @@
         height: 100%;
         width: 5%;
         display: grid;
-        grid-template-rows: repeat(35, minmax(20px, 1fr));
+        grid-template-rows: repeat(35, minmax(25px, 1fr));
 
         z-index: 3;
         .time-assembly {
             vertical-align: bottom;
-            bottom: 0%;
+            bottom: -8%;
             position: relative;
             span {
                 position: absolute;
@@ -62,7 +62,7 @@
     .day-list-assembly {
         display: grid;
         background-color: #d0d1ff52;
-        grid-template-rows: repeat(35, minmax(20px, 1fr));
+        grid-template-rows: repeat(35, minmax(25px, 60px));
         
         > * {
             text-align: center;
@@ -82,14 +82,14 @@
                 top: -10px;
             }
         }
-        .activity-assembly:not(.literal-day) {
+        .activity-assembly {
             background-color: #a6c2f5;
             border-radius: 10px;
             box-shadow: 0.4px -0.4px 1.9px black;
-            // margin: 0.5rem;
-            // padding: 1rem;
-            cursor: pointer;
-            // justify-content: space-evenly;
+            transition: 0.4s;
+            height: 100%;
+            cursor: grab;
+            overflow: hidden;
 
 
             h2 {
@@ -101,7 +101,27 @@
             p {
                 color: #555456;
                 // margin: 2%;
-                margin-bottom: 0.7rem;
+                margin-bottom: 0.5rem;
+                overflow-y: hidden;
+                transition: 0.2s;
+            }
+          
+
+            &.is-drag {
+                opacity: 0.6;
+            }
+
+            &:active {
+                cursor: grabbing;
+            }
+
+            &.len-one {
+                z-index: 2;
+            }
+
+            &.len-one:hover {
+                transition: 0.3s;
+                height: 125px;
             }
         }
         .literal-day {
@@ -110,6 +130,16 @@
             box-shadow: 0px 0px 0.4px 0px #61021e;
             
         }
+
+        .empty-assembly {
+
+            &.is-over {
+                box-shadow: 0px 0px 4px #0070f3;
+                // background-color: #ffaeaeb0
+            }
+            
+        }
+
     }
 }
 
@@ -123,7 +153,7 @@
     height: 1.6rem;
     display: grid;
     text-align: center;
-    grid-template-columns: repeat(14, minmax(30px, 1fr));
+    grid-template-columns: repeat(14, minmax(25px, 1fr));
     grid-template-rows: repeat(1, 26px);
     vertical-align: baseline;
 
@@ -178,7 +208,7 @@
     }
 }
 
-.edit-attraction {
+.edit-activity-form {
     select:required:invalid {
         color: gray;
     }
@@ -189,8 +219,10 @@
         color: black;
     }
     align-items: center;
-    > *:not(label) {
+    > * {
         min-width: 50%;
         margin-bottom: 0.85rem;
+        margin-top: 0px;
     }
+    
 }

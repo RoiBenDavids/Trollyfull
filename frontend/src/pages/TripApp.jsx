@@ -107,11 +107,9 @@ class _TripApp extends Component {
             this.setState({ trip: ans2.newTrip })
             this.props.addTrip(ans2.newTrip)
         }
-
     }
 
     updateTripAct = (activities) => {
-        // const { id } = this.props.match.params
         let newTrip = { ...this.state.trip, activities }
         this.setState({ trip: newTrip }, () => {
             this.props.addTrip(newTrip)
