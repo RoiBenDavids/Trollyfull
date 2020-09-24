@@ -27,27 +27,27 @@ export class TripAssembly extends Component {
         await this.setState({ tripLength, startDate, endDate, activities })
         await this.loadWeekMat()
         await this.setState({ minDestinations: this.getMinDestinations() })
-
     }
+
 
     loadWeekMat = () => {
         const { activities } = this.props.trip;
         const actsDaysMap = this.mapActsToDays(activities);
-        const actsToDisplay = actsDaysMap.slice(this.state.page * 7, this.state.page * 7 + 7)
-        const destTimeStamp = actsToDisplay[0][1][0].at
+        const WeeklyActsToDisplay = actsDaysMap.slice(this.state.page * 7, this.state.page * 7 + 7)
+        const destTimeStamp = WeeklyActsToDisplay[0][1][0].at
         const startDate = utils.getDateDay(destTimeStamp)
         let weekMat = utils.createMat(7, 35);
         let col = 0
 
-        let prevDay = +actsToDisplay[0][0]
-        for (let i = 0; i < actsToDisplay.length; i++) {
-            let currDayActs, day
-            [day, currDayActs] = [+actsToDisplay[i][0], actsToDisplay[i][1]];
-            if (prevDay > day) {
-                day += this.getDaysInMonth(destTimeStamp)
+        let prevDate = WeeklyActsToDisplay[0][0]
+        for (let i = 0; i < WeeklyActsToDisplay.length; i++) {
+            let currDate, currDayActs
+            [currDate, currDayActs] = [WeeklyActsToDisplay[i][0], WeeklyActsToDisplay[i][1]];
+            if (prevDate > currDate) {
+                currDate += this.getDaysInMonth(destTimeStamp)
             }
-            prevDay = day
-            col = day - startDate
+            prevDate = currDate
+            col = currDate - startDate
             for (let j = 0; j < currDayActs.length; j++) {
 
                 const act = currDayActs[j]
@@ -59,7 +59,7 @@ export class TripAssembly extends Component {
         }
         weekMat = this.showDaysName(destTimeStamp, weekMat)
 
-        this.setState({ weekMat, actsToDisplay })
+        this.setState({ weekMat, actsToDisplay: WeeklyActsToDisplay })
     }
 
     onRemoveAct = (actId) => {
@@ -88,6 +88,8 @@ export class TripAssembly extends Component {
         }
         return mat
     }
+
+    
 
 
     isOccTimeSlot = (activity) => {
@@ -132,8 +134,7 @@ export class TripAssembly extends Component {
         return map
     }
 
-
-
+    
 
     getCol = (mat, col) => {
         const MatColumn = (_mat, n) => _mat.map(x => x[n]);
