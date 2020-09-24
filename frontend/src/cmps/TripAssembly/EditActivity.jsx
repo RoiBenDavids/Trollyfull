@@ -100,10 +100,10 @@ export class EditActivity extends Component {
         const { activitie, minTime, maxTime } = this.state
         const { destinations } = this.props.props
         return (
-            <form className="edit-attraction flex column" onSubmit={this.onSaveAct}>
+            <form className="edit-activity-form flex column" onSubmit={this.onSaveAct}>
                 <label htmlFor="name">Name</label>
-                <input placeholder="name" name="name" id="name" value={this.state.activitie.name} onChange={this.handleChange}></input>
-                <label htmlFor="dest-input">{(!activitie.id)?'Destination':activitie.destination}</label>
+                <input className="styled-input" placeholder="name" name="name" id="name" value={this.state.activitie.name} onChange={this.handleChange}></input>
+                {!activitie.id && <label htmlFor="dest-input">Destination</label>}
                 {!activitie.id && <select value={this.state.activitie.destination} placeholder="destination" name="destination" id="dest-input" onChange={this.handleChange}>
                     <option value="" disabled selected>Select Destination</option>
                     {destinations.map((dest, idx) => {
@@ -112,15 +112,15 @@ export class EditActivity extends Component {
                     })}
                 </select>}
                 <label htmlFor="start-time-activity-input">Time</label>
-                <input type="datetime-local" id="start-time-activity-input" min={minTime} max={maxTime} name="at"
+                <input className="styled-input" type="datetime-local" id="start-time-activity-input" min={minTime} max={maxTime} name="at"
                     onChange={this.handleChange} value={this.state.activitie.at}
                     required="required" id="date-activity-input" />
-                <label htmlFor="duration">Duration</label>
-                <input placeholder="duration" id="duration" type="number" name="duration" value={this.state.activitie.duration} onChange={this.handleChange}></input>
+                <label htmlFor="duration">Duration (Half hours)</label>
+                <input className="styled-input" placeholder="duration" id="duration" type="number" name="duration" value={this.state.activitie.duration} onChange={this.handleChange}></input>
                 <label htmlFor="notes">Notes</label>
                 <textarea placeholder="notes" onChange={this.handleChange} name="notes" id="notes" value={this.state.activitie.notes} ></textarea>
                 <label htmlFor="price" id="price">Price</label>
-                <input type="number" placeholder="price" name="price" id="price" onChange={this.handleChange} placeholder="price" value={this.state.activitie.price}></input>
+                <input className="styled-input" type="number" placeholder="price" name="price" id="price" onChange={this.handleChange} placeholder="price" value={this.state.activitie.price}></input>
                 <button className="styled-button" onClick={this.onSaveAct}>Save</button>
             </form>
         )
