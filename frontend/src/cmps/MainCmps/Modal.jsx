@@ -28,7 +28,6 @@ class _Modal extends React.Component {
                 break
             case 'signup':
                 const tripId=this.props.modal.props
-                console.log(tripId);
                 dynamicCmp = <LoginSignupPage page={false} handleClick={this.handleClick} tripId={tripId} />
                 nameToDisplay = 'Please Sign Up'
                 break
@@ -42,7 +41,7 @@ class _Modal extends React.Component {
                 nameToDisplay = 'Add Review'
                 break
                 case 'add-member':
-                dynamicCmp = <AddMember props={this.props.modal.props.tripId} 
+                dynamicCmp = <AddMember props={this.props.modal.props} 
                 closeModal={this.closeModal} />
                 nameToDisplay = 'Add Member'
                 break
@@ -68,7 +67,7 @@ class _Modal extends React.Component {
 
     render() {
         const showLoginSignup = this.state.curCmp === 'login' || this.state.curCmp === 'signup' ? true : false;
-        // console.log(this.state.dynamicCmp);
+        console.log(this.state.dynamicCmp);
         return (
             <div className={`modal-screen flex align-center justify-center ${this.props.modal.isShown ? '' : 'hide'}`} onKeyDown={this.checkKey} onMouseDown={this.closeModal}>
                 <div className={`modal-container `} onMouseDown={(ev) => ev.stopPropagation()} >
