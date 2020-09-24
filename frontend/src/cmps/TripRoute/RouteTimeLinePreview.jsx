@@ -16,7 +16,7 @@ export function RouteTimeLinePreview({ destination, idx, isLast, changeOrder }) 
                     {<i className={`fas fa-chevron-circle-down  trips-pagination trips-pagination-forward ${isLast ? 'visi-none' : ''}`} onClick={() => changeOrder(idx, false)}></i>}
                 </div>
                 <div className="route-time-line-context flex align-center ">
-                    <div className={`index-ball dest-${idx} flex align-center justify-center `} >{idx + 1}</div>
+                    <div className={`index-ball dest-${idx} flex align-center justify-center `} ><p>{idx + 1}</p></div>
                     <div>{destination.name}</div>
                     <div>{utils.calculateDays(destination.startDate, destination.endDate) - 1} Nights</div>
                 </div>
