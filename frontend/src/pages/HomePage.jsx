@@ -53,7 +53,7 @@ class _HomePage extends Component {
                         <section className="slideShow" >
                             <TripSlider trips={this.props.trips.slice(0, 4)} />
                         </section>
-                        <Link to="/trip"><button className="styled-button"> Show me more</button></Link>
+                        <Link to="/trip"><button className="styled-button to-trip-list"> Show me more</button></Link>
                     </div>
                     <AddTrip />
                 </div>

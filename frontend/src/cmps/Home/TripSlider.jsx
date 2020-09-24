@@ -38,7 +38,7 @@ export function TripSlider({ trips }) {
             depth={200}
             modifier={5}
             centeredSlides={ true}
-            autoplay={false}
+            // autoplay={true}
             delay={2500}
 
         pagination={{ clickable: true }}

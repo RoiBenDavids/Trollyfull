@@ -14,11 +14,11 @@ async function getTrips(req, res) {
     }
 }
 
-async function getTrip(req,res){
+async function getTrip(req, res) {
     try {
-    const trip = await tripService.getById(req.params.id)
-    res.json(trip)
-    }catch(err){
+        const trip = await tripService.getById(req.params.id)
+        res.json(trip)
+    } catch (err) {
         logger.error('Cannot get trip', err);
         res.status(500).send({ error: 'cannot get trip' })
 
@@ -42,15 +42,23 @@ async function addTrip(req, res) {
         if (trip._id) {
             trip = await tripService.update(trip)
         } else {
-            trip.createdBy = req.session.user? req.session.user._id:"guest"
+            trip.createdBy = req.session.user ? {
+                id: req.session.user._id,
+                username: req.session.user.username,
+                imgUrl: req.session.user.imgUrl
+            } : {
+                    id: 'guest',
+                    username: 'Guest',
+                    imgUrl: 'https://res.cloudinary.com/idanrozen/image/upload/v1600887151/17_zpemt3.jpg'
+                }
             trip = await tripService.add(trip)
         }
         res.json(trip)
-    } catch(error) {
+    } catch (error) {
         logger.error('Cannot save trip', error);
         res.status(500).send({ error: 'cannot save trip' })
     }
-    
+
 }
 
 module.exports = {

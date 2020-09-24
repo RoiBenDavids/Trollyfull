@@ -61,7 +61,7 @@ class _AddTrip extends Component {
             trip.members = [
                 {
                     id: this.props.loggedInUser._id,
-                    usename: this.props.loggedInUser.username,
+                    username: this.props.loggedInUser.username,
                     imgUrl: this.props.loggedInUser.imgUrl,
                 }
             ]

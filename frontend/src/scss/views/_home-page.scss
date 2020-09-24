@@ -11,6 +11,14 @@
     .flow-container{
         margin-bottom: 50px;
     }
+         margin: 0 auto 30px
+        
+        };
+
+        .to-trip-list{
+            display: block;
+            margin: 0 auto;
+        }
 
 .trips-pagination{
     cursor: pointer;
@@ -26,7 +34,7 @@
 .trips-pagination-backward{
     left: 4%;
     top:  85%;
-}
+
 }
 
 
@@ -86,15 +94,9 @@
     background-size: cover;
     height: 450px;
 
-    
-    .swiper-slide-prev{
-        transform: translate3d(0px, 0px, -100px) rotateX(0deg) rotateY(150deg) scale(0.9);
-    }
 }
 
-.swiper-slide-next{
-    transform: translate3d(0px, 0px, -99px) rotateX(-0.1deg) rotateY(34deg) scale(0.9)
-}
+
 
 
 

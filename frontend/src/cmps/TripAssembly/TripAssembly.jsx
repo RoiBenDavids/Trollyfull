@@ -27,27 +27,27 @@ export class TripAssembly extends Component {
         await this.setState({ tripLength, startDate, endDate, activities })
         await this.loadWeekMat()
         await this.setState({ minDestinations: this.getMinDestinations() })
-
     }
+
 
     loadWeekMat = () => {
         const { activities } = this.props.trip;
         const actsDaysMap = this.mapActsToDays(activities);
-        const actsToDisplay = actsDaysMap.slice(this.state.page * 7, this.state.page * 7 + 7)
-        const destTimeStamp = actsToDisplay[0][1][0].at
+        const WeeklyActsToDisplay = actsDaysMap.slice(this.state.page * 7, this.state.page * 7 + 7)
+        const destTimeStamp = WeeklyActsToDisplay[0][1][0].at
         const startDate = utils.getDateDay(destTimeStamp)
         let weekMat = utils.createMat(7, 35);
         let col = 0
 
-        let prevDay = +actsToDisplay[0][0]
-        for (let i = 0; i < actsToDisplay.length; i++) {
-            let currDayActs, day
-            [day, currDayActs] = [+actsToDisplay[i][0], actsToDisplay[i][1]];
-            if (prevDay > day) {
-                day += this.getDaysInMonth(destTimeStamp)
+        let prevDate = WeeklyActsToDisplay[0][0]
+        for (let i = 0; i < WeeklyActsToDisplay.length; i++) {
+            let currDate, currDayActs
+            [currDate, currDayActs] = [WeeklyActsToDisplay[i][0], WeeklyActsToDisplay[i][1]];
+            if (prevDate > currDate) {
+                currDate += this.getDaysInMonth(destTimeStamp)
             }
-            prevDay = day
-            col = day - startDate
+            prevDate = currDate
+            col = currDate - startDate
             for (let j = 0; j < currDayActs.length; j++) {
 
                 const act = currDayActs[j]
@@ -59,7 +59,7 @@ export class TripAssembly extends Component {
         }
         weekMat = this.showDaysName(destTimeStamp, weekMat)
 
-        this.setState({ weekMat, actsToDisplay })
+        this.setState({ weekMat, actsToDisplay: WeeklyActsToDisplay })
     }
 
     onRemoveAct = (actId) => {
@@ -89,16 +89,16 @@ export class TripAssembly extends Component {
         return mat
     }
 
+    
+
 
     isOccTimeSlot = (activity) => {
-        console.log("isOccTimeSlot -> activity", activity)
         const { activities } = this.state
         const currStartTime = activity.at
 
         const currEndTime = currStartTime + activity.duration * 30 * 60 * 1000
         for (let i = 0; i < activities.length; i++) {
             const act = activities[i]
-            console.log("isOccTimeSlot -> act", act)
             const checkedStartTime = act.at
             const checkedEndTime = act.at + act.duration * 30 * 60 * 1000
             if (activity.id && activity.id === act.id) continue
@@ -134,8 +134,7 @@ export class TripAssembly extends Component {
         return map
     }
 
-
-
+    
 
     getCol = (mat, col) => {
         const MatColumn = (_mat, n) => _mat.map(x => x[n]);
@@ -173,14 +172,19 @@ export class TripAssembly extends Component {
 
         const activity = this.state.activities.find(act => act.id === id)
 
-        if (activity.col === pos.j && activity.row-pos.i === 1) {
+        if (activity.col === pos.j && activity.row - pos.i === 1) {
             pos.i += 1
-            
-
         }
+
+        const dest = this.props.trip.destinations.find(_dest => _dest.name === activity.destination)
+        
+
         let newTime = this.getTimeFromIdx(pos)
+        if (newTime < dest.startDate-24*60**2*1000 || newTime >= dest.endDate) return
+        if (!newTime) return
 
         activity.at = newTime
+
         if (this.isOccTimeSlot(activity)) {
             alert('You aleardy have plans for that date! please choose a different one.')
             return
@@ -190,6 +194,11 @@ export class TripAssembly extends Component {
 
     getTimeFromIdx = ({ i, j }) => {
         const currWeekDates = this.getLinearTripDays()
+        if (j >= currWeekDates.length) {
+            alert('You\'re not travlling on that date!')
+            return false
+        }
+
         const currDayDate = new Date(currWeekDates[j])
         const isoMonthDate = currDayDate.toISOString().substring(0, 10)
         let isoTime = (i % 2 !== 0) ? `${this.getTwoDig(7 + (i - 1) / 2)}:00` : `${this.getTwoDig(6 + i / 2)}:30`
@@ -224,10 +233,26 @@ export class TripAssembly extends Component {
         return new Date(year, month + 1, 0).getDate();
     }
 
-    getMinDestinations = () => {
+
+    getWeekDests = () => {
+        const { page } = this.state
         var { destinations } = this.props.trip
-        const { actsToDisplay } = this.state
-        destinations = this.destsWithActs(destinations, actsToDisplay)
+        const linearDays = this.getLinearTripDays()
+        const minDay = linearDays[page * 7]
+        // const maxPage = ((page * 7 + 7) < linearDays.length) ? (page * 7 + 7) : linearDays.length - 1
+        // const maxDay = linearDays[maxPage]
+        return destinations.filter(dest => {
+
+            return dest.startDate >= minDay  || dest.endDate >= minDay 
+        })
+
+
+    }
+
+    getMinDestinations = () => {
+
+        const destinations = this.getWeekDests()
+        // destinations = (destWithActs.length) ? destWithActs : destinations
 
         let lastEndDate;
         let freeDaysLeft = 14
@@ -261,7 +286,7 @@ export class TripAssembly extends Component {
         return linearDays
     }
 
-    destsWithActs = (destinations, allActs) => {
+    getDestsWithActs = (destinations, allActs) => {
         destinations = destinations.filter((dest) => {
             return this.isActInDests(dest, allActs)
         })
