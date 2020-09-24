@@ -61,16 +61,23 @@ class _TripPreview extends Component {
                     <img src={img} alt="" />
                 </div>
                 <div className="trip-preview-details">
-                    <h3>{trip.destinations[0].name}</h3>
-                    <div className="flex Justify-between">
-                        <p><i className="fas fa-hourglass-half"></i>{days} days</p>
-                        <p><i className="fas fa-dollar-sign"></i> {price}</p>
-                    </div>
-                    <div className="flex rating-star">
+                    <h3>{trip.tripName}</h3>
+                    <div className="flex details-container">
+                        {trip.createdBy && < div className="flex Justify-between column">
+                            <img className="user-img" src={trip.createdBy.imgUrl} alt="user-img" />
+                            <small>By: {trip.createdBy.username}</small>
+                        </div>}
+                        <div className="flex Justify-between column">
+                            <p><i className="fas fa-hourglass-half"></i>{days} days</p>
+                            <p>Estimated amount: <i className="fas fa-dollar-sign"></i>{price}</p>
+                            <div className="flex rating-star">
                         <img src="https://res.cloudinary.com/idanrozen/image/upload/v1600689776/450716_preview_uyyiz1.png" alt="" />
                         {reviews ? <span>{reviews} <span>({this.state.reviews.length})</span></span> : '(0)'}
 
                     </div>
+                        </div>
+                    </div>
+                  
                 </div>
             </div >
         )

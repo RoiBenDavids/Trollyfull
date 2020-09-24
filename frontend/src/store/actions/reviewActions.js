@@ -21,7 +21,6 @@ function loadReviews(tripId) {
 }
 
 async function addReview(review) {
-    console.log(review,"actionssssss");
     await reviewService.add(review)
     return async dispatch => {
         try {

@@ -4,7 +4,10 @@ import { socketService } from '../../services/socketService';
 
 class _Chat extends Component {
     state = {
-        msg: { from: 'Me', txt: '' },
+        msg: {
+            from: this.props.loggedInUser ? this.props.loggedInUser.username : 'Guest',
+            txt: ''
+        },
         msgs: [],
         isTyping: ''
 
@@ -40,8 +43,8 @@ class _Chat extends Component {
         socketService.emit("stopTyping", "");
 
         // this.addMsg(this.state.msg)//remove
-        // const user = if (this.props.loggedInUser === ?)
-        this.setState({ msg: { from: 'Me', txt: '' } });
+        const user = this.props.loggedInUser ? this.props.loggedInUser.username : 'Guest'
+        this.setState({ msg: { from: user, txt: '' } });
     }
     userTyping = isTyping => {
         this.setState({ isTyping });
@@ -50,7 +53,8 @@ class _Chat extends Component {
     msgHandleChange = ev => {
         const { name, value } = ev.target;
         if ((value.trim()).length > 0) {
-            socketService.emit('user typing', 'Guest');
+            const user = this.props.loggedInUser ? this.props.loggedInUser.username : 'Guest'
+            socketService.emit('user typing', user);
 
         }
         else {
@@ -68,6 +72,7 @@ class _Chat extends Component {
 
     }
     render() {
+        console.log(this.props.loggedInUser, this.state.isTyping);
         return (
             <div className={`chat-container flex column  ${this.props.chatOpen ? 'open' : ''}`}>
                 <div className="chat-header styled-header">
@@ -77,20 +82,23 @@ class _Chat extends Component {
                 <ul className="chat-history">
                     {this.state.msgs.map((msg, idx) => (
                         <li key={idx}>
-                            <div className="message-data">{msg.from}</div>
+                            <div className="message-data">{this.props.loggedInUser? ((this.props.loggedInUser.username === msg.from)? 'Me' : msg.from) : ((msg.from === 'Guest')? 'Me' : msg.from)}</div>
                             <div className="message">{msg.txt}</div>
 
                         </li>
                     ))}
                 </ul>
-                {(this.state.isTyping && this.state.isTyping !== this.props.loggedInUser) ? <p>{this.state.isTyping} is Typing</p> : ''}
+
+                {this.props.loggedInUser ? ((this.state.isTyping && this.state.isTyping !== this.props.loggedInUser.username) ? <p>{this.state.isTyping} is Typing</p> : '') : ((this.state.isTyping && this.state.isTyping !== 'Guest') ? <p>{this.state.isTyping} is Typing</p> : '')}
+
+
                 <form className="chat-send flex align-center" onSubmit={this.sendMsg}>
                     <input
                         type="text"
                         value={this.state.msg.txt}
                         onChange={this.msgHandleChange}
                         name="txt"
-                        autoComplete="false"
+                        autoComplete="off"
                         placeholder="New message"
 
                     />
