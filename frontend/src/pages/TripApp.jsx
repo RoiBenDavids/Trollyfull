@@ -47,7 +47,7 @@ class _TripApp extends Component {
     async componentDidUpdate(prevProps,prevState){
         if(prevProps!==this.props){
             const trip = await this.props.loadTrip(this.props.match.params.id)
-            this.setState({ trip })
+            this.setState({ trip: {...trip, members:[...trip.members]} })
         }
 
         

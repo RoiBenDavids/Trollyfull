@@ -17,11 +17,10 @@ class _TripNavBar extends React.Component {
         console.log(this.props.trip);
         this.setState({trip:this.props.trip})
     }
-    componentDidUpdate(prevProps, prevstate){
-        // console.log('hiii',prevProps, this.props.trip);
-        // if(prevProps.trip.trip === this.props.trip.trip) return
-        // console.log('hiii',prevProps, prevstate);
-        // this.setState({trip:this.props.trip.trip})
+    componentDidUpdate(prevProps){
+        if(prevProps.trip!==this.props.trip){
+            this.setState({ trip: this.props.trip})
+        }
         
     }
     render(){

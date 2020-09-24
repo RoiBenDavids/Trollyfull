@@ -58,7 +58,7 @@ class _TripPreview extends Component {
         return (
             <div style={{ pointerEvents: (style.pointerEvents ? style.pointerEvents : 'inherit') }} onClick={this.handleClick} className={'trip-preview flex column ' + (addClass ? addClass : '')} >
                 < div className="img-wraper" >
-                    <img src={img} alt="" />
+                    <img src={trip.imgUrl} alt="" />
                 </div>
                 <div className="trip-preview-details">
                     <h3>{trip.tripName}</h3>
