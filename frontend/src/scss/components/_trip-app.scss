@@ -17,6 +17,13 @@
             position: absolute;
             right: 20px;
         }
+        .add-user-btn{
+            font-size: x-large;
+            color: gray;
+            :hover{
+                color: #e0abff;
+            }
+        }
         .trip-routes{
             flex:1;
             >a{

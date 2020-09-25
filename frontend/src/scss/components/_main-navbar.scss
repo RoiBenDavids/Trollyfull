@@ -14,6 +14,15 @@
         // -o-transition: all 0.3s ease-in  ease-out;
         // -ms-transition: all 0.3s ease-in  ease-out;
         transition: all 0.7s  ease ;
+
+        .user-preview{
+            height: 28px;
+            width: 29px;
+            border: 2px solid;
+            border-radius: 100px;
+            mix-blend-mode: unset;
+            background: none;
+        }
     
     .logo{
         font-family: kaushan;
@@ -24,13 +33,13 @@
     }
     .user-preview-expand{
         position: absolute;
-        top: 45px;
-        left: -21px;
+        top: 62px;
+        right: -21px;
         width: 140px;
         height: 0;
         overflow: hidden;
         transition: height 0.3s;
-        background-color: $clr10;
+        background-color: #e1b5de;
         &.open{
             height: 150px;
             padding: 20px;
@@ -44,10 +53,14 @@
     font-size: 1rem;
     text-transform: uppercase;
     flex-grow: 1;
+    align-items: center;
     justify-content: flex-end;
     >*{
     padding: 0;
     margin-right: 20px;
+    }
+    img{
+        background-blend-mode: unset;;
     }
 
 }
@@ -60,10 +73,7 @@
     display: flex!important;
     // -webkit-transition: all ease-in 0.3s ;
     // -moz-transition: all ease-in 0.3s ;
-
-    
         transition: all 0.3s ease;
-
     }
 
     .main-navbar-links{
@@ -71,6 +81,7 @@
         >*{
             padding: 10px 0;
         }
+       
 
     }
 

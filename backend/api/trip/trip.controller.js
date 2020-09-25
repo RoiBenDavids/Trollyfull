@@ -49,7 +49,7 @@ async function addTrip(req, res) {
             } : {
                     id: 'guest',
                     username: 'Guest',
-                    imgUrl: 'https://res.cloudinary.com/idanrozen/image/upload/v1600887151/17_zpemt3.jpg'
+                    imgUrl: 'https://res.cloudinary.com/idanrozen/image/upload/v1600889656/opinion-sin-imagen_raxn0y.png'
                 }
             trip = await tripService.add(trip)
         }

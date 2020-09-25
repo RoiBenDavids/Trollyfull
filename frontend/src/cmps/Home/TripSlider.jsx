@@ -27,11 +27,9 @@ export function TripSlider({ trips }) {
 
     return (
         <Swiper
-            // spaceBetween={0}
             effect="coverflow"
             slidesPerView={"auto"}
-            // allowSlidePrev
-            effectCoverflow={true}
+            // effectCoverflow={true}
             navigation
             rotate={-20}
             stretch={0}

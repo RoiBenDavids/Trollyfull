@@ -48,8 +48,7 @@ class _TripPreview extends Component {
     }
 
     render() {
-        const { trip, img, addClass } = this.props
-        console.log(trip.createdBy.imgUrl,'tripreviiiewefksdnflksdnlknmlk');
+        const { trip, addClass } = this.props
         if (!trip) return <p>Loading Trip . . .</p>
         const price = this.getTripPrice(trip.activities)
         const days = utils.calculateDays(trip.destinations[0].startDate, trip.destinations[trip.destinations.length - 1].endDate)
@@ -64,21 +63,24 @@ class _TripPreview extends Component {
                 <div className="trip-preview-details">
                     <h3>{trip.tripName}</h3>
                     <div className="flex details-container">
-                        {trip.createdBy && < div className="flex Justify-between column">
+                        {trip.createdBy && < div className="flex align-center column">
                             <img className="user-img" src={trip.createdBy.imgUrl} alt="user-img" />
-                            <small>By: {trip.createdBy.username}</small>
+                            <p>By: {trip.createdBy.username}</p>
                         </div>}
                         <div className="flex Justify-between column">
                             <p><i className="fas fa-hourglass-half"></i>{days} days</p>
-                            <p>Estimated amount: <i className="fas fa-dollar-sign"></i>{price}</p>
+                            <p>Est Price: <i className="fas fa-dollar-sign"></i>{price}</p>
                             <div className="flex rating-star">
-                        <img src="https://res.cloudinary.com/idanrozen/image/upload/v1600689776/450716_preview_uyyiz1.png" alt="" />
-                        {reviews ? <span>{reviews} <span>({this.state.reviews.length})</span></span> : '(0)'}
+                                <img src="https://res.cloudinary.com/idanrozen/image/upload/v1600689776/450716_preview_uyyiz1.png" alt="" />
+                                <div className="flex Justify-between">
+                                    {reviews ? <span>{reviews} <span>({this.state.reviews.length} reviews) </span></span> : '(0)'}
+                                </div>
 
-                    </div>
+                            </div>
+                            <p>Trollied by Roi and 135 others</p>
                         </div>
                     </div>
-                  
+
                 </div>
             </div >
         )

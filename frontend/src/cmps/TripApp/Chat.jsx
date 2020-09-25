@@ -72,7 +72,6 @@ class _Chat extends Component {
 
     }
     render() {
-        console.log(this.props.loggedInUser, this.state.isTyping);
         return (
             <div className={`chat-container flex column  ${this.props.chatOpen ? 'open' : ''}`}>
                 <div className="chat-header styled-header">
@@ -102,7 +101,7 @@ class _Chat extends Component {
                         placeholder="New message"
 
                     />
-                    <button><i class="far fa-paper-plane"></i></button>
+                    <button><i className="far fa-paper-plane"></i></button>
                 </form>
 
             </div>
