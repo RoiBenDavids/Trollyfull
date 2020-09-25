@@ -5,7 +5,7 @@ import { OpenDaySlot } from './OpenDaySlot'
 
 export function DayActivities({ day, getRowIdx, onRemoveAct, onEdit, destinations, onDragMove }) {
 
-    
+
     if (day[1].pos.j === 0) {
     }
     var isAfterActs = false;
@@ -22,15 +22,13 @@ export function DayActivities({ day, getRowIdx, onRemoveAct, onEdit, destination
                         getRowIdx={getRowIdx} key={utils.makeId()} act={act} />
 
                 } else {
-                    if (isAfterActs) {
-                        
-                        day[idx].pos.i = day[idx].pos.i + currActsLength -1
-                        
-                        // act = day[idx]
-                        
-                        // day[idx-1].pos.i = act.pos.i + currActsLength
-                      
-                    }
+                    // if (isAfterActs) {s
+
+                    //     day[idx].pos.i = day[idx].pos.i + currActsLength - 1
+
+
+
+                    // }
                     return <OpenDaySlot
                         destinations={destinations} onEdit={onEdit} onRemoveAct={onRemoveAct}
                         getRowIdx={getRowIdx} key={utils.makeId()} act={act} onDragMove={onDragMove} />

@@ -90,7 +90,6 @@ class _AddTrip extends Component {
 
 
     handleInput = (ev, name) => {
-        console.log("handleInput -> ev", ev.target)
         let value;
         let targetName;
         if (ev.target && ev.target.name === 'tripName') {

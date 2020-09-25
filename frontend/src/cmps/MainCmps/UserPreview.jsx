@@ -16,7 +16,7 @@ export class UserPreview extends Component {
 
 
                 <div >
-                    <span onClick={this.toggleExpand}>{this.props.user.username}</span>
+                    <img className="user-preview" src={this.props.user.imgUrl} alt={this.props.user.username + 'img'} onClick={this.toggleExpand}/>
                     { <div className={`user-preview-expand flex column justify-around ${this.state.expand?'open':''}`} >
                         <Link to={`/user/${this.props.user._id}`} >My Trips</Link>
                         <button onClick={this.props.logout}>Logout</button>

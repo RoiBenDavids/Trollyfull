@@ -67,7 +67,6 @@ class _Modal extends React.Component {
 
     render() {
         const showLoginSignup = this.state.curCmp === 'login' || this.state.curCmp === 'signup' ? true : false;
-        console.log(this.state.dynamicCmp);
         return (
             <div className={`modal-screen flex align-center justify-center ${this.props.modal.isShown ? '' : 'hide'}`} onKeyDown={this.checkKey} onMouseDown={this.closeModal}>
                 <div className={`modal-container `} onMouseDown={(ev) => ev.stopPropagation()} >

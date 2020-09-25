@@ -42,7 +42,7 @@ class _MainNavBar extends Component {
             <div className={'main-navbar flex Justify-between align-center full  ' + (this.state.navBar ? 'navBar-background' : '')}>
                 <Link to="/" > <h1 className="logo">Trolly</h1></Link>
                 <div className="flex Justify-between main-navbar-links">
-                    <Link to="/trip">All Trips</Link>
+                    <Link to="/trip">Trips</Link>
                     <NavLink to="/about" >About</NavLink>
                     {this.props.usersData.loggedInUser ? <UserPreview logout={this.props.logout} user={this.props.usersData.loggedInUser} /> : <div onClick={() => this.props.showModal('login')}>Login</div>}
                     {/* {this.state.loggedInUser ? <UserPreview logout={this.props.logout} user={this.state.loggedInUser} /> : <div onClick={() => this.props.showModal('login')}>Login</div>} */}

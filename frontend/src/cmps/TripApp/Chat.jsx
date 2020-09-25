@@ -14,11 +14,10 @@ class _Chat extends Component {
     }
 
     componentDidMount() {
-        socketService.emit('chat topic', this.props.trip._id);
         socketService.on('chat addMsg', this.addMsg);
         socketService.on('isTyping', this.userTyping);
         socketService.on('notTyping', this.userTyping);
-
+        
         // socketService.emit('chat history');
         // socketService.on('load history', this.loadHistory)
     }
@@ -72,7 +71,6 @@ class _Chat extends Component {
 
     }
     render() {
-        console.log(this.props.loggedInUser, this.state.isTyping);
         return (
             <div className={`chat-container flex column  ${this.props.chatOpen ? 'open' : ''}`}>
                 <div className="chat-header styled-header">
@@ -102,7 +100,7 @@ class _Chat extends Component {
                         placeholder="New message"
 
                     />
-                    <button><i class="far fa-paper-plane"></i></button>
+                    <button><i className="far fa-paper-plane"></i></button>
                 </form>
 
             </div>

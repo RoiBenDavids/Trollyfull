@@ -13,6 +13,7 @@ import { logDOM } from '@testing-library/react'
 import { Chat } from '../cmps/TripApp/Chat'
 import { socketService } from '../services/socketService'
 import { MapContainer } from '../cmps/MainCmps/Map';
+
 // import locationCevtorRed from 'https://res.cloudinary.com/roidinary/image/upload/v1600377967/locationVectorRed_vzufx4.png'
 
 
@@ -25,11 +26,13 @@ class _TripApp extends Component {
     }
 
     async componentDidMount() {
+        const { loadTrip } = this.props
         socketService.setup();
-        // socketService.on('tripUpdated', this.loadTrip());
+        socketService.on('tripUpdated', loadTrip);
         const { id } = this.props.match.params
+        socketService.emit('enter trip', id);
         try {
-            await this.props.loadTrip(id)
+            await loadTrip(id)
             if (this.props.match.params.openSignup === 'true') {
                 this.props.showModal('signup', id)
             }
@@ -39,11 +42,13 @@ class _TripApp extends Component {
         }
     }
     componentWillUnmount() {
-        // socketService.off('tripUpdated', this.loadTrip());
+        socketService.off('tripUpdated', loadTrip);
     }
 
     async componentDidUpdate(prevProps, prevState) {
 
+        if (prevProps.trip === this.props.trip) return
+        socketService.on('tripUpdated', loadTrip);
     }
 
 
@@ -83,29 +88,31 @@ class _TripApp extends Component {
         return { swapped, newTrip: ans2.newTrip }
     }
 
-    changeOrder = (dest, direction) => {
+    changeOrder = async (dest, direction) => {
+        let newTrip;
         const destinations = [...this.props.trip.destinations]
         if (direction) {
             const destinationsToSwap = destinations.splice(dest - 1, 2)
             const ans = this.swapDestinations(destinationsToSwap, this.props.trip)
             ans.newTrip.destinations[dest - 1] = ans.swapped[0]
             ans.newTrip.destinations[dest] = ans.swapped[1]
-            this.props.addTrip(ans.newTrip)
-
+            newTrip = await this.props.addTrip(ans.newTrip)
         }
         else {
             const destinationsToSwap = destinations.splice(dest, 2)
             const ans2 = this.swapDestinations(destinationsToSwap, this.props.trip)
             ans2.newTrip.destinations[dest] = ans2.swapped[0]
             ans2.newTrip.destinations[dest + 1] = ans2.swapped[1]
-            this.props.addTrip(ans2.newTrip)
+            newTrip = await this.props.addTrip(ans2.newTrip)
         }
+        socketService.emit('tripToUpdate', newTrip._id);
+
     }
 
     updateTripAct = async (activities) => {
         let newTrip = { ...this.props.trip, activities }
         await this.props.addTrip(newTrip)
-        // socketService.emit('tripToUpdate', this.state.trip);
+        socketService.emit('tripToUpdate', newTrip._id);
 
     }
 
@@ -136,11 +143,11 @@ class _TripApp extends Component {
                 {/* <Switch>
                     <Route path="/trip/:id/triproute">
                         <img className="trip-main-img full" src={trip.imgUrl}></img>
-                        <TripNavBar trip={trip} settingsOpen={this.state.settingsOpen} toggleSettings={this.toggleSettings} showModal={this.props.showModal}/>
+                        <TripNavBar trip={trip} settingsOpen={this.state.settingsOpen} toggleSettings={this.toggleSettings} showModal={this.props.showModal} />
                         <TripRoute trip={trip} changeOrder={this.changeOrder}></TripRoute>
                     </Route>
                     <Route path="/trip/:id/tripassembly">
-                        <TripNavBar trip={trip} settingsOpen={this.state.settingsOpen} toggleSettings={this.toggleSettings} showModal={this.props.showModal}/>
+                        <TripNavBar trip={trip} settingsOpen={this.state.settingsOpen} toggleSettings={this.toggleSettings} showModal={this.props.showModal} />
                         <TripAssembly trip={trip} updateTripAct={this.updateTripAct} showModal={this.props.showModal} closeModal={this.props.closeModal}></TripAssembly>
                     </Route>
                 </Switch> */}

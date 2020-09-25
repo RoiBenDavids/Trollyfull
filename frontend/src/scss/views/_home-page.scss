@@ -118,20 +118,32 @@
     
     .styled-button{
         box-shadow: none;
+        font-size: 1.2rem;
         margin: 0 auto;
-        width: 150px;
+        width: 220px;
+        height: 50px;
         padding: 10px;
-        
         transition: all 0.3s;
+        position: relative;
+
          &:hover{
-            font-size: 18px;
+            &::after{
+                padding: 10px 20px 10px 10px;
+                position: absolute;
+                // content: ' →';
+                content: ' ▼';
+                bottom: -7px;
+                padding: 22px;
+
+            }
             box-shadow: none;
-            width: 223px;
+            width: 253px;
             opacity: 1;
-            padding: 20px;
+            padding-right: 40px;
          }
     }
     h3{
+        font-weight: normal;
         margin: 0;
         font-size: 2.8125rem;
         text-shadow: 0px 1px #00000066;

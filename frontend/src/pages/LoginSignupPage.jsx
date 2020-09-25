@@ -4,7 +4,8 @@ import { Login } from './Login';
 import { Signup } from './Signup';
 import { signup, login } from '../store/actions/userActions'
 import { closeModal, showModal } from '../store/actions/modalActions'
-import { loadTrip,addTrip } from '../store/actions/tripActions'
+import { loadTrip, addTrip } from '../store/actions/tripActions'
+import { socketService } from '../services/socketService'
 
 class _LoginSignupPage extends Component {
     state = {
@@ -20,13 +21,14 @@ class _LoginSignupPage extends Component {
             this.setState({ login: this.props.page })
         }
     }
-    handleForm = async (props, action , tripIdToRed) => {
+    handleForm = async (props, action, tripIdToRed) => {
         if (action === 'signup') {
-            // var user = await this.props.signup(props)
-            if(tripIdToRed){
-                const [tripToRed, user] = await Promise.all([this.props.loadTrip(tripIdToRed),this.props.signup(props)])
-                tripToRed.members.push({username: user.username,imgUrl:user.imgUrl,id:user._id})
+            if (tripIdToRed) {
+                const [tripToRed, user] = await Promise.all([this.props.loadTrip(tripIdToRed), this.props.signup(props)])
+                tripToRed.members.push({ username: user.username, imgUrl: user.imgUrl, id: user._id })
                 await this.props.addTrip(tripToRed)
+                socketService.emit('tripToUpdate', tripToRed._id);
+
                 this.props.closeModal()
                 return user
             }
@@ -47,7 +49,6 @@ class _LoginSignupPage extends Component {
                 closeModal={() => this.closeModal()} /> :
                 <Signup handleForm={this.handleForm} handleClick={this.props.handleClick}
                     closeModal={() => this.closeModal()} tripId={this.props.tripId} tripToRed={tripToRed} />
-
         )
     }
 }
