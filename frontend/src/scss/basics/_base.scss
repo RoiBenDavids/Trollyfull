@@ -57,12 +57,12 @@ ul,li,p{
 }
 
 .dest-0 {
-    background-color: #D826C7 !important;
+    background-color: #f3cbef  !important;
     //  @include shadow($clr1)
     
 }
 .dest-1 {
-    background-color: adjust-hue($color: #D826C7, $degrees: 20deg)
+    background-color: adjust-hue($color: #d494f1, $degrees: 20deg)
     // @include shadow($clr2)
 }
 .dest-2 {

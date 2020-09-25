@@ -26,14 +26,16 @@
     }
     .route-time-line-context{
         min-width: 260px;
+        letter-spacing: 0.3px;
        
         div:nth-child(2){
-            font-style: italic;
+            text-transform: capitalize;
+            font-weight: bold;
             margin-right: 10px;
         }
         div:nth-child(3){
             overflow-x: visible;
-            font-weight: bold;
+            font-size: 0.8rem;
         }
     }
     .add-destination-button{

@@ -7,7 +7,6 @@ export function loadTrip(tripId) {
     return async dispatch => {
         dispatch({ type: 'SET_LOADER' })
         var trip = await tripService.getById(tripId)
-        console.log("loadTrip -> trip", trip)
         dispatch({ type: 'SET_TRIP', trip })
         dispatch({ type: 'CLOSE_LOADER' })
         return trip
@@ -29,16 +28,13 @@ export function addTripFast(newTrip) {
     return async dispatch => {
         try {
             
-            console.log("addTripFast -> newTrip", newTrip)
             // dispatch({ type: 'SET_LOADER' })
             const trip = await tripService.save(newTrip)
-            console.log("addTripFast -> trip", trip)
             dispatch({ type: 'EDIT_TRIP', trip })
             // dispatch({ type: 'CLOSE_LOADER' })
         }
 
         catch (err) {
-            console.log('TripAction: Could not save trip', err);
         }
     }
 }
@@ -53,7 +49,6 @@ export function addTrip(newTrip) {
             return trip
         }
         catch (err) {
-            console.log('TripAction: Could not save trip', err);
         }
     }
 }

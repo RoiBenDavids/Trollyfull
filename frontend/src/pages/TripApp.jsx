@@ -105,7 +105,11 @@ class _TripApp extends Component {
             ans2.newTrip.destinations[dest + 1] = ans2.swapped[1]
             newTrip = await this.props.addTrip(ans2.newTrip)
         }
+        
+        console.log("changeOrder -> newTrip", newTrip)
         socketService.emit('tripToUpdate', newTrip._id);
+        this.props.loadTrip(newTrip._id)
+
     }
     // updateDestinations(destIdxToMove, moveToIdx) {
     //     // let newDestinations =[]
