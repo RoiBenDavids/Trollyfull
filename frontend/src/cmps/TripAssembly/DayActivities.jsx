@@ -5,15 +5,31 @@ import { OpenDaySlot } from './OpenDaySlot'
 
 export function DayActivities({ day, getRowIdx, onRemoveAct, onEdit, destinations, onDragMove }) {
 
+    function reCalcPos(day) {
+        let newDay = [day[0]]
+        let i = 1;
+        while (i < 35) {
+            if (!day[i].id) {
+                newDay.push(day[i])
+                i++
 
-    if (day[1].pos.j === 0) {
+            } else {
+                newDay.push(day[i])
+                i += day[i].duration
+            }
+        }
+        
+
+        return newDay
     }
+    let newDay = reCalcPos(day)
+
     var isAfterActs = false;
     var currActsLength = 0
     return (
         <div className="day-list-assembly">
 
-            {day.map((act, idx, day) => {
+            {newDay.map((act, idx, day) => {
                 if (act.id) {
                     isAfterActs = true
                     currActsLength += act.duration
@@ -22,13 +38,7 @@ export function DayActivities({ day, getRowIdx, onRemoveAct, onEdit, destination
                         getRowIdx={getRowIdx} key={utils.makeId()} act={act} />
 
                 } else {
-                    // if (isAfterActs) {s
 
-                    //     day[idx].pos.i = day[idx].pos.i + currActsLength - 1
-
-
-
-                    // }
                     return <OpenDaySlot
                         destinations={destinations} onEdit={onEdit} onRemoveAct={onRemoveAct}
                         getRowIdx={getRowIdx} key={utils.makeId()} act={act} onDragMove={onDragMove} />
