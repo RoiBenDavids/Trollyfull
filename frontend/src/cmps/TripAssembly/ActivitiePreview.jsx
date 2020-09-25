@@ -34,7 +34,7 @@ export function ActivitiePreview({ act, getRowIdx, onRemoveAct, onEdit }) {
             <h2>{act.name}</h2>
             <p>{act.at && `${startTime}-${endTime}`}</p>
             <p>{act.destination}</p>
-            {act.price.amount && <p>{act.price.currency}{act.price.amount}</p>}
+            {act.price.amount? <p>{act.price.currency}{act.price.amount}</p>:''}
             <button onClick={() => { onEdit(act) }} className="edit-activity styled-button">edit</button>
             <button onClick={() => { onRemoveAct(act.id) }} className="delete-activity styled-button">X</button>
         </div>

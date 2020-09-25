@@ -1,5 +1,5 @@
 .assembly-container {
-    color: $clr12;
+    color: #6b6b6b;
     padding: 70px;
     margin-top: 200px;
     .paging-assembly {
@@ -10,7 +10,7 @@
         align-items: center;
 
         .toggle-page {
-            background-color: $clr7;
+            background-color: #D8BBFF;
             padding: 10px 15px 10px;
             margin: 5px;
             border-radius: 50%;
@@ -40,23 +40,21 @@
     // grid-template-rows: repeat(35);
 
     .time-line-assembly {
-        // background-color: rgb(199, 181, 216);
         position: absolute;
-        left: -5%;
-        // margin-right: ;
-        height: 100%;
-        width: 5%;
+        font-size: smaller;
+        left: -44.9px;
+        top: 23px;
         display: grid;
-        grid-template-rows: repeat(35, minmax(25px, 1fr));
-
+        grid-template-rows: repeat(35, 30px);
         z-index: 3;
+    
         .time-assembly {
             vertical-align: bottom;
-            bottom: -8%;
+            // bottom: -8%;
             position: relative;
             span {
                 position: absolute;
-                bottom: -16%;
+                // bottom: -16%;
             }
         }
     }
@@ -64,15 +62,14 @@
     .day-list-assembly {
         display: grid;
         background-color: #d0d1ff52;
-        grid-template-rows: repeat(35, minmax(30px,60px));
+        grid-template-rows: repeat(35, 30px);
         
         > * {
             text-align: center;
             position: relative;
-            display: flex;
             flex-direction: column;
             // box-shadow: -0.08px -0.08px 0 0px black;
-            border: 1px solid black;
+            border: 1px solid #cdcdcd2e;
             justify-content: center;
             p {
                 margin: 0;
@@ -86,22 +83,25 @@
             }
         }
         .activity-assembly {
-            background-color: #a6c2f5;
-            border-radius: 10px;
-            box-shadow: 0.4px -0.4px 1.9px black;
+            background-color: #dfcbf6;
+            box-shadow: 0px 0px 0px 1px #a2a2a275;
             transition: 0.4s;
             height: 100%;
             cursor: grab;
             overflow: hidden;
+            border:none;
 
 
             h2 {
-                color: #ff6050;
-                margin-top: 0;
-                margin-bottom: 0.7rem;
+                font-size: 0.9em;
+                color: #716f72;
+                margin:0;
+                padding:5px;
+                
             }
 
             p {
+                display: none;
                 color: #555456;
                 // margin: 2%;
                 margin-bottom: 0.5rem;
@@ -114,20 +114,25 @@
                 opacity: 0.6;
             }
 
-            &:active {
-                cursor: grabbing;
-            }
+           
 
             &.len-one {
                 z-index: 2;
             }
 
-            &.len-one:hover {
-                transition: 0.3s;
-                height: 125px;
+            // &.len-one:hover {
+            //     transition: 0.3s;
+            //     height: 125px;
+            // }
+            &:active {
+                height: 35px;
+                background-color: red;
+                cursor: grabbing;
             }
         }
         .literal-day {
+            font-size: 1rem;
+            line-height: 35px;
             background-color: rgba(255, 250, 241, 0.342);
             cursor: initial;
             box-shadow: 0px 0px 0.4px 0px #61021e;
@@ -150,14 +155,15 @@
     font-size: 1rem;
     margin: 0 auto;
     max-width: 85vw;
+    line-height: 35px;
     background-color: #61aff86b;
     // box-shadow: -0.05px -0.05px 0 0px black;
 
-    height: 1.6rem;
+    // height: 1.6rem;
     display: grid;
     text-align: center;
     grid-template-columns: repeat(14, minmax(25px, 1fr));
-    grid-template-rows: repeat(1, 26px);
+    grid-template-rows: repeat(1, 35px);
     vertical-align: baseline;
 
     > * {
@@ -173,16 +179,20 @@
 .activity-prev-assembly {
     position: relative;
     // padding: 10px;
+   >*{border-radius: 0;}
+
 
     .delete-activity {
+        display: none;
         position: absolute;
         padding: 5px;
-        bottom: -10px;
+        bottom: 0;
+        margin: 0;
         right: 0%;
         box-shadow: none;
         cursor: pointer;
         border-width: 1px;
-        border-radius: 5px;
+        // border-radius: 5px;
         max-width: 35px;
         max-height: 35px;
         opacity: 0.4;
@@ -193,6 +203,7 @@
     }
 
     .edit-activity {
+        display: none;
         position: absolute;
         padding: 5px;
         bottom: -10px;
@@ -200,7 +211,7 @@
         box-shadow: none;
         cursor: pointer;
         border-width: 1px;
-        border-radius: 5px;
+        // border-radius: 5px;
         max-width: 35px;
         max-height: 35px;
         opacity: 0.4;
