@@ -23,7 +23,6 @@ export function ActivitiePreview({ act, getRowIdx, onRemoveAct, onEdit }) {
     // }
     const startTime = utils.getTimeDayStr(act.at)
     const endTime = utils.getTimeDayStr(act.at + (+act.duration / 2) * 60 * 60 * 1000)
-    console.log("act", act)
     const isFirstCol = (act.col === 0) ? 'first-col' : ''
     const isDayHeadClass = (act.literalDay) ? 'literal-day' : ''
     // const opc = (isDragging)?'0.6':'1'
