@@ -65,7 +65,6 @@ export class TripAssembly extends Component {
             }
         }
         weekMat = this.showDaysName(destTimeStamp, weekMat)
-
         this.setState({ weekMat, actsToDisplay: WeeklyActsToDisplay })
     }
 
@@ -174,18 +173,14 @@ export class TripAssembly extends Component {
 
     onDragMove = ({ pos }, id) => {
 
-
         const activity = this.state.activities.find(act => act.id === id)
-
-        if (activity.col === pos.j && activity.row - pos.i === 1) {
-            pos.i += 1
-        }
-
         const dest = this.props.trip.destinations.find(_dest => _dest.name === activity.destination)
 
 
+        let testDest = new Date(dest.startDate)
         let newTime = this.getTimeFromIdx(pos)
-        if (newTime < dest.startDate - 24 * 60 ** 2 * 1000 || newTime >= dest.endDate) return
+        let testTime = new Date(newTime)
+        if (newTime < dest.startDate - 24 * 60 ** 2 * 1000 || newTime >= dest.endDate + 3 * 60 ** 2 * 1000) return
         if (!newTime) return
 
         activity.at = newTime
@@ -198,14 +193,14 @@ export class TripAssembly extends Component {
     }
 
     getTimeFromIdx = ({ i, j }) => {
+        const { page } = this.state
         const currWeekDates = this.getLinearTripDays()
-        console.log("TripAssembly -> getTimeFromIdx -> currWeekDates", currWeekDates)
-        if (j >= currWeekDates.length) {
+        if (j + page * 7 >= currWeekDates.length) {
             alert('You\'re not travlling on that date!')
             return false
         }
 
-        const currDayDate = new Date(currWeekDates[j])
+        const currDayDate = new Date(currWeekDates[j + page * 7])
         const isoMonthDate = currDayDate.toISOString().substring(0, 10)
         let isoTime = (i % 2 !== 0) ? `${this.getTwoDig(7 + (i - 1) / 2)}:00` : `${this.getTwoDig(6 + i / 2)}:30`
         const isoDate = new Date(isoMonthDate + 'T' + isoTime)
@@ -248,39 +243,75 @@ export class TripAssembly extends Component {
         // const maxPage = ((page * 7 + 7) < linearDays.length) ? (page * 7 + 7) : linearDays.length - 1
         // const maxDay = linearDays[maxPage]
         return destinations.filter(dest => {
-
             return dest.startDate >= minDay || dest.endDate >= minDay
         })
-
-
     }
 
     getMinDestinations = () => {
 
         const destinations = this.getWeekDests()
-        // destinations = (destWithActs.length) ? destWithActs : destinations
-
-        let lastEndDate;
-        let freeDaysLeft = 14
-        return destinations.map((destination, idx) => {
-            let isSameStartDay = false
-            let isSameEndDay = false
-            if (utils.getDateDay(destination.startDate) === utils.getDateDay(lastEndDate)) {
-                isSameStartDay = true
-            }
-            if (destinations[idx + 1] && utils.getDateDay(destinations[idx + 1].startDate) === utils.getDateDay(destination.endDate)) {
-                isSameEndDay = true
-            }
-            lastEndDate = destination.endDate
-            let totalDays = utils.calculateDays(destination.startDate, destination.endDate)
-            let totaHalflDays = (isSameStartDay) ? totalDays * 2 - 1 : totalDays * 2
-            totaHalflDays = (isSameEndDay) ? totaHalflDays - 1 : totaHalflDays
-            totaHalflDays = (totaHalflDays > freeDaysLeft) ? freeDaysLeft : totaHalflDays
-            freeDaysLeft -= totaHalflDays
+        const { page } = this.state
+        const minDestinations = []
+        const destsHeadLength = this.mapDestsToHeaderLength()
+        const destsNames = Object.keys(destsHeadLength)
+        const destsLength = Object.values(destsHeadLength)
+        for (let i = 0; i < destsNames.length; i++) {
+            const time = destinations.find(dest => dest.name === destsNames[i]).startDate
+            minDestinations.push({ name: destsNames[i], duration: destsLength[i], time })
+        }
+        return minDestinations
 
 
-            return { name: destination.name, duration: totaHalflDays }
+    }
+
+
+    mapDestsToHeaderLength = () => {
+        const { trip } = this.props
+        const { page } = this.state
+        const { destinations } = this.props.trip
+        const tripStart = trip.destinations[0].startDate
+        const tripEnd = trip.destinations[trip.destinations.length - 1].endDate
+        const destinationsTimes = trip.destinations.map((destination, idx) => {
+            return { start: new Date(destination.startDate), end: new Date(destination.endDate), idx }
         })
+        const currWeekDests = utils.calculateDates(tripStart, tripEnd, destinationsTimes).slice(page * 7, page * 7 + 7)
+        let currDestName;
+        let currDest;
+        return currWeekDests.reduce((acc, { td }, idx) => {
+
+            if (td.full || td.full === 0) {
+                currDest = destinations[td.full]
+                currDestName = currDest.name
+                acc[currDestName] = (acc[currDestName]) ? acc[currDestName] + 2 : 2
+            } else {
+                if (((td.start || td.start === 0) && (!td.end && td.end !== 0))) {
+                    currDest = destinations[td.start]
+                    currDestName = currDest.name
+                    acc[currDestName] = (acc[currDestName]) ? acc[currDestName] + 2 : 2
+                } else {
+
+                    if (td.start || td.start === 0) {
+                        currDest = destinations[td.start]
+                        currDestName = currDest.name
+
+                        acc[currDestName] = (acc[currDestName]) ? acc[currDestName] + 1 : 1
+
+                    }
+                    if (td.end || td.end === 0) {
+                        currDest = destinations[td.end]
+                        currDestName = currDest.name
+
+                        acc[currDestName] = (acc[currDestName]) ? acc[currDestName] + 1 : 1
+
+                    }
+
+                }
+            }
+
+
+            return acc
+        }, {})
+
     }
 
     getLinearTripDays = () => {
@@ -297,8 +328,6 @@ export class TripAssembly extends Component {
             return this.isActInDests(dest, allActs)
         })
         return destinations
-
-
 
     }
 
@@ -368,10 +397,8 @@ export class TripAssembly extends Component {
         const { weekMat, minDestinations } = this.state
 
         if (!weekMat || !minDestinations) return <div>Loading...</div>
-        // this.getLinearTripDays()
         const dayActs = this.renderDayActivities(weekMat)
-
-
+        this.mapDestsToHeaderLength()
         return (
             <div className="assembly-container">
                 <section className="paging-assembly">

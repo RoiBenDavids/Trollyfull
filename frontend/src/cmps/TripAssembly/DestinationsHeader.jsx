@@ -4,6 +4,8 @@ import React from 'react'
 
 
 export function DestinationsHeader({ destinations }) {
+    destinations.sort((dest1, dest2) => dest1.time - dest2.time)
+    console.log("DestinationsHeader -> destinations", destinations)
     return (
         <div className="destinations-header">
             {destinations.map((dest, idx) => {

@@ -12,6 +12,7 @@ export function RouteCalendar({ trip }) {
         const destinationsTimes = trip.destinations.map((destination,idx) => {
             return { start: new Date(destination.startDate), end: new Date(destination.endDate) , idx }
         })
+        console.log("generateCalendar -> destinationsTimes", destinationsTimes)
         const calendarData = calculateDates(tripStart, tripEnd, destinationsTimes)
         const fullCalendarData = getDaysAround(calendarData, tripStart, tripEnd)
         return fullCalendarData
@@ -64,13 +65,10 @@ export function RouteCalendar({ trip }) {
             destinations.forEach(dest=>{
                 if(dest.start.getDate()===nextDay.getDate()&& dest.start.getMonth()===nextDay.getMonth()){
                     dates[dates.length-1].td={...dates[dates.length-1].td,'start':dest.idx}
-                    // console.log('start',dest.start,dest.end,nextDay);
                 }else if(dest.start<nextDay && nextDay.setHours(12)<dest.end.setHours(11) ){
                     dates[dates.length-1].td={...dates[dates.length-1].td,'full':dest.idx}
-                    // console.log('full',dest.start,dest.end,nextDay);
                 }else if(dest.end.getDate()===nextDay.getDate()&& dest.end.getMonth()===nextDay.getMonth()){
                     dates[dates.length-1].td={...dates[dates.length-1].td,'end':dest.idx}
-                    // console.log('end',dest.start,dest.end,nextDay);
                 }
             })
         }

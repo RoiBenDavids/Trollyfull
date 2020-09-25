@@ -106,7 +106,6 @@ class _TripApp extends Component {
             newTrip = await this.props.addTrip(ans2.newTrip)
         }
         
-        console.log("changeOrder -> newTrip", newTrip)
         socketService.emit('tripToUpdate', newTrip._id);
         this.props.loadTrip(newTrip._id)
 

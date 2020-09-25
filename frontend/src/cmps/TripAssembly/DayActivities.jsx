@@ -6,8 +6,8 @@ import { OpenDaySlot } from './OpenDaySlot'
 export function DayActivities({ day, getRowIdx, onRemoveAct, onEdit, destinations, onDragMove }) {
 
     function reCalcPos(day) {
-        let newDay = [day[0]]
-        let i = 1;
+        let newDay = []
+        let i = 0;
         while (i < 35) {
             if (!day[i].id) {
                 newDay.push(day[i])

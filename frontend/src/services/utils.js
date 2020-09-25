@@ -10,7 +10,8 @@ export const utils = {
     getTimeDayStr,
     getRandomPic,
     getRandomInt,
-    getIsoTime
+    getIsoTime,
+    calculateDates
 }
 
 function makeId(length = 5) {
@@ -32,7 +33,24 @@ function calculateDays(start, end) {
 
 
 
-
+function calculateDates(start, end, destinations) {
+    let nextDay = new Date(start)
+    let dates = [{ day: nextDay, td: { 'start': 0 } }]
+    while (nextDay.getDate() !== new Date(end).getDate()) {
+        nextDay = new Date(nextDay.getTime() + (1000 * 60 * 60 * 24))
+        dates.push({ day: nextDay, td: '' })
+        destinations.forEach(dest => {
+            if (dest.start.getDate() === nextDay.getDate() && dest.start.getMonth() === nextDay.getMonth()) {
+                dates[dates.length - 1].td = { ...dates[dates.length - 1].td, 'start': dest.idx }
+            } else if (dest.start < nextDay && nextDay.setHours(12) < dest.end.setHours(11)) {
+                dates[dates.length - 1].td = { ...dates[dates.length - 1].td, 'full': dest.idx }
+            } else if (dest.end.getDate() === nextDay.getDate() && dest.end.getMonth() === nextDay.getMonth()) {
+                dates[dates.length - 1].td = { ...dates[dates.length - 1].td, 'end': dest.idx }
+            }
+        })
+    }
+    return dates
+}
 
 
 function createMat(cols, rows) {
@@ -40,10 +58,10 @@ function createMat(cols, rows) {
     for (let i = 0; i < rows; i++) {
         mat[i] = []
         for (let j = 0; j < cols; j++) {
-            mat[i][j] = {pos: {i, j}}
+            mat[i][j] = { pos: { i, j } }
 
             if (j === 0) {
-                mat[i][j] = {...mat[i][j], col: 0 }
+                mat[i][j] = { ...mat[i][j], col: 0 }
             }
         }
     }

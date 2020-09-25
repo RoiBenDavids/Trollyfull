@@ -7,9 +7,8 @@ export function OpenDaySlot({ act, getRowIdx, onDragMove }) {
 
     const [{ isOver }, drop] = useDrop({
         accept: ItemTypes.ACTIVITIE,
-        drop: (item, monitor) => { 
-            console.log(item, act, 'item, act');
-            onDragMove(act, item.id) 
+        drop: (item, monitor) => {
+            onDragMove(act, item.id)
         },
 
         collect: monitor => ({
@@ -25,8 +24,13 @@ export function OpenDaySlot({ act, getRowIdx, onDragMove }) {
         console.log(act);
     }
     return (
-        <div ref={drop} className={`activity-prev-assembly empty-assembly ${isFirstCol} ${isDayHeadClass}  ${_isOver}`} style={{ gridRow: `${rowIdx || 'auto'}/span 1` }} key={utils.makeId()}>
-            {act.literalDay && act.date}
-        </div>
+        <React.Fragment>
+            {act.literalDay && <div  className={`activity-prev-assembly empty-assembly ${isFirstCol} ${isDayHeadClass}  ${_isOver}`} style={{ gridRow: `${rowIdx || 'auto'}/span 1` }} key={utils.makeId()}>
+                {act.date}
+            </div>}
+            {!act.literalDay && <div ref={drop} className={`activity-prev-assembly empty-assembly ${isFirstCol} ${isDayHeadClass}  ${_isOver}`} style={{ gridRow: `${rowIdx || 'auto'}/span 1` }} key={utils.makeId()}>
+                {act.date}
+            </div>}
+        </React.Fragment>
     )
 }

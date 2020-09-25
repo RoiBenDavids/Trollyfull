@@ -101,7 +101,7 @@
             }
 
             p {
-                display: none;
+                // display: none;
                 color: #555456;
                 // margin: 2%;
                 margin-bottom: 0.5rem;
@@ -183,7 +183,7 @@
 
 
     .delete-activity {
-        display: none;
+        // display: none;
         position: absolute;
         padding: 5px;
         bottom: 0;
@@ -193,8 +193,8 @@
         cursor: pointer;
         border-width: 1px;
         // border-radius: 5px;
-        max-width: 35px;
-        max-height: 35px;
+        max-width: 20px;
+        max-height: 20px;
         opacity: 0.4;
 
         &:hover {
