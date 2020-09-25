@@ -106,8 +106,45 @@ class _TripApp extends Component {
             newTrip = await this.props.addTrip(ans2.newTrip)
         }
         socketService.emit('tripToUpdate', newTrip._id);
-
     }
+    // updateDestinations(destIdxToMove, moveToIdx) {
+    //     // let newDestinations =[]
+    //     let destinations = [...this.props.trip.destinations]
+    //     let activities = [...this.props.trip.activities]
+    //     const moveDifference = utils.calculateDays(destinations[destIdxToMove].startDate, destinations[destIdxToMove].endDate)
+    //     const constant = (1000 * 60 * 60 * 24 * (moveDifference - 1))
+    //     if (moveToIdx === -1) {
+    //         destinations = destinations.map((dest, idx) => {
+    //             if (idx < destIdxToMove) return dest
+    //             if (idx > destIdxToMove) {
+    //                 dest.startDate = dest.startDate - constant
+    //                 dest.endDate = dest.endtDate - constant
+    //                 activities = activities.map(act => {
+    //                     if (act.destination === dest.name) act.at -= constant
+    //                     return act
+    //                 })
+    //                 return dest
+    //             }
+    //         })
+    //     } else if (destIdxToMove > moveToIdx) {
+    //         const passDifference = utils.calculateDays(destinations[moveToIdx].startDate, destinations[destIdxToMove - 1].endDate) - (destIdxToMove - moveToIdx)
+    //         destinations = destinations.map((dest, idx) => {
+    //             if (idx < moveToIdx) return dest;
+    //             if(idx===moveToIdx){ 
+    //                 dest.startDate = dest.startDate - passDifference
+    //                 dest.endDate = dest.endtDate - passDifference
+    //                 activities = activities.map(act => {
+    //                     if (act.destination === dest.name) act.at -= passDifference
+    //                     return act
+    //                 })
+    //                 return dest
+    //             }else{
+    //             }
+
+    //         })
+    //     }
+
+    // }
 
     updateTripAct = async (activities) => {
         let newTrip = { ...this.props.trip, activities }
@@ -128,10 +165,16 @@ class _TripApp extends Component {
         })
     }
 
-    addDestination = (newDest) => {
-        const {destinations} = {...this.props.trip}
-        newDest.startDate = destinations[destinations.length-1].endDate
-        // console.log(+newDest.days);
+    addDestination = async (newDest) => {
+        const { destinations } = { ...this.props.trip }
+        newDest.startDate = destinations[destinations.length - 1].endDate
+        newDest.endDate = newDest.startDate + 1000 * 60 * 60 * 24 * (+newDest.days - 1)
+        newDest.id = utils.makeId()
+        newDest.location = { lat: 53.5511, lng: 9.9937 }
+        destinations.push(newDest)
+        const newTrip = { ...this.props.trip, destinations }
+        await this.props.addTrip(newTrip)
+        socketService.emit('tripToUpdate', newTrip._id);
 
     }
 

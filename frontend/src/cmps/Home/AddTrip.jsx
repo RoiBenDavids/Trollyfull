@@ -151,7 +151,8 @@ class _AddTrip extends Component {
                                 name="startDate"
                                 className="styled-input"
                                 required
-                                selected={this.state.currTrip.startDate || Date.now()}
+                                // selected={this.state.currTrip.startDate || Date.now()}
+                                selected={this.state.destinations.length?startDate:Date.now()}
                                 onChange={date => { this.handleInput(date, 'startDate') }}
                             />
                         </div>
