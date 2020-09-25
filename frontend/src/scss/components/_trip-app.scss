@@ -1,9 +1,29 @@
 .trip-app{
+    .trip-app-area{
+        margin-top: 50px;
+    }
+    .trip-app-main{
+        flex: 1;
+        position: relative;
+        margin-left: 250px;
+        
+    }
     .trip-main-img{
         height: 500px;
         object-position: center center;
         object-fit: cover;
         width: 100%;
+    }
+    .trip-side-bar{
+        width: 250px;
+        height: 100vh;
+        border-right: 1px solid black;
+        padding: 0 20px;
+        font-size: 1rem;
+        position: fixed;
+        top: 0px;
+        background-color: lighten(#D826C7, 40%);
+       
     }
     .trip-navbar{
         position: sticky;

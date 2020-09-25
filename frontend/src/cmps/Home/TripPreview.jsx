@@ -49,7 +49,6 @@ class _TripPreview extends Component {
 
     render() {
         const { trip, img, addClass } = this.props
-        console.log(trip.createdBy.imgUrl,'tripreviiiewefksdnflksdnlknmlk');
         if (!trip) return <p>Loading Trip . . .</p>
         const price = this.getTripPrice(trip.activities)
         const days = utils.calculateDays(trip.destinations[0].startDate, trip.destinations[trip.destinations.length - 1].endDate)

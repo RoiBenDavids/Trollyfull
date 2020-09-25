@@ -1,5 +1,7 @@
 .assembly-container {
     color: $clr12;
+    padding: 70px;
+    margin-top: 200px;
     .paging-assembly {
         display: flex;
         width: 15%;
@@ -62,14 +64,15 @@
     .day-list-assembly {
         display: grid;
         background-color: #d0d1ff52;
-        grid-template-rows: repeat(35, minmax(25px, 60px));
+        grid-template-rows: repeat(35, minmax(30px,60px));
         
         > * {
             text-align: center;
             position: relative;
             display: flex;
             flex-direction: column;
-            box-shadow: -0.08px -0.08px 0 0px black;
+            // box-shadow: -0.08px -0.08px 0 0px black;
+            border: 1px solid black;
             justify-content: center;
             p {
                 margin: 0;

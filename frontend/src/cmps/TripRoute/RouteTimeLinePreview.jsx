@@ -10,8 +10,8 @@ export function RouteTimeLinePreview({ destination, idx, isLast, changeOrder }) 
         <React.Fragment>
          
 
-            <div className="time-line-area">
-                <div className="icons">
+            <div className="time-line-area flex align-center">
+                <div className="time-line-icons flex column">
                     {<i className={`fas fa-chevron-circle-up  trips-pagination trips-pagination-forward ${idx === 0 ? 'visi-none' : ''}`} onClick={() => changeOrder(idx, true)}></i>}
                     {<i className={`fas fa-chevron-circle-down  trips-pagination trips-pagination-forward ${isLast ? 'visi-none' : ''}`} onClick={() => changeOrder(idx, false)}></i>}
                 </div>

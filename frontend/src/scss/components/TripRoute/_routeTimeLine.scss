@@ -1,13 +1,14 @@
 .route-time-line{
+    font-family: Arial, Helvetica, sans-serif;////CHANGE!!!!
     .line{
         border-left: 2px solid $clr12;
         opacity: 0.5;
-        height: 70px;
-        margin-inline-start: 68px;//may change
+        height: 50px;
+        margin-inline-start: 40px;//may change
     }
     .index-ball{
-        height: 50px;
-        width: 50px;
+        height: 40px;
+        width: 40px;
         border-radius: 50%;
         margin-right: 20px;
         
@@ -17,11 +18,11 @@
     }
 
     .time-line-area{
-        display: flex;
-        align-items: center;
-        i:nth-of-type(2){
-            margin-right: 10px;
+        .time-line-icons{
+            height: 100%;
+            margin-right: 5px;
         }
+        
     }
     .route-time-line-context{
         min-width: 260px;
@@ -34,6 +35,11 @@
             overflow-x: visible;
             font-weight: bold;
         }
+    }
+    .add-destination-button{
+        font-size: 2.4rem;
+        margin-top: 30px;
+        margin-inline-start: 80px;
     }
     // @for $i from 0 through 8 {
     //     .route-time-line-context:nth-child(#{$i})>.index-ball {

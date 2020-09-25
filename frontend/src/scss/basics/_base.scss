@@ -57,29 +57,29 @@ ul,li,p{
 }
 
 .dest-0 {
-    background-color: $clr1 !important;
-     @include shadow($clr1)
+    background-color: #D826C7 !important;
+    //  @include shadow($clr1)
     
 }
 .dest-1 {
-    background-color: $clr2;
-    @include shadow($clr2)
+    background-color: adjust-hue($color: #D826C7, $degrees: 20deg)
+    // @include shadow($clr2)
 }
 .dest-2 {
-    background-color: $clr3;
-    @include shadow($clr3)
+    background-color: adjust-hue($color: #D826C7, $degrees: 40deg)
+    // @include shadow($clr3)
 }
 .dest-3 {
     background-color: $clr4;
-    @include shadow($clr4)
+    // @include shadow($clr4)
 }
 .dest-4 {
     background-color: $clr5;
-    @include shadow($clr5)
+    // @include shadow($clr5)
 }
 .dest-5 {
     background-color: $clr6;
-    @include shadow($clr6)
+    // @include shadow($clr6)
 }
 .dest-6 {
     background-color: $clr7;
