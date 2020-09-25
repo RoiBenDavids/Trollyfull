@@ -4,7 +4,7 @@ module.exports = connectSockets
 function connectSockets(io) {
     io.on('connection', socket => {
 
-        socket.on('chat topic', topic => {
+        socket.on('enter trip', topic => {
             if (socket.myTopic) {
                 socket.leave(socket.myTopic)
             }
@@ -25,9 +25,16 @@ function connectSockets(io) {
             io.to(socket.myTopic).emit('notTyping', data)
             // socket.broadcast.emit('typing', data);
         });
-        socket.on('tripToUpdate', trip => {
-            io.to(socket.myTopic).emit('tripUpdated', trip)
-            // socket.broadcast.emit('typing', data);
+        socket.on('tripToUpdate', tripId => {
+            io.to(socket.myTopic).emit('tripUpdated', tripId)
         });
+
+        // socket.on('updateTrip', topic => {
+        //     if (socket.myTopic) {
+        //         socket.leave(socket.myTopic)
+        //     }
+        //     socket.join(topic)
+        //     socket.myTopic = topic;
+        // })
     })
 }

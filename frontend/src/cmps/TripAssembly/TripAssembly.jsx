@@ -54,6 +54,8 @@ export class TripAssembly extends Component {
                 let row = this.getRowIdx(act.at)
                 act.col = col
                 act.row = row
+                // act.row = row+1
+
                 if (!act.freeDay) weekMat[row][col] = act
             }
         }

@@ -1,7 +1,7 @@
 const initialState = {
     trips: [],
-    currTrip:null
-  
+    currTrip: null
+
 }
 
 
@@ -14,16 +14,16 @@ export function tripReducer(state = initialState, action) {
             }
         case 'EDIT_TRIP':
             return {
-                ...state,currTrip:{...action.trip}, trips: state.trips.map(trip => {
+                ...state, currTrip: { ...action.trip }, trips: state.trips.map(trip => {
                     if (action.trip._id === trip._id) return action.trip
                     return trip;
                 })
-                
+
             }
-            case 'SET_TRIP':
+        case 'SET_TRIP':
             return {
                 ...state,
-                currTrip: {...action.trip}
+                currTrip: { ...action.trip }
             }
 
 

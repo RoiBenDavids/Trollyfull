@@ -16,9 +16,6 @@ export class Login extends React.Component {
         else{
             this.props.closeModal()
         }
-
-
-
     }
 
 

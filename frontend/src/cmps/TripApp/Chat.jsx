@@ -14,11 +14,10 @@ class _Chat extends Component {
     }
 
     componentDidMount() {
-        socketService.emit('chat topic', this.props.trip._id);
         socketService.on('chat addMsg', this.addMsg);
         socketService.on('isTyping', this.userTyping);
         socketService.on('notTyping', this.userTyping);
-
+        
         // socketService.emit('chat history');
         // socketService.on('load history', this.loadHistory)
     }
