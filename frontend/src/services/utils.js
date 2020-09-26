@@ -26,7 +26,7 @@ function calculateDays(start, end) {
     end = new Date(end)
     start = new Date(start)
     var difference = end.getTime() - start.getTime();
-    var daysDifference = Math.ceil(difference / 1000 / 60 / 60 / 24);
+    var daysDifference = Math.ceil(difference / 999 / 60 / 60 / 24);
     return daysDifference
 }
 
