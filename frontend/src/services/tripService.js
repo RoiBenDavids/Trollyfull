@@ -17,12 +17,10 @@ const user = {
     imgUrl: 'http://some-img',
 }
 
-async function query(filterBy) {
-    // const queryParams
-    return httpService.get('trip', filterBy)
-
-    const queryStr = `?search=${filterBy.search}&minPrice=${filterBy.minPrice}&maxPrice=${filterBy.maxPrice}&type=${filterBy.type}&inStock=${filterBy.inStock}`;
+async function query(filterBy={name:''}) {
+    const queryStr = `?search=${filterBy.name}`;
     return httpService.get(`trip${queryStr}`);
+    
 }
 
 

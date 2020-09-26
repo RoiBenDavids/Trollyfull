@@ -1,13 +1,9 @@
 import React from 'react'
 import { utils } from '../../services/utils'
 // var gFreeDays = 14
-export function DestNamePrev({ dest, updateFreeDays, freeDays, idx }) {
-    // console.log("DestNamePrev -> dest", dest)
-
-    // dest.duration = (dest.isSameEndDay || dest.isSameStartDay) ? dest.duration * 2 - 1 : dest.duration * 2
-    // if (gFreeDays < dest.duration ) dest.duration = gFreeDays
-    // gFreeDays -= dest.duration
-    // updateFreeDays(freeDays)
+export function DestNamePrev({ dest, updateFreeDays, freeDays, destinations }) {
+    
+    const idx = destinations.findIndex(_dest => _dest.name === dest.name)
     const display = (dest.duration) ? '' : 'none'
     return (
 

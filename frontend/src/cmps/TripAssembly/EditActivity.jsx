@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { utils } from '../../services/utils';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export class EditActivity extends Component {
     state = {
@@ -54,31 +56,36 @@ export class EditActivity extends Component {
         }
     }
 
+    handleTime = (time) => {
+        let tzoffset = (time).getTimezoneOffset() * 60000; //offset in milliseconds
+        let localISOTime = (new Date(time - tzoffset)).toISOString().slice(0, -1);
+        this.setState({ activitie: { ...this.state.activitie, at: localISOTime } })
+    }
 
     handleChange = ({ target }) => {
         const field = target.name;
         let value = target.value;
 
-        if (field === 'at') {
-            let time = value.substring(value.length - 5)
-            let hours = +time.split(':')[0]
-            let minuets = +time.split(':')[1]
-            if (minuets <= 15) {
-                minuets = 0
-            } else if (minuets >= 45) {
-                minuets = 0
-                hours += 1
-            } else {
-                minuets = 30
-            }
-            if (hours >= 0 && hours < 7) {
-                alert('Please choose events between 7:00 AM and 11:30 PM')
-                return
-            }
-            minuets = ((minuets + '').length === 1) ? ('0' + minuets) : (minuets + '')
-            hours = ((hours + '').length === 1) ? ('0' + hours) : (hours + '')
-            value = value.substring(0, value.length - 5) + `${hours}:${minuets}`
-        }
+        // if (field === 'at') {
+        //     let time = value.substring(value.length - 5)
+        //     let hours = +time.split(':')[0]
+        //     let minuets = +time.split(':')[1]
+        //     if (minuets <= 15) {
+        //         minuets = 0
+        //     } else if (minuets >= 45) {
+        //         minuets = 0
+        //         hours += 1
+        //     } else {
+        //         minuets = 30
+        //     }
+        //     if (hours >= 0 && hours < 7) {
+        //         alert('Please choose events between 7:00 AM and 11:30 PM')
+        //         return
+        //     }
+        //     minuets = ((minuets + '').length === 1) ? ('0' + minuets) : (minuets + '')
+        //     hours = ((hours + '').length === 1) ? ('0' + hours) : (hours + '')
+        //     value = value.substring(0, value.length - 5) + `${hours}:${minuets}`
+        // }
 
         if (target.type === 'checkbox') this.setState({ [field]: target.checked });
         else if (target.type === 'number') this.setState({ activitie: { ...this.state.activitie, [field]: +value } });
@@ -99,9 +106,21 @@ export class EditActivity extends Component {
         saveAct(this.state.activitie)
     }
 
+    getValidTime = () => {
+        return new Date(this.state.activitie.at)
+    }
+
     render() {
         const { activitie, minTime, maxTime } = this.state
+        if (!activitie) return <div>Loading</div>
         const { destinations } = this.props.props
+        let minT = new Date(minTime)
+        let maxT = new Date(maxTime)
+        let currDate = new Date(activitie.at)
+        let _min = currDate.setHours(7, 0)
+        let _max = currDate.setHours(23, 59)
+        let min = new Date(_min)
+        let max = new Date(_max)
         return (
 
             <form className="edit-activity-form flex column" onSubmit={this.onSaveAct}>
@@ -116,9 +135,23 @@ export class EditActivity extends Component {
                     })}
                 </select>}
                 <label htmlFor="start-time-activity-input">Time</label>
-                <input className="styled-input" type="datetime-local" id="start-time-activity-input" min={minTime} max={maxTime} name="at"
+                <DatePicker
+                    minDate={minT}
+                    maxDate={maxT}
+                    selected={this.getValidTime().getTime()}
+                    minTime={min}
+                    maxTime={max}
+                    autoComplete="off"
+                    className="styled-input"
+                    showTimeSelect
+                    required
+                    showFullMonthYearPicker
+                    dateFormat="Pp"
+                    onChange={time => this.handleTime(time)}
+                />
+                {/* <input className="styled-input" type="datetime-local" id="start-time-activity-input" min={minTime} max={maxTime} name="at"
                     onChange={this.handleChange} value={this.state.activitie.at}
-                    required="required" id="date-activity-input" />
+                    required="required" id="date-activity-input" /> */}
                 <label htmlFor="duration">Duration (Half hours)</label>
                 <input className="styled-input" placeholder="duration" id="duration" type="number" name="duration" value={this.state.activitie.duration} onChange={this.handleChange}></input>
                 <label htmlFor="notes">Notes</label>

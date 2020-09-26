@@ -10,24 +10,15 @@ export class TripFilter extends Component {
     // }
 
     render() {
-        const { onsetFilter } = this.props
-        return (
+        const { onsetFilter, mostOccDests } = this.props
+        return (        
             <div className="trip-filter flex" style={this.props.style}>
-                {/* <p>
-                    <label htmlFor="filter-toy-by-name" > Name</label>
-                    <input type="text" id="filter-toy-by-name" name="name" onChange={onsetFilter} />
-                </p>
-                <p>
-                    <label htmlFor="filter-toy-by-price" >Price</label>
-                    <input type="number" id="filter-toy-by-price" min="1" name="price" placeholder="Enter max price" onChange={onsetFilter} />
-                </p> */}
-
-                <p className="filterBtn" onClick={(ev)=> {onsetFilter('taipei')}}>Taiwan</p>
-                <p className="filterBtn" onClick={(ev)=> {onsetFilter('London')}}>London</p>
-                <p className="filterBtn" onClick={(ev)=> {onsetFilter('Thailand')}}>Thailand</p>
-                <p className="filterBtn" onClick={(ev)=> {onsetFilter('Mexico')}}>Mexico</p>
-                <p className="filterBtn" onClick={(ev)=> {onsetFilter('Switzerland')}}>Switzerland</p>
-
+                <input autoComplete="off" placeholder="Search" className="styled-input" name="name" onChange={this.props.handleInput} list="dest-filter" />
+                <datalist onChange={this.props.handleInput} id="dest-filter">
+                    {mostOccDests.map(dest => {
+                       return <option value={`${dest}`}></option>
+                    })}
+                </datalist>
             </div>
         )
     }

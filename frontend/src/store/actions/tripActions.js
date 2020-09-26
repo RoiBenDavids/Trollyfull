@@ -14,10 +14,11 @@ export function loadTrip(tripId) {
     }
 }
 
-export function loadTrips() {
+export function loadTrips(filterBy) {
+    // console.log("loadTrips -> filterBy", filterBy)
     return async dispatch => {
         dispatch({ type: 'SET_LOADER' })
-        const trips = await tripService.query()
+        const trips = await tripService.query(filterBy)
         dispatch({ type: 'SET_TRIPS', trips })
         dispatch({ type: 'CLOSE_LOADER' })
     }

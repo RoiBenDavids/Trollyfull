@@ -5,7 +5,7 @@ const tripService = require('./trip.service')
 
 async function getTrips(req, res) {
     try {
-        const trips = await tripService.query(req.params)
+        const trips = await tripService.query(req.query)
         res.send(trips)
     } catch (err) {
         logger.error('Cannot get trips', err);

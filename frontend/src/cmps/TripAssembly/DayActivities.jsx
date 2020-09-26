@@ -18,8 +18,6 @@ export function DayActivities({ day, getRowIdx, onRemoveAct, onEdit, destination
                 i += day[i].duration
             }
         }
-        
-
         return newDay
     }
     let newDay = reCalcPos(day)
@@ -28,7 +26,6 @@ export function DayActivities({ day, getRowIdx, onRemoveAct, onEdit, destination
     var currActsLength = 0
     return (
         <div className="day-list-assembly">
-
             {newDay.map((act, idx, day) => {
                 if (act.id) {
                     isAfterActs = true
@@ -38,12 +35,10 @@ export function DayActivities({ day, getRowIdx, onRemoveAct, onEdit, destination
                         getRowIdx={getRowIdx} key={utils.makeId()} act={act} />
 
                 } else {
-
                     return <OpenDaySlot
                         destinations={destinations} onEdit={onEdit} onRemoveAct={onRemoveAct}
                         getRowIdx={getRowIdx} key={utils.makeId()} act={act} onDragMove={onDragMove} />
                 }
-
             })}
         </div>
     )

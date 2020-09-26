@@ -15,9 +15,7 @@ import { socketService } from '../services/socketService'
 import { MapContainer } from '../cmps/MainCmps/Map';
 import { closeMsg, showMsg } from '../store/actions/msgActions'
 import { ErrorMsg } from '../cmps/MainCmps/ErrorMsg'
-
 // import locationCevtorRed from 'https://res.cloudinary.com/roidinary/image/upload/v1600377967/locationVectorRed_vzufx4.png'
-
 
 class _TripApp extends Component {
 
@@ -108,7 +106,6 @@ class _TripApp extends Component {
     //         newTrip = await this.props.addTrip(ans2.newTrip)
     //     }
 
-    //     console.log("changeOrder -> newTrip", newTrip)
     //     socketService.emit('tripToUpdate', newTrip._id);
     //     this.props.loadTrip(newTrip._id)
 
@@ -174,7 +171,6 @@ class _TripApp extends Component {
         await this.props.addTrip(newTrip)
         socketService.emit('tripToUpdate', newTrip._id);
 
-
     }
 
     updateTripAct = async (activities) => {
@@ -227,6 +223,7 @@ class _TripApp extends Component {
                     </Route>
                 </Switch> */}
                 <div className="trip-app-area flex ">
+                    
                     <div className="trip-side-bar flex column ">
                         <TripRoute trip={trip} addDestination={this.addDestination} updateDestinations={this.updateDestinations} showModal={this.props.showModal} toggleChat={this.toggleChat}></TripRoute>
                     </div>
@@ -259,3 +256,5 @@ const mapDispatchToProps = {
     
 }
 export const TripApp = connect(mapStateToProps, mapDispatchToProps)(withRouter(_TripApp))
+
+

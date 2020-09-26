@@ -62,6 +62,7 @@
     .day-list-assembly {
         display: grid;
         background-color: #d0d1ff52;
+        
         grid-template-rows: repeat(35, 30px);
         
         > * {

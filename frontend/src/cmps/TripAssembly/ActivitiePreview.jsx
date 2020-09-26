@@ -16,17 +16,15 @@ export function ActivitiePreview({ act, onRemoveAct, onEdit, destinations }) {
         })
     })
 
-    function getIdx () {
-       return destinations.findIndex(dest => act.destination === dest.name)
-    }
+    
 
-    const startTime = utils.getTimeDayStr(act.at)
-    const endTime = utils.getTimeDayStr(act.at + (+act.duration / 2) * 60 * 60 * 1000)
+    // const startTime = utils.getTimeDayStr(act.at)
+    // const endTime = utils.getTimeDayStr(act.at + (+act.duration / 2) * 60 * 60 * 1000)
     const isFirstCol = (act.col === 0) ? 'first-col' : ''
     const isDayHeadClass = (act.literalDay) ? 'literal-day' : ''
     const isDrag = (isDragging) ? 'is-drag' : ''
     const isLenOne = (act.duration === 1) ? 'len-one' : ''
-    const dest= getIdx()
+    const dest= destinations.findIndex(dest => act.destination === dest.name)
 
     return (
         <div ref={drag} className={`activity-prev-assembly activity-assembly ${isLenOne} ${isDayHeadClass} ${isFirstCol} ${isDrag}`} style={{ gridRow: `${act.row + 1 || 'auto'}/span ${act.duration}` }} key={utils.makeId()}>

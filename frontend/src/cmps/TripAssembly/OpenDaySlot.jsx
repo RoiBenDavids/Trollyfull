@@ -20,9 +20,7 @@ export function OpenDaySlot({ act, getRowIdx, onDragMove }) {
     const isFirstCol = (act.col === 0) ? 'first-col' : ''
     const isDayHeadClass = (act.literalDay) ? 'literal-day' : ''
     const _isOver = (isOver) ? 'is-over' : ''
-    if (isOver) {
-        console.log(act);
-    }
+   
     return (
         <React.Fragment>
             {act.literalDay && <div  className={`activity-prev-assembly empty-assembly ${isFirstCol} ${isDayHeadClass}  ${_isOver}`} style={{ gridRow: `${rowIdx || 'auto'}/span 1` }} key={utils.makeId()}>

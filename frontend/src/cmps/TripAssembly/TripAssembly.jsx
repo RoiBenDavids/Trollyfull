@@ -52,17 +52,16 @@ export class TripAssembly extends Component {
             }
             prevDate = currDate
             col = currDate - startDate
-            for (let j = 0; j < currDayActs.length; j++) {
-                const act = currDayActs[j]
+
+            currDayActs.forEach(act => {
                 if (!act.freeDay) {
                     let row = this.getRowIdx(act.at)
                     act.col = col
                     act.row = row
                     weekMat[row][col] = act
                 }
-                // act.row = row
+            })
 
-            }
         }
         weekMat = this.showDaysName(destTimeStamp, weekMat)
         this.setState({ weekMat, actsToDisplay: WeeklyActsToDisplay })
@@ -182,7 +181,6 @@ export class TripAssembly extends Component {
         const dest = this.props.trip.destinations.find(_dest => _dest.name === activity.destination)
 
 
-        let testDest = new Date(dest.startDate)
         let newTime = this.getTimeFromIdx(pos)
         if (newTime < dest.startDate - 24 * 60 ** 2 * 1000 || newTime >= dest.endDate + 3 * 60 ** 2 * 1000) {
             this.props.showMsg({ type: 'invalid-move', msg: 'Cannot move activities to another destination!' })
@@ -194,7 +192,6 @@ export class TripAssembly extends Component {
 
         if (this.isOccTimeSlot(activity)) {
             this.props.showMsg({ type: 'invalid-move', msg: 'You aleardy have plans for that date! please choose a different one.' })
-            // alert('You aleardy have plans for that date! please choose a different one.')
             return
         }
         this.saveAct(activity)
@@ -204,7 +201,8 @@ export class TripAssembly extends Component {
         const { page } = this.state
         const currWeekDates = this.getLinearTripDays()
         if (j + page * 7 >= currWeekDates.length) {
-            alert('You\'re not travlling on that date!')
+
+
             return false
         }
 
@@ -248,8 +246,6 @@ export class TripAssembly extends Component {
         var { destinations } = this.props.trip
         const linearDays = this.getLinearTripDays()
         const minDay = linearDays[page * 7]
-        // const maxPage = ((page * 7 + 7) < linearDays.length) ? (page * 7 + 7) : linearDays.length - 1
-        // const maxDay = linearDays[maxPage]
         return destinations.filter(dest => {
             return dest.startDate >= minDay || dest.endDate >= minDay
         })
@@ -392,8 +388,7 @@ export class TripAssembly extends Component {
         for (let i = 0; i < 7; i++) {
 
             var col = this.getCol(mat, i)
-            let numOfActs = this.getDayNumOfAct(col)
-            actPreviews.push(<DayActivities numOfActs={numOfActs} onDragMove={this.onDragMove} getTimeFromIdx={this.getTimeFromIdx} destinations={this.props.trip.destinations} onEdit={this.onEdit} onRemoveAct={this.onRemoveAct} getRowIdx={this.getRowIdx} key={utils.makeId()} day={col} />
+            actPreviews.push(<DayActivities onDragMove={this.onDragMove} getTimeFromIdx={this.getTimeFromIdx} destinations={this.props.trip.destinations} onEdit={this.onEdit} onRemoveAct={this.onRemoveAct} getRowIdx={this.getRowIdx} key={utils.makeId()} day={col} />
             )
         }
 
@@ -403,7 +398,7 @@ export class TripAssembly extends Component {
 
     render() {
         const { weekMat, minDestinations } = this.state
-
+        const { destinations } = this.props.trip
         if (!weekMat || !minDestinations) return <div>Loading...</div>
         const dayActs = this.renderDayActivities(weekMat)
         this.mapDestsToHeaderLength()
@@ -414,7 +409,7 @@ export class TripAssembly extends Component {
                     <span>{this.state.page + 1}</span>
                     <div className="toggle-page" onClick={() => this.onTogglePage('next')}>{'>'}</div>
                 </section>
-                <DestinationsHeader destinations={minDestinations} />
+                <DestinationsHeader allDestinations={destinations} destinations={minDestinations} />
                 <div className={'trip-assembly-main full'}>
                     <DayTimeLine />
                     {dayActs}
