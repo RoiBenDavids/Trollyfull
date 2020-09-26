@@ -1,33 +1,25 @@
-::-webkit-scrollbar {
-    width: 12px;
-}
-::-webkit-scrollbar-track {
-    background-color: rgba(255, 255, 255, 0);
-    border-radius: 10px;
-}
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: $clr6;
-    }
+
 .route-time-line{
     font-family: Arial, Helvetica, sans-serif;////CHANGE!!!!
-    flex:1;
-    max-height: 386px;
+  
+    // min-height: 44vh;
+    max-height: 44vh;
     overflow-y: auto;
     overflow-x: hidden;
   
     .line{
         border-left: 2px solid $clr12;
         opacity: 0.5;
-        height: 50px;
-        margin-inline-start: 40px;//may change
+        height: 35px;
+        margin-inline-start: 19px;
     }
     .index-ball{
+        color: rgb(240, 240, 240);
         height: 40px;
         width: 40px;
         border-radius: 50%;
-        margin-right: 20px;
-        
+        margin-right: 10px;
+       
     }
     .visi-none{
         visibility: hidden;
@@ -41,24 +33,25 @@
         
     }
     .route-time-line-context{
-        min-width: 260px;
-        letter-spacing: 0.3px;
-       
-        div:nth-child(2){
-            text-transform: capitalize;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-        div:nth-child(3){
-            overflow-x: visible;
-            font-size: 0.8rem;
+       .time-line-text{
+           p:nth-child(1){
+               text-transform: capitalize;
+               font-weight: bold;
+               line-height: 1.5;
+            }
+            p:nth-child(2){
+                // overflow-x: visible;
+                font-size: 0.8rem;
+                font-style: italic;
+                letter-spacing: 0.8px;
+            }
         }
     }
-    .add-destination-button{
-        font-size: 2.4rem;
-        margin-top: 30px;
-        margin-inline-start: 80px;
-    }
+    // .add-destination-button{
+    //     font-size: 1.8rem;
+    //     margin-top: 30px;
+    //     margin-inline-start: 80px;
+    // }
     // @for $i from 0 through 8 {
     //     .route-time-line-context:nth-child(#{$i})>.index-ball {
     //         background-color:  adjust-hue($clr1, $i*5deg )

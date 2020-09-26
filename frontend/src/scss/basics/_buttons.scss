@@ -1,26 +1,25 @@
-.styled-button{
-    width: 250px;
-    cursor: pointer;
-    border: none;
-    border-radius: 3px;
-    padding: 10px 10px;
-    background: linear-gradient(45deg, #519edd, #d892df);
-    outline: none;
-    margin:  10px 0;
+.styled-button {
+  width: 250px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 10px;
+  background: linear-gradient(45deg, #4e90ff, #ff78fc);
+  outline: none;
+  margin: 10px 0;
+  box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 6px 6px 10px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  &:hover {
+    opacity: 0.8;
     box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 6px 6px 10px rgba(0, 0, 0, 0.2);
-    color: #ffffff;
-    &:hover {
-      opacity: 0.8;
-      box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8),
-        6px 6px 10px rgba(0, 0, 0, 0.2);
-    }
-    &:active {
-      opacity: 1;
-      box-shadow: inset -2px -4px 7px 1px #f6f6f682, inset 8px 8px 16px #0000009e;
-      color: #9bebff;
-    }
   }
+  &:active {
+    opacity: 1;
+    box-shadow: inset -2px -4px 7px 1px #f6f6f682, inset 8px 8px 16px #0000009e;
+    color: #9bebff;
+  }
+}
 
-  button{
-    cursor: pointer;
-  }
+button {
+  cursor: pointer;
+}

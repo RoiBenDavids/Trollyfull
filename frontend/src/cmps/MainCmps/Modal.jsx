@@ -5,6 +5,7 @@ import { LoginSignupPage } from '../../pages/LoginSignupPage';
 import { closeModal, showModal } from '../../store/actions/modalActions'
 import { closeMsg, showMsg } from '../../store/actions/msgActions';
 import { EditActivity } from '../TripAssembly/EditActivity';
+import { PrevEditActivity } from '../TripAssembly/PrevEditActivity';
 import { AddReview } from '../tripReviews/AddReview';
 import { AddMember } from './AddMember';
 import { NotificationMsg } from './NotificationMsg';
@@ -28,7 +29,7 @@ class _Modal extends React.Component {
                 nameToDisplay = 'Please Login'
                 break
             case 'signup':
-                const tripId=this.props.modal.props
+                const tripId = this.props.modal.props
                 dynamicCmp = <LoginSignupPage page={false} handleClick={this.handleClick} tripId={tripId} />
                 nameToDisplay = 'Please Sign Up'
                 break
@@ -36,18 +37,23 @@ class _Modal extends React.Component {
                 dynamicCmp = <EditActivity props={this.props.modal.props} />
                 nameToDisplay = 'Edit activity'
                 break
+            case 'activityDetails':
+                dynamicCmp = <PrevEditActivity props={this.props.modal.props} showMsg={this.props.showMsg}
+                closeMsg={this.props.closeMsg}/>
+                nameToDisplay = 'Activity Details'
+                break
             case 'removeActivity':
-                dynamicCmp = <NotificationMsg props={this.props.modal.props} closeModal={this.props.closeModal}/>
+                dynamicCmp = <NotificationMsg props={this.props.modal.props} closeModal={this.props.closeModal} />
                 nameToDisplay = 'Delete Activity'
                 break
             case 'add-review':
                 dynamicCmp = <AddReview props={this.props.modal.props.addReview} showMsg={this.props.showMsg}
-                closeMsg={this.props.closeMsg} closeModal={this.closeModal} />
+                    closeMsg={this.props.closeMsg} closeModal={this.closeModal} />
                 nameToDisplay = 'Add Review'
                 break
-                case 'add-member':
-                dynamicCmp = <AddMember props={this.props.modal.props} 
-                closeModal={this.closeModal} />
+            case 'add-member':
+                dynamicCmp = <AddMember props={this.props.modal.props}
+                    closeModal={this.closeModal} />
                 nameToDisplay = 'Add Member'
                 break
             default:

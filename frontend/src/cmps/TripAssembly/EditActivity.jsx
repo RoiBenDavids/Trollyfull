@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export class EditActivity extends Component {
     state = {
         activitie: {
-            name: 'nice place',
+            name: '',
             at: '',
             time: '',
             labels: ['relax'],
@@ -21,6 +21,7 @@ export class EditActivity extends Component {
     }
 
     async componentDidMount() {
+        console.log(this.props.props);
         const { act, destinations } = this.props.props
         let minTime;
         let maxTime;
@@ -30,11 +31,12 @@ export class EditActivity extends Component {
             minTime = utils.getIsoTime(destinations[destIdx].startDate)
             maxTime = utils.getIsoTime(destinations[destIdx].endDate)
             this.setState({
+
                 activitie: {
-                    ...act, price: act.price.amount, at: utils.getIsoTime(act.at),
+                    ...act, name: act.name, price: act.price.amount, at: utils.getIsoTime(act.at),
                     destination: act.destination
                 }, minTime, maxTime
-            })
+            }, () => console.log(this.state))
         } else {
 
             minTime = utils.getIsoTime(destinations[0].startDate)
@@ -105,6 +107,11 @@ export class EditActivity extends Component {
         activitie.price = { amount: activitie.price, currency: '$' }
         saveAct(this.state.activitie)
     }
+    // checkinput = (ev, name) => {
+    //     console.log(ev.target.innerText, name);
+    //     this.setState({ ...this.state, activitie: { ...this.state.activitie, name: ev.target.innerText } })
+    // }
+
 
     getValidTime = () => {
         return new Date(this.state.activitie.at)
@@ -122,6 +129,12 @@ export class EditActivity extends Component {
         let min = new Date(_min)
         let max = new Date(_max)
         return (
+
+            // <div>
+            //     <p>Name: <span contentEditable={true} suppressContentEditableWarning={true}
+            //         onBlur={(ev)=>{this.checkinput(ev, 'name')}}>{this.state.activitie.name}</span></p>
+
+            // </div>
 
             <form className="edit-activity-form flex column" onSubmit={this.onSaveAct}>
                 <label htmlFor="name">Name</label>

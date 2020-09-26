@@ -25,14 +25,11 @@ export function loadTrips(filterBy) {
 }
 
 
-export function addTripFast(newTrip) {
+export function addTripFast(trip) {
     return async dispatch => {
         try {
-            
-            // dispatch({ type: 'SET_LOADER' })
-            const trip = await tripService.save(newTrip)
             dispatch({ type: 'EDIT_TRIP', trip })
-            // dispatch({ type: 'CLOSE_LOADER' })
+            await tripService.save(trip)
         }
 
         catch (err) {

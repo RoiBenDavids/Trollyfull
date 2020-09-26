@@ -82,36 +82,36 @@ p {
 }
 
 .dest-0 {
-    background-color: #f3cbef !important;
+    background-color: #ff78fc !important;
     //  @include shadow($clr1)
 }
 .dest-1 {
-    background-color: #d8a8d4;
+    background-color: #dc82fb;
     // background-color: adjust-hue($color: #f3cbef, $degrees: 20deg)
     // @include shadow($clr2)
 }
 .dest-2 {
-    background-color: #c459b9;
+    background-color: #aa67e0;
     // background-color: adjust-hue($color: #D826C7, $degrees: 40deg)
     // @include shadow($clr3)
 }
 .dest-3 {
-    background-color: #8512a5bf;
+    background-color: #94a3ff;
     // background-color: $clr4;
     // @include shadow($clr4)
 }
 .dest-4 {
-    background-color: #b795f3bf;
+    background-color: #4e90ff;
     // background-color: $clr5;
     // @include shadow($clr5)
 }
 .dest-5 {
-    background-color: #7545cabf;
+    background-color: #1354d8;
     // background-color: $clr6;
     // @include shadow($clr6)
 }
 .dest-6 {
-    background-color: #7aa2f3bf;
+    background-color: #0939d8bf;
     // background-color: $clr7;
     @include shadow($clr7);
 }
