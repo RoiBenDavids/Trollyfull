@@ -11,7 +11,7 @@ export class NotificationMsg extends Component {
     render() {
         return (
             <div>
-                <h2>Are you sure you want to delete?</h2>
+                <p>Are you sure you want to delete?</p>
                 <div className="flex notification-btns">
                     <button className="styled-button" onClick={() => this.props.props.removeAct(this.props.props.actId)}>Delete</button>
                     <button className="styled-button" onClick={() => this.props.closeModal()}>Cancel</button>
