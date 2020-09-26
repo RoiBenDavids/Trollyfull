@@ -67,12 +67,12 @@ class _TripPreview extends Component {
                             <img className="user-img" src={trip.createdBy.imgUrl} alt="user-img" />
                             <p>By: {trip.createdBy.username}</p>
                         </div>}
-                        <div className="flex Justify-between column">
+                        <div className="flex justify-between column">
                             <p><i className="fas fa-hourglass-half"></i>{days} days</p>
                             <p>Est Price: <i className="fas fa-dollar-sign"></i>{price}</p>
                             <div className="flex rating-star">
                                 <img src="https://res.cloudinary.com/idanrozen/image/upload/v1600689776/450716_preview_uyyiz1.png" alt="" />
-                                <div className="flex Justify-between">
+                                <div className="flex justify-between">
                                     {reviews ? <span>{reviews} <span>({this.state.reviews.length} reviews) </span></span> : '(0)'}
                                 </div>
 

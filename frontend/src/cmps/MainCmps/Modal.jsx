@@ -7,6 +7,7 @@ import { closeMsg, showMsg } from '../../store/actions/msgActions';
 import { EditActivity } from '../TripAssembly/EditActivity';
 import { AddReview } from '../tripReviews/AddReview';
 import { AddMember } from './AddMember';
+import { NotificationMsg } from './NotificationMsg';
 
 class _Modal extends React.Component {
     state = {
@@ -34,6 +35,10 @@ class _Modal extends React.Component {
             case 'editActivity':
                 dynamicCmp = <EditActivity props={this.props.modal.props} />
                 nameToDisplay = 'Edit activity'
+                break
+            case 'removeActivity':
+                dynamicCmp = <NotificationMsg props={this.props.modal.props} closeModal={this.props.closeModal}/>
+                nameToDisplay = 'Delete Activity'
                 break
             case 'add-review':
                 dynamicCmp = <AddReview props={this.props.modal.props.addReview} showMsg={this.props.showMsg}
@@ -73,7 +78,7 @@ class _Modal extends React.Component {
                     <div className="modal-header flex align-center justify-center styled-header" ><p>{this.state.nameToDisplay}</p><button onClick={this.closeModal}>X</button></div>
                     <div className="modal-content"  >
                         {this.state.dynamicCmp}
-                        {this.props.msg? <p>{this.props.msg}</p>:''}
+                        {/* {this.props.msg? <p>{this.props.msg}</p>:''} */}
                     </div>
                 </div >
             </div>

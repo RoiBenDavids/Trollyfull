@@ -13,6 +13,8 @@ import { logDOM } from '@testing-library/react'
 import { Chat } from '../cmps/TripApp/Chat'
 import { socketService } from '../services/socketService'
 import { MapContainer } from '../cmps/MainCmps/Map';
+import { closeMsg, showMsg } from '../store/actions/msgActions'
+import { ErrorMsg } from '../cmps/MainCmps/ErrorMsg'
 
 // import locationCevtorRed from 'https://res.cloudinary.com/roidinary/image/upload/v1600377967/locationVectorRed_vzufx4.png'
 
@@ -143,6 +145,7 @@ class _TripApp extends Component {
         if (!trip) return <div>Loading....</div>
         return (
             <div className="trip-app  ">
+                <ErrorMsg/>
                 {/* <Switch>
                     <Route path="/trip/:id/triproute">
                         <img className="trip-main-img full" src={trip.imgUrl}></img>
@@ -160,7 +163,7 @@ class _TripApp extends Component {
                     </div>
                     <div className="trip-app-main full">
                         <MapContainer markers={this.getMarkers()} />
-                        <TripAssembly trip={trip} updateTripAct={this.updateTripAct} showModal={this.props.showModal} closeModal={this.props.closeModal}></TripAssembly>
+                        <TripAssembly showMsg={this.props.showMsg} closeMsg={this.props.closeMsg} trip={trip} updateTripAct={this.updateTripAct} showModal={this.props.showModal} closeModal={this.props.closeModal}></TripAssembly>
                     </div>
                 </div>
                 {this.state.isSocketSetup && <Chat chatOpen={this.state.chatOpen} trip={trip} />}
@@ -181,6 +184,10 @@ const mapDispatchToProps = {
     showModal,
     closeModal,
     addTrip,
-    addTripFast
+    addTripFast,
+    showMsg,
+    closeMsg
+
+    
 }
 export const TripApp = connect(mapStateToProps, mapDispatchToProps)(withRouter(_TripApp))

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { utils } from '../../services/utils';
+import { ErrorMsg } from '../MainCmps/ErrorMsg';
 import { DayActivities } from './DayActivities'
 import { DayTimeLine } from './DayTimeLine';
 import { DestinationsHeader } from './DestinationsHeader';
-
 
 
 export class TripAssembly extends Component {
@@ -70,10 +70,15 @@ export class TripAssembly extends Component {
     }
 
     onRemoveAct = (actId) => {
+        this.props.showModal('removeActivity', { removeAct: this.removeAct, actId, })
+    }
+
+    removeAct = async (actId) => {
         let { activities } = this.state;
-        activities = activities.filter((_act => _act.id !== actId))
-        this.props.updateTripAct(activities)
-        this.setState({ activities })
+        activities = await activities.filter((_act => _act.id !== actId))
+        await this.props.updateTripAct(activities)
+        await this.setState({ activities })
+        await this.props.closeModal()
     }
 
 
@@ -185,13 +190,17 @@ export class TripAssembly extends Component {
 
 
         let newTime = this.getTimeFromIdx(pos)
-        if (newTime < dest.startDate - 24 * 60 ** 2 * 1000 || newTime >= dest.endDate) return
+        if (newTime < dest.startDate - 24 * 60 ** 2 * 1000 || newTime >= dest.endDate) {
+            this.props.showMsg({ type: 'invalid-move', msg: 'Cannot move activities to another destination!' })
+            return
+        }
         if (!newTime) return
 
         activity.at = newTime
 
         if (this.isOccTimeSlot(activity)) {
-            alert('You aleardy have plans for that date! please choose a different one.')
+            this.props.showMsg({ type: 'invalid-move', msg: 'You aleardy have plans for that date! please choose a different one.' })
+            // alert('You aleardy have plans for that date! please choose a different one.')
             return
         }
         this.saveAct(activity)
@@ -201,6 +210,7 @@ export class TripAssembly extends Component {
         const currWeekDates = this.getLinearTripDays()
         console.log("TripAssembly -> getTimeFromIdx -> currWeekDates", currWeekDates)
         if (j >= currWeekDates.length) {
+
             alert('You\'re not travlling on that date!')
             return false
         }

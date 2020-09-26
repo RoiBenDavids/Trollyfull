@@ -48,7 +48,7 @@ class _AddTrip extends Component {
     onSaveDestination = async (ev) => {
         ev.preventDefault();
         if (!this.state.destinations.length) {
-            this.props.showMsg('At least one destination must be added')
+            this.props.showMsg({type:'input', msg:'At least one destination must be added'})
             return
         }
         const trip = {
@@ -172,7 +172,7 @@ class _AddTrip extends Component {
                     <ErrorMsg />
                     <button className="styled-button" onSubmit={this.onSetDestinations}>Add destination</button>
                     {this.state.destinations.length ? <ol className="trip-list-add-form flex column">
-                        {this.state.destinations.map(dest => <li key={utils.makeId()} className="flex Justify-between">
+                        {this.state.destinations.map(dest => <li key={utils.makeId()} className="flex justify-between">
                             <p>{dest.name}</p>
                             <div className="flex">
                                 <p>{this.formatDate(dest.startDate)}</p> -

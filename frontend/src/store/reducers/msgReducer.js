@@ -1,5 +1,6 @@
 const initialState = {
     isShown: false,
+    type: '',
     msg: ''
 }
 
@@ -8,12 +9,14 @@ export function msgReducer(state = initialState, action) {
         case 'SET_MSG':
             return {
                 isShown: true,
-                msg: action.msg
+                msg: action.msg.msg,
+                type: action.msg.type
             }
         case 'CLOSE_MSG':
             return {
                 isShown: false,
-                msg:''
+                type: '',
+                msg: ''
             }
         default:
             return state

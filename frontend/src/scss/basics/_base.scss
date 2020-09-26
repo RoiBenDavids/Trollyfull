@@ -11,16 +11,17 @@ body {
     font-size: rem(18px);
     margin: 0;
     font-family: Gayathri;
-
 }
 
-ul,li,p{
+ul,
+li,
+p {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.ustyled-button{
+.ustyled-button {
     border: 0;
     background-color: transparent;
 }
@@ -50,43 +51,72 @@ ul,li,p{
     transition: all 0.3s ease-in-out;
 }
 
-.error-msg{
-    margin:0;
+.error-msg {
+    margin: 0;
     color: red;
     padding: 0;
+    i{
+        margin-right: 10px;
+    }
+}
+
+.invalid-move {
+    right: 30px;
+    position: fixed;
+    bottom: 30px;
+    width: 200px;
+    padding: 20px;
+    border-radius: 5px;
+    color: rgb(253, 51, 51);
+    height: fit-content;
+    box-shadow: 2px 2px 2px rgb(63, 63, 63);
+    background-color: rgb(43, 43, 43);
+    z-index: 300;
+    box-shadow: 0 0 16px 5px #b1b1b15e;
+    i{
+        display: block;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
 }
 
 .dest-0 {
-    background-color: #f3cbef  !important;
+    background-color: #f3cbef !important;
     //  @include shadow($clr1)
-    
 }
 .dest-1 {
-    background-color: adjust-hue($color: #d494f1, $degrees: 20deg)
+    background-color: #d8a8d4;
+    // background-color: adjust-hue($color: #f3cbef, $degrees: 20deg)
     // @include shadow($clr2)
 }
 .dest-2 {
-    background-color: adjust-hue($color: #D826C7, $degrees: 40deg)
+    background-color: #c459b9;
+    // background-color: adjust-hue($color: #D826C7, $degrees: 40deg)
     // @include shadow($clr3)
 }
 .dest-3 {
-    background-color: $clr4;
+    background-color: #8512a5bf;
+    // background-color: $clr4;
     // @include shadow($clr4)
 }
 .dest-4 {
-    background-color: $clr5;
+    background-color: #b795f3bf;
+    // background-color: $clr5;
     // @include shadow($clr5)
 }
 .dest-5 {
-    background-color: $clr6;
+    background-color: #7545cabf;
+    // background-color: $clr6;
     // @include shadow($clr6)
 }
 .dest-6 {
-    background-color: $clr7;
-    @include shadow($clr7)
+    background-color: #7aa2f3bf;
+    // background-color: $clr7;
+    @include shadow($clr7);
 }
 // inset 0px -1px 7px -4px #350053, inset 0px 4px 5px #edceff;
-.styled-header{
+.styled-header {
     background-color: $clr5;
-    box-shadow: inset 0px -1px 7px -4px darken($clr5, 68%), inset  0px 4px 5px lighten($clr5, 6%);
+    box-shadow: inset 0px -1px 7px -4px darken($clr5, 68%), inset 0px 4px 5px lighten($clr5, 6%);
 }
