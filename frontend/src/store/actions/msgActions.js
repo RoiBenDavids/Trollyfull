@@ -1,5 +1,4 @@
 export function showMsg(msg) {
-    console.log(msg);
     return dispatch => {
         setTimeout(() => {
             this.closeMsg()

@@ -1,25 +1,45 @@
 import React from 'react'
+import { useDrag } from 'react-dnd'
 
+import { useDrop } from 'react-dnd'
+
+import { ItemTypes } from '../../services/dndItems.js'
 import { utils } from '../../services/utils'
 
-export function RouteTimeLinePreview({ destination, idx, isLast, changeOrder ,updateDestinations}) {
+export function RouteTimeLinePreview({ destination, idx, isLast, changeOrder, updateDestinations,allowTrash }) {
 
-
+    const [{ isDragging }, drag] = useDrag({
+        item: {
+            type: ItemTypes.DESTINATION,
+            id: idx
+        },
+        collect: monitor => ({
+            isDragging: !!monitor.isDragging()
+        })
+    })
+    const [{ isOver }, drop] = useDrop({
+        accept: ItemTypes.DESTINATION,
+        drop: (item, monitor) => {
+            if(item.id===idx)return
+            updateDestinations(item.id, idx)
+        },
+        collect: monitor => ({
+            isOver: !!monitor.isOver()
+        })
+    })
+    if(isDragging===true){
+        allowTrash()
+    }
 
     return (
         <React.Fragment>
-         
-
-            <div className="time-line-area flex align-center">
-                <div className="time-line-icons flex column">
-                    {<i className={`fas fa-chevron-circle-up  trips-pagination trips-pagination-forward ${idx === 0 ? 'visi-none' : ''}`} onClick={() =>updateDestinations(idx,idx-1)}></i>}
-                    {<i className={`fas fa-chevron-circle-down  trips-pagination trips-pagination-forward ${isLast ? 'visi-none' : ''}`} onClick={() =>updateDestinations(idx,idx+1) }></i>}
-                    <i class="far fa-calendar-times" onClick={() =>updateDestinations(idx,-1) }></i>
-                </div>
+            <div ref={drop} className="time-line-area flex align-center">
                 <div className="route-time-line-context flex align-center ">
-                    <div className={`index-ball dest-${idx} flex align-center justify-center `} ><p>{idx + 1}</p></div>
-                    <div>{destination.name}</div>
-                    <div>{utils.calculateDays(destination.startDate, destination.endDate) - 1} Nights</div>
+                    <div ref={drag} className={`index-ball dest-${idx} flex align-center justify-center `} ><p>{idx + 1}</p></div>
+                    <div className="time-line-text">
+                        <p>{destination.name}</p>
+                        <p>{utils.calculateDays(destination.startDate, destination.endDate) - 1} Nights</p>
+                    </div>
                 </div>
             </div>
             { !isLast && <div className="line"></div>}

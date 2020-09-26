@@ -1,7 +1,7 @@
 import React from 'react'
 import { utils } from '../../services/utils'
 
-export function WeekPreview({ dates }) {
+export function WeekPreview({ dates,showDay }) {
     function hotDog(date) {
         if (!date.td) return
         const keys = Object.keys(date.td)
@@ -14,7 +14,7 @@ export function WeekPreview({ dates }) {
 
     return (
         <tr key={utils.makeId()}>
-            {dates.map((date, idx) => <td className={`${!date.td?'faded':''}`} key={utils.makeId()}>{new Date(date.day).getDate()}{hotDog(date)}</td>)}
+            {dates.map((date, idx) => <td onClick={()=>showDay(date)} className={`${!date.td?'faded':''}`} key={utils.makeId()}>{new Date(date.day).getDate()}{hotDog(date)}</td>)}
         </tr>
     )
 
