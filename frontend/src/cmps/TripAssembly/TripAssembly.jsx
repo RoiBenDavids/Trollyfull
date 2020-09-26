@@ -176,6 +176,11 @@ export class TripAssembly extends Component {
         this.props.showModal('editActivity', { saveAct: this.saveAct, act, isOccTimeSlot: this.isOccTimeSlot, destinations: this.props.trip.destinations })
     }
 
+    onOpenDetails=(act)=>{
+        this.props.showModal('activityDetails', { saveAct: this.saveAct, act, isOccTimeSlot: this.isOccTimeSlot, destinations: this.props.trip.destinations })
+
+    }
+
     onDragMove = ({ pos }, id) => {
 
         const activity = this.state.activities.find(act => act.id === id)
@@ -393,7 +398,7 @@ export class TripAssembly extends Component {
 
             var col = this.getCol(mat, i)
             let numOfActs = this.getDayNumOfAct(col)
-            actPreviews.push(<DayActivities numOfActs={numOfActs} onDragMove={this.onDragMove} getTimeFromIdx={this.getTimeFromIdx} destinations={this.props.trip.destinations} onEdit={this.onEdit} onRemoveAct={this.onRemoveAct} getRowIdx={this.getRowIdx} key={utils.makeId()} day={col} />
+            actPreviews.push(<DayActivities numOfActs={numOfActs} onDragMove={this.onDragMove} getTimeFromIdx={this.getTimeFromIdx} destinations={this.props.trip.destinations} onEdit={this.onEdit} onOpenDetails={this.onOpenDetails} onRemoveAct={this.onRemoveAct} getRowIdx={this.getRowIdx} key={utils.makeId()} day={col} />
             )
         }
 
