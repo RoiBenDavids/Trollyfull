@@ -39,9 +39,9 @@ class _MainNavBar extends Component {
 
     render() {
         return (
-            <div className={'main-navbar flex Justify-between align-center full  ' + (this.state.navBar ? 'navBar-background' : '')}>
+            <div className={'main-navbar flex justify-between align-center full  ' + (this.state.navBar ? 'navBar-background' : '')}>
                 <Link to="/" > <h1 className="logo">Trolly</h1></Link>
-                <div className="flex Justify-between main-navbar-links">
+                <div className="flex justify-between main-navbar-links">
                     <Link to="/trip">Trips</Link>
                     <NavLink to="/about" >About</NavLink>
                     {this.props.usersData.loggedInUser ? <UserPreview logout={this.props.logout} user={this.props.usersData.loggedInUser} /> : <div onClick={() => this.props.showModal('login')}>Login</div>}

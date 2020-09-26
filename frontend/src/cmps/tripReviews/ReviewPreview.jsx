@@ -23,7 +23,7 @@ export function ReviewPreview({ review }) {
     const time = `${new Date(review.createdAt).getDate()}/${new Date(review.createdAt).getMonth() + 1}/${new Date(review.createdAt).getFullYear()}`
     return (
         < React.Fragment >
-            <div className="review-details flex Justify-between">
+            <div className="review-details flex justify-between">
                 <div>{getStars()} </div>
                 <p>{time}</p>
             </div>

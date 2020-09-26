@@ -5,13 +5,17 @@ import { closeMsg, showMsg } from '../../store/actions/msgActions'
 
 
 class _ErrorMsg extends Component {
-
     render() {
-        const { msg } = this.props
+        const { msg, type } = this.props
         return (
-            <div className={this.props.isShown ? '' : 'hide'}>
-                <small className="error-msg">{msg}</small>
-            </div>
+            <React.Fragment>
+                {(type === 'input') && <div className={this.props.isShown ? '' : 'hide'}>
+                    <small className="error-msg"><i className="fas fa-exclamation-circle"></i>{msg}</small>
+                </div>}
+                {type === 'invalid-move' && <div className={this.props.isShown ? '' : 'hide'}>
+                    <p className="invalid-move"><i className="fas fa-exclamation-triangle"></i>{msg}</p>
+                </div>}
+            </React.Fragment>
         )
     }
 }
@@ -20,7 +24,9 @@ class _ErrorMsg extends Component {
 const mapStateToProps = state => {
     return {
         msg: state.msgReducer.msg,
-        isShown: state.msgReducer.isShown
+        isShown: state.msgReducer.isShown,
+        type: state.msgReducer.type
+
     }
 }
 const mapDispatchToProps = {

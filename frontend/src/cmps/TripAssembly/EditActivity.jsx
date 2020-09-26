@@ -27,14 +27,18 @@ export class EditActivity extends Component {
             const destIdx = destinations.findIndex(dest => dest.name === act.destination)
             minTime = utils.getIsoTime(destinations[destIdx].startDate)
             maxTime = utils.getIsoTime(destinations[destIdx].endDate)
-            this.setState({ activitie: { ...act, price: act.price.amount, at: utils.getIsoTime(act.at), 
-                        destination: act.destination }, minTime, maxTime })
+            this.setState({
+                activitie: {
+                    ...act, price: act.price.amount, at: utils.getIsoTime(act.at),
+                    destination: act.destination
+                }, minTime, maxTime
+            })
         } else {
 
             minTime = utils.getIsoTime(destinations[0].startDate)
             maxTime = utils.getIsoTime(destinations[destinations.length - 1].endDate)
 
-            await this.setState({activitie: {...this.state.activitie, destination: destinations[0].name}, minTime, maxTime })
+            await this.setState({ activitie: { ...this.state.activitie, destination: destinations[0].name }, minTime, maxTime })
         }
     }
 
@@ -95,11 +99,11 @@ export class EditActivity extends Component {
         saveAct(this.state.activitie)
     }
 
-
     render() {
         const { activitie, minTime, maxTime } = this.state
         const { destinations } = this.props.props
         return (
+
             <form className="edit-activity-form flex column" onSubmit={this.onSaveAct}>
                 <label htmlFor="name">Name</label>
                 <input className="styled-input" placeholder="name" name="name" id="name" value={this.state.activitie.name} onChange={this.handleChange}></input>

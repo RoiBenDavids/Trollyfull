@@ -1,7 +1,9 @@
 .members-preview{
-    position: absolute;
-    left: 20px;
-.member-preview{
+    margin-bottom: 25px;
+    i{
+        font-size: 1.2rem;
+    }
+    .member-preview{
     position: relative;
     max-width: 39px;
     max-height: 39px;

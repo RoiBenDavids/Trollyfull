@@ -5,7 +5,7 @@ import { socketService } from '../../services/socketService';
 class _Chat extends Component {
     state = {
         msg: {
-            from: this.props.loggedInUser ? this.props.loggedInUser.username : 'Guest',
+            from: this.props.loggedInUser ? this.props.loggedInUser.username : 'Traveler',
             txt: ''
         },
         msgs: [],
@@ -17,7 +17,7 @@ class _Chat extends Component {
         socketService.on('chat addMsg', this.addMsg);
         socketService.on('isTyping', this.userTyping);
         socketService.on('notTyping', this.userTyping);
-        
+
         // socketService.emit('chat history');
         // socketService.on('load history', this.loadHistory)
     }
@@ -40,9 +40,8 @@ class _Chat extends Component {
         ev.preventDefault();
         socketService.emit('chat newMsg', this.state.msg);
         socketService.emit("stopTyping", "");
-
         // this.addMsg(this.state.msg)//remove
-        const user = this.props.loggedInUser ? this.props.loggedInUser.username : 'Guest'
+        const user = this.props.loggedInUser ? this.props.loggedInUser.username : 'Traveler'
         this.setState({ msg: { from: user, txt: '' } });
     }
     userTyping = isTyping => {
@@ -52,7 +51,7 @@ class _Chat extends Component {
     msgHandleChange = ev => {
         const { name, value } = ev.target;
         if ((value.trim()).length > 0) {
-            const user = this.props.loggedInUser ? this.props.loggedInUser.username : 'Guest'
+            const user = this.props.loggedInUser ? this.props.loggedInUser.username : 'Traveler'
             socketService.emit('user typing', user);
 
         }
@@ -67,10 +66,10 @@ class _Chat extends Component {
                 }
             }
         })
-
-
     }
     render() {
+        
+        
         return (
             <div className={`chat-container flex column  ${this.props.chatOpen ? 'open' : ''}`}>
                 <div className="chat-header styled-header">
@@ -80,14 +79,19 @@ class _Chat extends Component {
                 <ul className="chat-history">
                     {this.state.msgs.map((msg, idx) => (
                         <li key={idx}>
-                            <div className="message-data">{this.props.loggedInUser? ((this.props.loggedInUser.username === msg.from)? 'Me' : msg.from) : ((msg.from === 'Guest')? 'Me' : msg.from)}</div>
+                            <div className="message-data">{this.props.loggedInUser ? ((this.props.loggedInUser.username === msg.from) ? 'Me' : msg.from) : ((msg.from === 'Traveler') ? 'Traveler' : msg.from)}</div>
+
+
+
                             <div className="message">{msg.txt}</div>
 
                         </li>
                     ))}
                 </ul>
 
-                {this.props.loggedInUser ? ((this.state.isTyping && this.state.isTyping !== this.props.loggedInUser.username) ? <p>{this.state.isTyping} is Typing</p> : '') : ((this.state.isTyping && this.state.isTyping !== 'Guest') ? <p>{this.state.isTyping} is Typing</p> : '')}
+                {this.props.loggedInUser ? 
+                ((this.state.isTyping && this.state.isTyping !== this.props.loggedInUser.username) ? <p>{this.state.isTyping} is Typing</p> : '') 
+                : ((this.state.isTyping && !this.state.msg.txt.trim().length) ? <p>{this.state.isTyping} is Typing</p> : '')}
 
 
                 <form className="chat-send flex align-center" onSubmit={this.sendMsg}>

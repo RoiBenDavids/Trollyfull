@@ -92,3 +92,13 @@
 //         color: white;
 //         box-shadow: 1px 9px 7px 0px #c5bdbd;
 //     }
+
+.notification-btns{
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+    *{
+        margin: 0 10px 10px;
+        width: 65px;
+    }
+}
