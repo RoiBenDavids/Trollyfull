@@ -64,13 +64,10 @@ export function RouteCalendar({ trip }) {
             destinations.forEach(dest=>{
                 if(dest.start.getDate()===nextDay.getDate()&& dest.start.getMonth()===nextDay.getMonth()){
                     dates[dates.length-1].td={...dates[dates.length-1].td,'start':dest.idx}
-                    // console.log('start',dest.start,dest.end,nextDay);
                 }else if(dest.start<nextDay && nextDay.setHours(12)<dest.end.setHours(11) ){
                     dates[dates.length-1].td={...dates[dates.length-1].td,'full':dest.idx}
-                    // console.log('full',dest.start,dest.end,nextDay);
                 }else if(dest.end.getDate()===nextDay.getDate()&& dest.end.getMonth()===nextDay.getMonth()){
                     dates[dates.length-1].td={...dates[dates.length-1].td,'end':dest.idx}
-                    // console.log('end',dest.start,dest.end,nextDay);
                 }
             })
         }

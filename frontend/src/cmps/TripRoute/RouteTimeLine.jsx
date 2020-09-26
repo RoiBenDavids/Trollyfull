@@ -30,7 +30,7 @@ export class RouteTimeLine extends React.Component {
 
     render() {
         return (
-            <div className="time-line-container">
+            // <div className="time-line-container">
 
                 <div className="route-time-line">
                     {this.props.trip.destinations.map((destination, idx) => {
@@ -40,10 +40,10 @@ export class RouteTimeLine extends React.Component {
                                 destination={destination}
                                 idx={idx}
                                 isLast={(idx + 1) === this.props.trip.destinations.length ? true : false}
-                                changeOrder={this.props.changeOrder}
+                                updateDestinations={this.props.updateDestinations}
                             />)
                     })}
-                    <i class="fas fa-plus-circle add-destination-button" onClick={this.onAddDestination}></i>
+                    {/* <i className="fas fa-plus add-destination-button" onClick={this.onAddDestination}></i>
                     {this.state.addDestination && <form onSubmit={this.onSubmit}>
                         <input
                             type="text"
@@ -62,9 +62,9 @@ export class RouteTimeLine extends React.Component {
                             onChange={this.handleChange}
                         ></input>
                         <button>Add!</button>
-                    </form>}
+                    </form>} */}
                 </div>
-            </div>
+            // </div>
         )
     }
 

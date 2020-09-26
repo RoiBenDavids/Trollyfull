@@ -1,5 +1,21 @@
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: $clr6;
+    }
 .route-time-line{
     font-family: Arial, Helvetica, sans-serif;////CHANGE!!!!
+    flex:1;
+    max-height: 386px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  
     .line{
         border-left: 2px solid $clr12;
         opacity: 0.5;
