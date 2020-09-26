@@ -4,7 +4,7 @@ import { utils } from '../../services/utils'
 import { WeekPreview } from './WeekPreview'
 
 
-export function RouteCalendar({ trip }) {
+export function RouteCalendar({ trip,showDay }) {
 
     function generateCalendar() {
         const tripStart = trip.destinations[0].startDate
@@ -12,7 +12,6 @@ export function RouteCalendar({ trip }) {
         const destinationsTimes = trip.destinations.map((destination,idx) => {
             return { start: new Date(destination.startDate), end: new Date(destination.endDate) , idx }
         })
-        console.log("generateCalendar -> destinationsTimes", destinationsTimes)
         const calendarData = calculateDates(tripStart, tripEnd, destinationsTimes)
         const fullCalendarData = getDaysAround(calendarData, tripStart, tripEnd)
         return fullCalendarData
@@ -49,7 +48,7 @@ export function RouteCalendar({ trip }) {
         if (data.length % 7 !== 0) return null
         let weeksCount = data.length / 7;
         while (weeksCount) {
-            weekCmps.push(<WeekPreview key={utils.makeId()} dates={data.splice(0, 7)}  />)
+            weekCmps.push(<WeekPreview showDay={showDay} key={utils.makeId()} dates={data.splice(0, 7)}  />)
             weeksCount--
         }
         return weekCmps

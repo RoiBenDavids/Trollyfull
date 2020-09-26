@@ -72,20 +72,8 @@ class _AddTrip extends Component {
     }
 
     getRandomLatLng() {
-        let locations = [
-            { lat: -23.5475, lng: -46.6361 }, //sau paolo
-            { lat: 13.751330328, lng: 100.489664708 }, //bangkok
-            { lat: 25.105497, lng: 121.597366 }, //taipei
-            { lat: 21.028511, lng: 105.804817 }, //hanoi
-            { lat: 39.916668, lng: 116.383331 }, //beijin
-            { lat: -16.5000000, lng: -68.1500000 }, //la paz
-            { lat: 27.700769, lng: 85.300140 }, // //Kathmandu, nepal
-            { lat: 14.599512, lng: 120.984222 }, //manila
-            { lat: 1.290270, lng: 103.851959 }, //singapor city
-            { lat: 6.927079, lng: 79.861244 }, //colombo sri lanka
-            { lat: 28.644800, lng: 77.216721 }, //new delhi
-        ]
-        return locations[utils.getRandomInt(0, locations.length - 1)]
+        const LL = utils.getRandomLatLng()
+        return LL
     }
 
 

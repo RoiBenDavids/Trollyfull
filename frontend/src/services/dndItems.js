@@ -1,3 +1,4 @@
 export const ItemTypes = {
-    ACTIVITIE: 'activitie'
+    ACTIVITIE: 'activitie',
+    DESTINATION:'destination'
 }

@@ -21,7 +21,6 @@ export function OpenDaySlot({ act, getRowIdx, onDragMove }) {
     const isDayHeadClass = (act.literalDay) ? 'literal-day' : ''
     const _isOver = (isOver) ? 'is-over' : ''
     if (isOver) {
-        console.log(act);
     }
     return (
         <React.Fragment>

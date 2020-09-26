@@ -22,7 +22,7 @@
         font-size: 1rem;
         position: fixed;
         top: 0px;
-        background-color: #ecf3ffd6;
+        background-color: #d6e4fdd3;
        
     }
     .trip-navbar{
@@ -82,15 +82,15 @@
     .chat-container{
         z-index: 100;
         visibility: hidden;
-        height: 0;
+        height: 150px;
         width: 0;
         position:fixed;
-        bottom: 40px;
-        left: 40px;
-        transition: height 0.3s, width 0.3s;
+        bottom: 30px;
+        left: 250px;
+        transition: height 0.3s 0.3s, width 0.3s;
         &.open{
             visibility: visible;
-            height: 450px;
+            height: 457px;
             width: 350px;
         }
         .chat-header{
