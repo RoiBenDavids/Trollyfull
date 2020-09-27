@@ -18,19 +18,25 @@
 
     .trip-bar-icons{
         width: 100%;
-        font-size: 1.2rem;
+        font-size: 1rem;
         // padding: 20px;
         flex-wrap: wrap;
-        color: black;
+        color: $clr12;
         position: relative;
+        padding: 10px 40px;
         >*{
-            padding: 15px;
+            cursor: pointer;
+            box-shadow: 0 0 3px 0px #0000003b;
+            padding: 10px;
             display: flex;
             justify-content: center;
-            width: 50%;
+            background-color: rgb(252, 250, 250);
+             border-radius: 50%;
         }
         .fa-trash{
-            transition: all 0.5s   ;
+            cursor: default;
+            transition: all 0.5s ;
+            z-index: 5;
         }
         .trash-open{
             color: red;
@@ -39,10 +45,12 @@
     }
     
     .add-destination{
+        box-shadow: 0 0 18px 0px #0000003b;
         justify-content: flex-start;
         position: absolute;
         width: 100%;
         top: 49px;
+        left: 0;
         height: 0px;
         visibility: hidden;
         z-index: -11;

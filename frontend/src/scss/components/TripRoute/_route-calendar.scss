@@ -20,6 +20,7 @@
 
     td{
         position:relative;
+        cursor: pointer;
     }
     .start, .full, .end{
         position: absolute;
@@ -47,6 +48,7 @@
     }
     .faded{
         opacity: 0.5;
+        cursor: default;
     }
    
    

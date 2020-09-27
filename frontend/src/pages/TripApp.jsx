@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Route, Router, Switch, withRouter } from 'react-router-dom'
-import { loadTrip, addTrip, addTripFast } from '../store/actions/tripActions'
+import { loadTrip, addTrip, addTripFast, setTrip } from '../store/actions/tripActions'
 import { closeModal, showModal } from '../store/actions/modalActions'
 // import { TripRoute } from '../cmps/TripRoute'
 import { tripService } from '.././services/tripService'
@@ -15,6 +15,7 @@ import { socketService } from '../services/socketService'
 import { MapContainer } from '../cmps/MainCmps/Map';
 import { closeMsg, showMsg } from '../store/actions/msgActions'
 import { ErrorMsg } from '../cmps/MainCmps/ErrorMsg'
+import { eventBus } from '../services/eventBusService'
 // import locationCevtorRed from 'https://res.cloudinary.com/roidinary/image/upload/v1600377967/locationVectorRed_vzufx4.png'
 
 class _TripApp extends Component {
@@ -23,27 +24,34 @@ class _TripApp extends Component {
         chatOpen: false,
         settingsOpen: false,
         isSocketSetup: false,
-        trashOpen: false,
         markers: [],
         sideBar: false
     }
 
     async componentDidMount() {
-        const { loadTrip } = this.props
+        const { setTrip, loadTrip, addTrip } = this.props
         socketService.setup();
-        socketService.on('tripUpdated', loadTrip);
+        // socketService.on('tripUpdated', setTrip);
+        // socketService.on('tripUpdated', loadTrip);
+
+
+        socketService.on('tripUpdated', addTrip);
         const { id } = this.props.match.params
         socketService.emit('enter trip', id);
         try {
-            await loadTrip(id)
+            await loadTrip(id, true)
             if (this.props.match.params.openSignup === 'true') {
                 this.props.showModal('signup', id)
             }
             const markers = this.getMarkersOfDests()
             this.setState({ isSocketSetup: true, markers })
+
         }
         catch (err) {
         }
+        // socketService.emit('tripToUpdate', newTrip);
+
+        // socketService.on('tripUpdated', setTrip);
     }
 
     getMarkersOfDests() {
@@ -53,7 +61,7 @@ class _TripApp extends Component {
 
     }
     componentWillUnmount() {
-        socketService.off('tripUpdated', loadTrip);
+        socketService.off('tripUpdated', this.props.addTrip);
     }
 
     async componentDidUpdate(prevProps, prevState) {
@@ -61,7 +69,11 @@ class _TripApp extends Component {
         if (prevProps.trip === this.props.trip) return
         const markers = this.getMarkersOfDests()
         this.setState({ markers })
-        socketService.on('tripUpdated', loadTrip);
+        // socketService.on('tripUpdated', addTrip);
+        // socketService.on('tripUpdated', loadTrip);
+        // socketService.on('tripUpdated', this.props.setTrip);
+
+        // socketService.emit('tripUpdated', this.props.trip);
     }
 
     updateDestinations = async (destIdxToMove, moveToIdx) => {
@@ -128,14 +140,15 @@ class _TripApp extends Component {
         }
         const newTrip = { ...this.props.trip, activities, destinations }
         await this.props.addTrip(newTrip)
-        socketService.emit('tripToUpdate', newTrip._id);
+        // socketService.emit('tripToUpdate', newTrip);
+        socketService.emit('tripToUpdate', newTrip);
 
     }
 
     updateTripAct = async (activities) => {
-        let newTrip = { ...this.props.trip, activities }
-        await this.props.addTrip(newTrip)
-        socketService.emit('tripToUpdate', newTrip._id);
+        let _newTrip = { ...this.props.trip, activities }
+        let newTrip = await this.props.addTrip(_newTrip)
+        socketService.emit('tripToUpdate', newTrip);
 
     }
 
@@ -144,17 +157,6 @@ class _TripApp extends Component {
     }
     toggleSettings = () => {
         this.setState({ settingsOpen: !this.state.settingsOpen })
-    }
-    allowTrash = () => {
-        this.setState({ trashOpen: true })
-        setTimeout(() => {
-            this.denyTrash()
-
-        }, 3000)
-    }
-    denyTrash = () => {
-        ;
-        this.setState({ trashOpen: false })
     }
     getMarkers() {
         return this.props.trip.destinations.map(dest => {
@@ -167,14 +169,14 @@ class _TripApp extends Component {
         newDest.startDate = destinations[destinations.length - 1].endDate
         newDest.endDate = newDest.startDate + 1000 * 60 * 60 * 24 * (+newDest.days - 1)
         newDest.id = utils.makeId()
-        // newDest.location = { lat: 53.5511, lng: 9.9937 }
         destinations.push(newDest)
-        const newTrip = { ...this.props.trip, destinations }
-        await this.props.addTrip(newTrip)
+        const _newTrip = { ...this.props.trip, destinations }
+        const newTrip = await this.props.addTrip(_newTrip)
         // const markers = this.getMarkersOfDests()
         // console.log(markers);
         // this.setState({ markers })
-        socketService.emit('tripToUpdate', newTrip._id);
+
+        socketService.emit('tripToUpdate', newTrip);
     }
 
     showDay = (day) => {
@@ -184,6 +186,7 @@ class _TripApp extends Component {
             }
             return acc
         }, [])
+        eventBus.emit('markDay', day)
     }
 
     openSideBar = () => {
@@ -193,12 +196,12 @@ class _TripApp extends Component {
     render() {
         const { trip } = this.props
         const sideBarClass = this.state.sideBar ? 'open-side-bar' : ''
-        if (!trip) return <div>Loading....</div>
+        if (!trip|| !trip.destinations) return <div>Loading....</div>
         return (
             <div className="trip-app  ">
                 <ErrorMsg />
                 <div className="trip-app-area flex ">
-                    <button onClick={this.openSideBar} className={`side-bar-bars ${sideBarClass}`}><i class="fas fa-bars " ></i></button>
+                    <button onClick={this.openSideBar} className={`side-bar-bars ${sideBarClass}`}><i className="fas fa-bars " ></i></button>
                     <div className={`trip-side-bar flex column ${sideBarClass} `}>
                         <TripRoute
                             trip={trip}
@@ -206,8 +209,6 @@ class _TripApp extends Component {
                             updateDestinations={this.updateDestinations}
                             showModal={this.props.showModal}
                             toggleChat={this.toggleChat}
-                            allowTrash={this.allowTrash}
-                            trashOpen={this.state.trashOpen}
                             showDay={this.showDay}
                             openSideBar={this.openSideBar}
                         />
@@ -241,7 +242,9 @@ const mapDispatchToProps = {
     closeModal,
     addTrip,
     showMsg,
-    closeMsg
+    closeMsg,
+    setTrip
+
 
 
 }

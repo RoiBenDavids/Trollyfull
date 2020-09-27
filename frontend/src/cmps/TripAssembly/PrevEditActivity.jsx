@@ -97,7 +97,6 @@ export class PrevEditActivity extends Component {
         saveAct(this.state.activitie)
     }
     getValidTime = () => {
-        // console.log("PrevEditActivity -> getValidTime -> this.state.activitie.at", this.state.activitie.at)
         return new Date(this.state.activitie.at)
     }
 
@@ -105,10 +104,12 @@ export class PrevEditActivity extends Component {
 
     render() {
         const { activitie, minTime, maxTime } = this.state
+        if (!activitie) return <div>Loading</div>
         const { destinations } = this.props.props
         const startTime = utils.getTimeDayStr(new Date(this.state.activitie.at).getTime())
         const endTime = utils.getTimeDayStr(new Date(this.state.activitie.at).getTime() + (this.state.activitie.duration / 2) * 60 * 60 * 1000)
 
+        console.log("PrevEditActivity -> render -> activitie", activitie)
 
         let minT = new Date(minTime)
         let maxT = new Date(maxTime)
@@ -154,11 +155,11 @@ export class PrevEditActivity extends Component {
                     minTime={min}
                     maxTime={max}
                     autoComplete="off"
-                    className="styled-input"
+                    className="styled-input prev-date-picker"
                     showTimeSelect
                     required
-
-                    // dateFormat="Pp"
+                
+                    dateFormat="Pp"
                     onChange={time => this.handleTime(time)}
                 />
                 <h4 htmlFor="notes">Notes</h4>

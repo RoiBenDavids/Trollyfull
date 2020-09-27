@@ -18,7 +18,6 @@ export function tripReducer(state = initialState, action) {
                     if (action.trip._id === trip._id) return action.trip
                     return trip;
                 })
-
             }
         case 'SET_TRIP':
             return {

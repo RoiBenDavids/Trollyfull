@@ -4,6 +4,7 @@ import { NavLink, Link, withRouter } from 'react-router-dom'
 
 import { UserPreview } from '../MainCmps/UserPreview'
 
+import { resetTrip } from '../../store/actions/tripActions'
 import { showModal } from '../../store/actions/modalActions'
 import { logout } from '../../store/actions/userActions'
 
@@ -20,7 +21,14 @@ class _MainNavBar extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.location.pathname !== prevProps.location.pathname) this.backgroundChanged()
+        if (this.props.location.pathname !== prevProps.location.pathname){
+            this.backgroundChanged()
+            if(this.props.location.pathname==='/'){
+                this.props.resetTrip()
+            }
+        }
+
+        
     }
 
 
@@ -60,7 +68,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     showModal,
-    logout
+    logout,
+    resetTrip
 }
 
 export const MainNavBar = connect(mapStateToProps, mapDispatchToProps)(withRouter(_MainNavBar));

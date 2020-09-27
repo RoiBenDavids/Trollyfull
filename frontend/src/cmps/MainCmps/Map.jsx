@@ -3,7 +3,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { utils } from '../../services/utils';
 
 
-const API_KEY = 'AIzaSyBXIyfwpDtmz9fLAQI-MUqWuhQtc-GQYoo'
+// const API_KEY = 'AIzaSyBXIyfwpDtmz9fLAQI-MUqWuhQtc-GQYoo'
 // const API_KEY =''
 
 class _MapContainer extends React.Component {
@@ -41,8 +41,11 @@ class _MapContainer extends React.Component {
             }
             if (this.state.markers.length > 1&& this.state.map) this.state.map.fitBounds(this.state.bounds)
             else{
-                this.state.map.panTo(this.props.markers[0].location)
-                this.state.map.setZoom(10)
+                if(this.state.map){
+                    this.state.map.panTo(this.props.markers[0].location)
+                    this.state.map.setZoom(10)
+
+                }
             } 
             this.setState({ markers: this.props.markers, bounds })
         }

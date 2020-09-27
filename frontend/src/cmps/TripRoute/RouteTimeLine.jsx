@@ -3,8 +3,9 @@ import React from 'react'
 import { utils } from '../../services/utils'
 import { RouteTimeLinePreview } from './RouteTimeLinePreview'
 
-export function RouteTimeLine({ trip, updateDestinations,allowTrash }) {
+export function RouteTimeLine({ trip, updateDestinations }) {
     // export class RouteTimeLine extends React.Component {
+  
     return (
         <div  className="route-time-line">
             {trip.destinations.map((destination, idx) => {
@@ -15,7 +16,6 @@ export function RouteTimeLine({ trip, updateDestinations,allowTrash }) {
                         idx={idx}
                         isLast={(idx + 1) === trip.destinations.length ? true : false}
                         updateDestinations={updateDestinations}
-                        allowTrash={allowTrash}
                     />)
             })}
         </div>

@@ -1,56 +1,82 @@
+.all-destinations-area{
+    position: relative;
 
-.route-time-line{
-    font-family: Arial, Helvetica, sans-serif;////CHANGE!!!!
-  
-    // min-height: 44vh;
-    max-height: 44vh;
-    overflow-y: auto;
-  
-    .line{
-        border-left: 2px solid $clr12;
-        opacity: 0.5;
-        height: 35px;
-        margin-inline-start: 19px;
-    }
-    .index-ball{
-        color: rgb(240, 240, 240);
-        height: 40px;
-        width: 40px;
-        border-radius: 50%;
-        margin-right: 10px;
-        transition: transform 0.2s;
-        &.is-dragging{
-            // transform: scaleX(1.5) scaleY(1.5);
-            transform: translateX(50px) scaleX(0.5) scaleY(0.5);
-
+    .route-time-line{
+        font-family: Arial, Helvetica, sans-serif;////CHANGE!!!!
+        
+        max-height: 44vh;
+        overflow-y: auto;
+        .fire-ring{
+            position: absolute;
+            height: 36px;
+            width: 34px;
+            top: 10px;
+            right: 40px;
+            border-radius: 50%;
+            &.on{   
+                box-shadow: 0 0 4px red;   
+                animation: fire 1.5s ease-in-out infinite; 
+            }
+            @keyframes fire {
+                0% {
+                    box-shadow: 0 0 4px red; 
+                }
+                50%{
+                    box-shadow: 0 0 15px red; 
+                }
+                100% {
+                    box-shadow: 0 0 4px red;
+                }
+            }
         }
-       
-    }
-    .visi-none{
-        visibility: hidden;
-    }
-
-    .time-line-area{
-        .time-line-icons{
-            height: 100%;
-            margin-right: 5px;
+      
+        .line{
+            border-left: 2px solid $clr12;
+            opacity: 0.5;
+            height: 35px;
+            margin-inline-start: 19px;
         }
+        .index-ball{
+            cursor: grab;
+            color: rgb(240, 240, 240);
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: transform 0.2s;
+            &.is-dragging{
+                // transform: scaleX(1.5) scaleY(1.5);
+                transform: translateX(50px) scaleX(0.5) scaleY(0.5);
+    
+            }
+           
+        }
+        .visi-none{
+            visibility: hidden;
+        }
+    
+        .time-line-area{
+            .time-line-icons{
+                height: 100%;
+                margin-right: 5px;
+            }
+            
+        }
+        .route-time-line-context{
+           .time-line-text{
+               p:nth-child(1){
+                   text-transform: capitalize;
+                   font-weight: bold;
+                   line-height: 1.5;
+                }
+                p:nth-child(2){
+                    font-size: 0.8rem;
+                    font-style: italic;
+                    letter-spacing: 0.8px;
+                }
+            }
+        }
+    
         
     }
-    .route-time-line-context{
-       .time-line-text{
-           p:nth-child(1){
-               text-transform: capitalize;
-               font-weight: bold;
-               line-height: 1.5;
-            }
-            p:nth-child(2){
-                font-size: 0.8rem;
-                font-style: italic;
-                letter-spacing: 0.8px;
-            }
-        }
-    }
-
-    
 }

@@ -20,8 +20,9 @@ export function OpenDaySlot({ act, getRowIdx, onDragMove }) {
     const isFirstCol = (act.col === 0) ? 'first-col' : ''
     const isDayHeadClass = (act.literalDay) ? 'literal-day' : ''
     const _isOver = (isOver) ? 'is-over' : ''
-    if (isOver) {
-    }
+    // if (isOver) {
+    //     console.log(act);
+    // }
    
     return (
         <React.Fragment>

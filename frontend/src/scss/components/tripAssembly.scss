@@ -317,3 +317,18 @@
         }
     }
 }
+
+.prev-date-picker {
+    display: block;
+}
+
+@media only screen and (max-width: 650px) {
+    .trip-assembly-main {
+        grid-template-columns: repeat(3, minmax(70px, 1fr));
+    }
+
+    .destinations-header {
+       
+        grid-template-columns: repeat(6, minmax(25px, 1fr));
+    }
+}
