@@ -13,7 +13,7 @@ export class AddDestination extends React.Component {
         this.setState({destination:{
             name:'',
             days:'',
-            location:utils.getRandomLatLng()
+            // location:utils.getRandomLatLng()
         }})
     }
 

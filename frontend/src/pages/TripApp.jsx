@@ -24,7 +24,6 @@ class _TripApp extends Component {
         chatOpen: false,
         settingsOpen: false,
         isSocketSetup: false,
-        trashOpen: false,
         markers: [],
         sideBar: false
     }
@@ -40,12 +39,13 @@ class _TripApp extends Component {
         const { id } = this.props.match.params
         socketService.emit('enter trip', id);
         try {
-            await loadTrip(id)
+            await loadTrip(id, true)
             if (this.props.match.params.openSignup === 'true') {
                 this.props.showModal('signup', id)
             }
             const markers = this.getMarkersOfDests()
             this.setState({ isSocketSetup: true, markers })
+
         }
         catch (err) {
         }
@@ -158,16 +158,6 @@ class _TripApp extends Component {
     toggleSettings = () => {
         this.setState({ settingsOpen: !this.state.settingsOpen })
     }
-    allowTrash = () => {
-        this.setState({ trashOpen: true })
-        setTimeout(() => {
-            this.denyTrash()
-        }, 3000)
-    }
-    denyTrash = () => {
-        ;
-        this.setState({ trashOpen: false })
-    }
     getMarkers() {
         return this.props.trip.destinations.map(dest => {
             return { location: dest.location, name: dest.name }
@@ -179,7 +169,6 @@ class _TripApp extends Component {
         newDest.startDate = destinations[destinations.length - 1].endDate
         newDest.endDate = newDest.startDate + 1000 * 60 * 60 * 24 * (+newDest.days - 1)
         newDest.id = utils.makeId()
-        newDest.location = { lat: 53.5511, lng: 9.9937 }
         destinations.push(newDest)
         const _newTrip = { ...this.props.trip, destinations }
         const newTrip = await this.props.addTrip(_newTrip)
@@ -201,20 +190,18 @@ class _TripApp extends Component {
     }
 
     openSideBar = () => {
-        console.log('togglenuid');
         this.setState({ sideBar: !this.state.sideBar })
     }
 
     render() {
         const { trip } = this.props
         const sideBarClass = this.state.sideBar ? 'open-side-bar' : ''
-        console.log(sideBarClass, 'add class');
-        if (!trip) return <div>Loading....</div>
+        if (!trip|| !trip.destinations) return <div>Loading....</div>
         return (
             <div className="trip-app  ">
                 <ErrorMsg />
                 <div className="trip-app-area flex ">
-                    <button onClick={this.openSideBar} className={`side-bar-bars ${sideBarClass}`}><i class="fas fa-bars " ></i></button>
+                    <button onClick={this.openSideBar} className={`side-bar-bars ${sideBarClass}`}><i className="fas fa-bars " ></i></button>
                     <div className={`trip-side-bar flex column ${sideBarClass} `}>
                         <TripRoute
                             trip={trip}
@@ -222,14 +209,12 @@ class _TripApp extends Component {
                             updateDestinations={this.updateDestinations}
                             showModal={this.props.showModal}
                             toggleChat={this.toggleChat}
-                            allowTrash={this.allowTrash}
-                            trashOpen={this.state.trashOpen}
                             showDay={this.showDay}
                             openSideBar={this.openSideBar}
                         />
                     </div>
                     <div className="trip-app-main full">
-                        {/* {this.state.markers[0] && <MapContainer markers={this.state.markers} />} */}
+                        {this.state.markers[0] && <MapContainer markers={this.state.markers} />}
                         <TripAssembly
                             showMsg={this.props.showMsg}
                             closeMsg={this.props.closeMsg}
