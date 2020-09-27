@@ -192,6 +192,7 @@ export class TripAssembly extends Component {
             return
         }
         if (!newTime) return
+        console.log(newTime);
 
         activity.at = newTime
 
@@ -213,7 +214,7 @@ export class TripAssembly extends Component {
 
         const currDayDate = new Date(currWeekDates[j + page * 7])
         const isoMonthDate = currDayDate.toISOString().substring(0, 10)
-        let isoTime = (i % 2 !== 0) ? `${this.getTwoDig(7 + (i - 1) / 2)}:00` : `${this.getTwoDig(6 + i / 2)}:30`
+        let isoTime = (i % 2 !== 0) ? `${this.getTwoDig(7 + (i ) / 2)}:00` : `${this.getTwoDig(6 + i / 2)}:30`
         const isoDate = new Date(isoMonthDate + 'T' + isoTime)
         const resTime = isoDate.getTime()
         return resTime

@@ -39,7 +39,7 @@ class _MapContainer extends React.Component {
             for (var i = 0; i < this.props.markers.length; i++) {
                 bounds.extend(new this.props.google.maps.LatLng(this.props.markers[i].location));
             }
-            if (this.state.markers.length > 1) this.state.map.fitBounds(this.state.bounds)
+            if (this.state.markers.length > 1&& this.state.map) this.state.map.fitBounds(this.state.bounds)
             else{
                 this.state.map.panTo(this.props.markers[0].location)
                 this.state.map.setZoom(10)
@@ -79,6 +79,7 @@ class _MapContainer extends React.Component {
     containerStyle = {
         width: '100%',
         height: '300px',
+        zIndex: -1
 
     }
 
