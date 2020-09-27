@@ -3,8 +3,6 @@ import React from 'react'
 import { useDrop } from 'react-dnd'
 
 import { ItemTypes } from '../../services/dndItems.js'
-import { utils } from '../../services/utils';
-import { MapContainer } from '../MainCmps/Map';
 import { MembersPreview } from '../TripApp/MemberPreview';
 import { AddDestination } from './AddDestiantion';
 import { RouteCalendar } from './RouteCalendar'

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { utils } from '../../services/utils';
 import { ErrorMsg } from '../MainCmps/ErrorMsg';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export class PrevEditActivity extends Component {
     state = {
@@ -36,6 +38,11 @@ export class PrevEditActivity extends Component {
                 destination: act.destination
             }, minTime, maxTime
         })
+    }
+    handleTime = (time) => {
+        let tzoffset = (time).getTimezoneOffset() * 60000; //offset in milliseconds
+        let localISOTime = (new Date(time - tzoffset)).toISOString().slice(0, -1);
+        this.setState({ activitie: { ...this.state.activitie, at: localISOTime } })
     }
 
     handleChange = (ev) => {
@@ -83,11 +90,15 @@ export class PrevEditActivity extends Component {
         let datetime = new Date(activitie.at)
         activitie.at = datetime.getTime()
         if (isOccTimeSlot(activitie)) {
-            this.props.showMsg({ type: 'input', msg: 'You aleardy have plans for that date! please choose a different one.'})
+            this.props.showMsg({ type: 'input', msg: 'You aleardy have plans for that date! please choose a different one.' })
             return
         }
         activitie.price = { amount: activitie.price, currency: '$' }
         saveAct(this.state.activitie)
+    }
+    getValidTime = () => {
+        console.log("PrevEditActivity -> getValidTime -> this.state.activitie.at", this.state.activitie.at)
+        return new Date(this.state.activitie.at)
     }
 
 
@@ -98,11 +109,19 @@ export class PrevEditActivity extends Component {
         const startTime = utils.getTimeDayStr(new Date(this.state.activitie.at).getTime())
         const endTime = utils.getTimeDayStr(new Date(this.state.activitie.at).getTime() + (this.state.activitie.duration / 2) * 60 * 60 * 1000)
 
+
+        let minT = new Date(minTime)
+        let maxT = new Date(maxTime)
+        let currDate = new Date(activitie.at)
+        let _min = currDate.setHours(7, 0)
+        let _max = currDate.setHours(23, 59)
+        let min = new Date(_min)
+        let max = new Date(_max)
+
         return (
 
 
             <form className="preview-activity-form flex column" >
-                
                 <h2 contentEditable={true} suppressContentEditableWarning={true} autoCorrect="off" data-name="name" onInput={this.handleContentEditable}>{this.state.activitie.name}</h2>
                 <div className="flex">
                     <small><i className="fas fa-map-marker"></i> {this.state.activitie.destination}</small>
@@ -111,9 +130,11 @@ export class PrevEditActivity extends Component {
 
                 <ErrorMsg />
 
-                <div  className={`flex time-container ${this.state.isInputOpen ? 'openHeight': ''} `}>
+                <div className={`flex time-container ${this.state.isInputOpen ? 'openHeight' : ''} `}>
                     <div className="flex column">
                         <h4 >Beginning time:</h4>
+
+
                         <input className="styled-input date" type="datetime-local" id="start-time-activity-input" min={minTime} max={maxTime} name="at"
                             onChange={this.handleChange} value={this.state.activitie.at}
                             required="required" id="date-activity-input" />
@@ -126,6 +147,20 @@ export class PrevEditActivity extends Component {
                 </div>
                 {<img src={this.props.props.act.imgUrl} alt="https://teddytennis.com/cyprus/wp-content/uploads/sites/76/2017/11/placeholder.png"/>}
 
+                <DatePicker
+                    minDate={minT}
+                    maxDate={maxT}
+                    selected={this.getValidTime().getTime()}
+                    minTime={min}
+                    maxTime={max}
+                    autoComplete="off"
+                    className="styled-input"
+                    showTimeSelect
+                    required
+
+                    // dateFormat="Pp"
+                    onChange={time => this.handleTime(time)}
+                />
                 <h4 htmlFor="notes">Notes</h4>
                 <textarea placeholder="notes" onChange={this.handleChange} name="notes" id="notes" value={this.state.activitie.notes} ></textarea>
                 <div className="flex">

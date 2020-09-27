@@ -151,7 +151,6 @@ class _AddTrip extends Component {
                                 id="enddate-dest-input"
                                 name="endDate"
                                 className="styled-input"
-
                                 required
                                 selected={this.state.currTrip.endDate || Date.now()}
                                 onChange={date => { this.handleInput(date, 'endDate') }}

@@ -8,7 +8,7 @@ export function DestinationsHeader({ destinations, allDestinations }) {
     return (
         <div className="destinations-header">
             {destinations.map((dest, idx) => {
-                return <DestNamePrev destinations={allDestinations} idx={idx} className="dest-0" key={utils.makeId()} dest={dest} />
+                return <DestNamePrev destinations={allDestinations} idx={idx}  key={utils.makeId()} dest={dest} />
             })}
         </div>
     )

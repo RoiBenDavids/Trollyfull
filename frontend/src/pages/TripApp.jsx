@@ -23,8 +23,9 @@ class _TripApp extends Component {
         chatOpen: false,
         settingsOpen: false,
         isSocketSetup: false,
-        trashOpen:false,
-        markers:[]
+        trashOpen: false,
+        markers: [],
+        sideBar: false
     }
 
     async componentDidMount() {
@@ -39,15 +40,16 @@ class _TripApp extends Component {
                 this.props.showModal('signup', id)
             }
             const markers = this.getMarkersOfDests()
-            this.setState({ isSocketSetup: true,markers })
+            this.setState({ isSocketSetup: true, markers })
         }
         catch (err) {
         }
     }
 
-    getMarkersOfDests(){
-       return this.props.trip.destinations.map(dest => {
-            return { location: dest.location, name: dest.name }})
+    getMarkersOfDests() {
+        return this.props.trip.destinations.map(dest => {
+            return { location: dest.location, name: dest.name }
+        })
 
     }
     componentWillUnmount() {
@@ -62,18 +64,18 @@ class _TripApp extends Component {
         socketService.on('tripUpdated', loadTrip);
     }
 
-    updateDestinations=async(destIdxToMove, moveToIdx)=> {
+    updateDestinations = async (destIdxToMove, moveToIdx) => {
         let destinations = [...this.props.trip.destinations]
         let activities = [...this.props.trip.activities]
         const moveDifference = utils.calculateDays(destinations[destIdxToMove].startDate, destinations[destIdxToMove].endDate)
         const destTomove = destinations.splice(destIdxToMove, 1)[0]
         const constant = (1000 * 60 * 60 * 24 * (moveDifference - 1))
         if (moveToIdx === -1) {
-            activities = activities.reduce((acc,act,idx)=>{
-                if(act.destination===destTomove.name) return acc
+            activities = activities.reduce((acc, act, idx) => {
+                if (act.destination === destTomove.name) return acc
                 acc.push(act)
                 return acc
-            },[])
+            }, [])
             destinations.forEach((dest, idx) => {
                 if (idx >= destIdxToMove) {
                     dest.startDate = dest.startDate - constant
@@ -83,11 +85,11 @@ class _TripApp extends Component {
                     })
                 }
             })
-            
+
         } else {
             if (destIdxToMove > moveToIdx) {
-                const passDifference = utils.calculateDays(this.props.trip.destinations[moveToIdx].startDate, this.props.trip.destinations[destIdxToMove - 1].endDate) 
-                const constant2 = (1000 * 60 * 60 * 24 * (passDifference-1))
+                const passDifference = utils.calculateDays(this.props.trip.destinations[moveToIdx].startDate, this.props.trip.destinations[destIdxToMove - 1].endDate)
+                const constant2 = (1000 * 60 * 60 * 24 * (passDifference - 1))
                 destTomove.startDate = destTomove.startDate - constant2;
                 destTomove.endDate = destTomove.endDate - constant2;
                 activities.forEach(act => {
@@ -95,7 +97,7 @@ class _TripApp extends Component {
                 })
                 destinations.splice(moveToIdx, 0, destTomove)
                 destinations.forEach((dest, idx) => {
-                    if (idx > moveToIdx && idx<=destIdxToMove) {
+                    if (idx > moveToIdx && idx <= destIdxToMove) {
                         dest.startDate = dest.startDate + constant
                         dest.endDate = dest.endDate + constant
                         activities.forEach(act => {
@@ -103,9 +105,9 @@ class _TripApp extends Component {
                         })
                     }
                 })
-            }else{ 
-                const passDifference = utils.calculateDays(this.props.trip.destinations[destIdxToMove+1].startDate, this.props.trip.destinations[moveToIdx].endDate)
-                const constant2 = (1000 * 60 * 60 * 24 * (passDifference-1))
+            } else {
+                const passDifference = utils.calculateDays(this.props.trip.destinations[destIdxToMove + 1].startDate, this.props.trip.destinations[moveToIdx].endDate)
+                const constant2 = (1000 * 60 * 60 * 24 * (passDifference - 1))
                 destTomove.startDate = destTomove.startDate + constant2;
                 destTomove.endDate = destTomove.endDate + constant2;
                 activities.forEach(act => {
@@ -113,7 +115,7 @@ class _TripApp extends Component {
                 })
                 destinations.splice(moveToIdx, 0, destTomove)
                 destinations.forEach((dest, idx) => {
-                    if (idx < moveToIdx && idx>=destIdxToMove) {
+                    if (idx < moveToIdx && idx >= destIdxToMove) {
                         dest.startDate = dest.startDate - constant
                         dest.endDate = dest.endDate - constant
                         activities.forEach(act => {
@@ -124,7 +126,7 @@ class _TripApp extends Component {
 
             }
         }
-        const newTrip = {...this.props.trip, activities,destinations}
+        const newTrip = { ...this.props.trip, activities, destinations }
         await this.props.addTrip(newTrip)
         socketService.emit('tripToUpdate', newTrip._id);
 
@@ -143,14 +145,15 @@ class _TripApp extends Component {
     toggleSettings = () => {
         this.setState({ settingsOpen: !this.state.settingsOpen })
     }
-    allowTrash=()=>{
+    allowTrash = () => {
         this.setState({ trashOpen: true })
-        setTimeout(()=>{
+        setTimeout(() => {
             this.denyTrash()
 
-        },3000)
+        }, 3000)
     }
-    denyTrash=()=>{;
+    denyTrash = () => {
+        ;
         this.setState({ trashOpen: false })
     }
     getMarkers() {
@@ -174,43 +177,51 @@ class _TripApp extends Component {
         socketService.emit('tripToUpdate', newTrip._id);
     }
 
-    showDay=(day)=>{
-        const actToRender= this.props.trip.activities.reduce((acc,act)=>{
-            if(new Date(act.at).getDate()===day.day.getDate()){
+    showDay = (day) => {
+        const actToRender = this.props.trip.activities.reduce((acc, act) => {
+            if (new Date(act.at).getDate() === day.day.getDate()) {
                 acc.push(act)
             }
             return acc
-        },[])
+        }, [])
+    }
+
+    openSideBar = () => {
+        console.log('togglenuid');
+        this.setState({ sideBar: !this.state.sideBar })
     }
 
     render() {
         const { trip } = this.props
+        const sideBarClass = this.state.sideBar ? 'open-side-bar' : ''
+        console.log(sideBarClass, 'add class');
         if (!trip) return <div>Loading....</div>
         return (
             <div className="trip-app  ">
-                <ErrorMsg/>
+                <ErrorMsg />
                 <div className="trip-app-area flex ">
-                    
-                    <div className="trip-side-bar flex column ">
+                    <button onClick={this.openSideBar} className={`side-bar-bars ${sideBarClass}`}><i class="fas fa-bars " ></i></button>
+                    <div className={`trip-side-bar flex column ${sideBarClass} `}>
                         <TripRoute
-                        trip={trip}
-                        addDestination={this.addDestination} 
-                        updateDestinations={this.updateDestinations} 
-                        showModal={this.props.showModal} 
-                        toggleChat={this.toggleChat}
-                        allowTrash={this.allowTrash}
-                        trashOpen={this.state.trashOpen}
-                        showDay={this.showDay}
+                            trip={trip}
+                            addDestination={this.addDestination}
+                            updateDestinations={this.updateDestinations}
+                            showModal={this.props.showModal}
+                            toggleChat={this.toggleChat}
+                            allowTrash={this.allowTrash}
+                            trashOpen={this.state.trashOpen}
+                            showDay={this.showDay}
+                            openSideBar={this.openSideBar}
                         />
                     </div>
                     <div className="trip-app-main full">
-                       {this.state.markers[0]&& <MapContainer markers={this.state.markers} />}
-                        <TripAssembly 
-                        showMsg={this.props.showMsg} 
-                        closeMsg={this.props.closeMsg} 
-                        trip={trip} updateTripAct={this.updateTripAct} 
-                        showModal={this.props.showModal} 
-                        closeModal={this.props.closeModal}
+                        {this.state.markers[0] && <MapContainer markers={this.state.markers} />}
+                        <TripAssembly
+                            showMsg={this.props.showMsg}
+                            closeMsg={this.props.closeMsg}
+                            trip={trip} updateTripAct={this.updateTripAct}
+                            showModal={this.props.showModal}
+                            closeModal={this.props.closeModal}
                         />
                     </div>
                 </div>
@@ -234,7 +245,7 @@ const mapDispatchToProps = {
     showMsg,
     closeMsg
 
-    
+
 }
 export const TripApp = connect(mapStateToProps, mapDispatchToProps)(withRouter(_TripApp))
 
