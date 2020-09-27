@@ -3,8 +3,8 @@
         margin-top: 50px;
         .trip-side-bar{
             width: 250px;
-            height: 100vh;
-            border-right: 1px solid black;
+            height: 100%;
+            box-shadow: 0 0 18px 0px #0000001b;
             padding: 0 20px;
             font-size: 1rem;
             position: fixed;
@@ -71,9 +71,10 @@
         height: 150px;
         width: 0;
         position:fixed;
-        bottom: 30px;
-        left: 250px;
+        bottom: 45px;
+        left: 0;
         transition: height 0.3s 0.3s, width 0.3s;
+        box-shadow: 0 0 18px 0px #0000003b;
         &.open{
             visibility: visible;
             height: 457px;

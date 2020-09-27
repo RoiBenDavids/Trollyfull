@@ -30,7 +30,7 @@ class _AddTrip extends Component {
         newtrip.name = newtrip.name.toLowerCase()
         if (!this.state.currTrip.startDate && !this.state.currTrip.endDate) {
             newtrip.startDate = Date.now()
-            newtrip.endDate = new Date(Date.now() + 1 * 1000 * 60 * 60 * 24)
+            newtrip.endDate = Date.now() + 1 * 1000 * 60 * 60 * 24
         }
         let location = this.getRandomLatLng()
         newtrip.location = location
