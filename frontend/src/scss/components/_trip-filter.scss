@@ -1,25 +1,22 @@
-
-.trip-filter{
+.trip-filter {
     border: 1px solid #ccc5c57a;
-    border-radius: 5px;
-    width: 95%;
+    border-radius: 100px;
+    width: fit-content;
+    padding: 0 20px;
     margin: 0 auto 20px;
     justify-content: center;
     align-items: baseline;
     flex-wrap: wrap;
-    >p, p>input{
-        margin: 5px;
-        background-color: inherit;
-        align-items: baseline;
-        border: none;
-    }
 
-    >p input{
-        border-bottom: 1px solid #bcb7b7;
+    input {
         outline: none;
+        height: 33px;
+        border-bottom: none;
     }
-    &:focus-within {
-        background-color: #dee5fc;
-        border: 1px solid black;
+    img {
+        width: 25px;
+        height: 25px;
+        margin: auto 10px;
+        vertical-align: baseline;
     }
 }

@@ -31,13 +31,13 @@ export function TripSlider({ trips }) {
             slidesPerView={"auto"}
             // effectCoverflow={true}
             navigation
-            rotate={-20}
-            stretch={0}
-            depth={200}
-            modifier={5}
             centeredSlides={ true}
             // autoplay={true}
             delay={2500}
+            coverflowEffect= {{
+                rotate: 30,
+                depth: 200
+              }}
 
         pagination={{ clickable: true }}
         >

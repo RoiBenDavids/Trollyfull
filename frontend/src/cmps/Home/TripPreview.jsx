@@ -17,13 +17,7 @@ class _TripPreview extends Component {
 
 
     handleClick = () => {
-        if (this.props.history.location.pathname === '/') {
-            this.props.history.push(`/trip/${this.props.trip._id}/triproute`)
-        }
-        else {
-            this.props.history.push(`/trip/${this.props.trip._id}`)
-        }
-
+        this.props.history.push(`/trip/${this.props.trip._id}/triproute`)
     }
 
     getTripPrice = (activities) => {
@@ -77,7 +71,7 @@ class _TripPreview extends Component {
                                 </div>
 
                             </div>
-                            <p>{`Trollied by Roi and ${utils.getRandomInt(50,220)} others`}</p>
+                            <p>{`Trollied by Roi and ${utils.getRandomInt(50, 220)} others`}</p>
                         </div>
                     </div>
 

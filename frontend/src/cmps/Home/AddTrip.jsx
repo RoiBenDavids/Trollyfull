@@ -7,7 +7,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ErrorMsg } from '../MainCmps/ErrorMsg';
 import { showMsg, closeMsg } from '../../store/actions/msgActions';
-
+import { GooglePlaces } from '../MainCmps/GooglePlaces';
+import {
+    geocodeByAddress,
+    // geocodeByPlaceId,
+    getLatLng,
+} from 'react-places-autocomplete';
 
 
 class _AddTrip extends Component {
@@ -17,6 +22,7 @@ class _AddTrip extends Component {
         tripName: '',
         currTrip: {
             name: '',
+            location: { lat: null, lng: null },
             startDate: '',
             endDate: '',
 
@@ -30,15 +36,15 @@ class _AddTrip extends Component {
         newtrip.name = newtrip.name.toLowerCase()
         if (!this.state.currTrip.startDate && !this.state.currTrip.endDate) {
             newtrip.startDate = Date.now()
-            newtrip.endDate = new Date(Date.now() + 1 * 1000 * 60 * 60 * 24)
+            newtrip.endDate = Date.now() + 1 * 1000 * 60 * 60 * 24
         }
-        let location = this.getRandomLatLng()
-        newtrip.location = location
+
         newtrip.id = utils.makeId()
         this.setState({
             destinations: [...this.state.destinations, newtrip],
             currTrip: {
                 name: '',
+                location: { lat: null, lng: null },
                 startDate: '',
                 endDate: '',
             }
@@ -48,7 +54,7 @@ class _AddTrip extends Component {
     onSaveDestination = async (ev) => {
         ev.preventDefault();
         if (!this.state.destinations.length) {
-            this.props.showMsg({type:'input', msg:'At least one destination must be added'})
+            this.props.showMsg({ type: 'input', msg: 'At least one destination must be added' })
             return
         }
         const trip = {
@@ -57,6 +63,7 @@ class _AddTrip extends Component {
             activities: [],
             destinations: this.state.destinations
         }
+
         if (this.props.loggedInUser) {
             trip.members = [
                 {
@@ -66,16 +73,27 @@ class _AddTrip extends Component {
                 }
             ]
         }
+
         else trip.members = []
         const newTrip = await this.props.addTrip(trip)
         this.props.history.push(`/trip/${newTrip._id}/tripRoute`)
     }
 
-    getRandomLatLng() {
-        const LL = utils.getRandomLatLng()
-        return LL
+    // getRandomLatLng() {
+    //     const LL = utils.getRandomLatLng()
+    //     return LL
+    // }
+
+
+    handleAddress = (name) => {
+        this.setState({ currTrip: { ...this.state.currTrip, name } }, console.log(this.state))
     }
 
+    handleSelect = async (value) => {
+        const results = await geocodeByAddress(value);
+        const latlng = await getLatLng(results[0])
+        this.setState({ currTrip: { ...this.state.currTrip,location: latlng, name: value }}, () => { console.log(this.state) })
+    }
 
     handleInput = (ev, name) => {
         let value;
@@ -117,7 +135,12 @@ class _AddTrip extends Component {
                             onChange={this.handleInput}
                         />
                     </div>
-
+                    {/* <GooglePlaces
+                        handleSelect={this.handleSelect}
+                        handleAddress={this.handleAddress}
+                        address={this.state.currTrip.name}
+                        location={this.state.currTrip.location}
+                    /> */}
                     <div className="flex column">
                         <label htmlFor="add-dest-city">Add Destination:</label>
                         <input className="styled-input" type="text"
@@ -140,7 +163,7 @@ class _AddTrip extends Component {
                                 className="styled-input"
                                 required
                                 // selected={this.state.currTrip.startDate || Date.now()}
-                                selected={this.state.destinations.length?startDate:Date.now()}
+                                selected={this.state.destinations.length ? startDate : Date.now()}
                                 onChange={date => { this.handleInput(date, 'startDate') }}
                             />
                         </div>

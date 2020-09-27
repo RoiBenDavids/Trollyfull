@@ -5,7 +5,7 @@ import { DayActivities } from './DayActivities'
 import { DayTimeLine } from './DayTimeLine';
 import { DestinationsHeader } from './DestinationsHeader';
 
-const daysCount = 3
+const daysCount = 7
 
 export class TripAssembly extends Component {
 
@@ -192,7 +192,6 @@ export class TripAssembly extends Component {
             return
         }
         if (!newTime) return
-        console.log(newTime);
 
         activity.at = newTime
 

@@ -97,7 +97,7 @@ export class PrevEditActivity extends Component {
         saveAct(this.state.activitie)
     }
     getValidTime = () => {
-        console.log("PrevEditActivity -> getValidTime -> this.state.activitie.at", this.state.activitie.at)
+        // console.log("PrevEditActivity -> getValidTime -> this.state.activitie.at", this.state.activitie.at)
         return new Date(this.state.activitie.at)
     }
 

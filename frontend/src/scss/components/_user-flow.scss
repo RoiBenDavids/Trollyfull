@@ -1,8 +1,12 @@
 .user-flow{
 margin: 0 auto;
 justify-content: space-evenly;
+
+max-width: 62%;
+
 >div{
-    max-width: 450px;
+    justify-content: space-between;
+    width: 100%;
     margin-bottom: 30px;
     }
     img{
@@ -11,14 +15,14 @@ justify-content: space-evenly;
         object-fit: contain;
         }
         .flow-headline{
-            font-size: rem(20px);
+            font-weight: bold;
+            font-size: rem(28px);
             color:#D826C7 ;
+            font-family: Dosis;
             padding-bottom: 15px;
-            text-decoration: underline;
-            text-underline-position: under;
-            text-decoration-style: double;
         }
         .flow-content{
+            font-size: rem(20px);
             color: rgb(82, 82, 82);
         }
 

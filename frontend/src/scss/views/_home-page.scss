@@ -82,6 +82,8 @@
       padding-top: 10px;
       padding-bottom: 50px;
 
+    
+
 }
 .swiper-slide{
     width: 350px !important;
@@ -92,7 +94,12 @@
     height: 450px;
 
 }
-
+.swiper-pagination-bullet{
+    background-color: #e48ae6;
+    .swiper-pagination-bullet-active{
+        background-color: #ca39cc !important;
+    }
+  }
 
 
 

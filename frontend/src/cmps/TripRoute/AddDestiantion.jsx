@@ -1,24 +1,52 @@
 import React from 'react'
 import { utils } from '../../services/utils'
+import { GooglePlaces } from '../MainCmps/GooglePlaces'
+import {
+    geocodeByAddress,
+    // geocodeByPlaceId,
+    getLatLng,
+} from 'react-places-autocomplete';
 
 export class AddDestination extends React.Component {
     state = {
         addDestOpen: false,
         destination: {
             name: '',
-            days: ''
+            days: '',
+            location: null
         }
     }
-    componentDidMount(){
-        this.setState({destination:{
-            name:'',
-            days:'',
-            location:utils.getRandomLatLng()
-        }})
+    componentDidMount() {
+        this.setState({
+            destination: {
+                name: '',
+                days: '',
+                location: null
+                // location: utils.getRandomLatLng()
+            }
+        })
     }
 
-    onAddDestination = () => {
-        this.setState({ addDestination: !this.state.addDestination })
+    // onAddDestination = () => {
+    //     this.setState({ addDestination: !this.state.addDestination })
+    // }
+
+    handleAddress = (name) => {
+        console.log(name);
+        this.setState({ destination: { ...this.state.destination, name } }, console.log(this.state))
+    }
+
+    handleSelect = async (value) => {
+        console.log(value);
+        try {
+            const results = await geocodeByAddress(value);
+            const latlng = await getLatLng(results[0])
+            this.setState({ destination: { ...this.state.destination, location: latlng, name: value } }, () => { console.log(this.state) })
+
+        }
+        catch (err) {
+            console.log(err, 'err');
+        }
     }
 
     handleChange = (ev) => {
@@ -52,6 +80,14 @@ export class AddDestination extends React.Component {
                             value={this.state.destination.name}
                             onChange={this.handleChange}
                         ></input>
+                        {/* <GooglePlaces
+                            handleSelect={this.handleSelect}
+                            handleAddress={this.handleAddress}
+                            address={this.state.destination.name}
+                            location={this.state.destination.location}
+                        /> */}
+
+
                         <input
                             type="number"
                             placeholder="Number of days"

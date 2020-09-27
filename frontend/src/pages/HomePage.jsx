@@ -52,8 +52,8 @@ class _HomePage extends Component {
                         <h2 className="" >Top rated planned trips</h2>
                         <section className="slideShow" >
                             <TripSlider trips={this.props.trips.slice(0, 4)} />
-                        </section>
                         <Link to="/trip"><button className="styled-button to-trip-list"> Show me more</button></Link>
+                        </section>
                     </div>
                     <AddTrip />
                 </div>

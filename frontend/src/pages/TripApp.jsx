@@ -167,7 +167,7 @@ class _TripApp extends Component {
         newDest.startDate = destinations[destinations.length - 1].endDate
         newDest.endDate = newDest.startDate + 1000 * 60 * 60 * 24 * (+newDest.days - 1)
         newDest.id = utils.makeId()
-        newDest.location = { lat: 53.5511, lng: 9.9937 }
+        // newDest.location = { lat: 53.5511, lng: 9.9937 }
         destinations.push(newDest)
         const newTrip = { ...this.props.trip, destinations }
         await this.props.addTrip(newTrip)
@@ -187,14 +187,12 @@ class _TripApp extends Component {
     }
 
     openSideBar = () => {
-        console.log('togglenuid');
         this.setState({ sideBar: !this.state.sideBar })
     }
 
     render() {
         const { trip } = this.props
         const sideBarClass = this.state.sideBar ? 'open-side-bar' : ''
-        console.log(sideBarClass, 'add class');
         if (!trip) return <div>Loading....</div>
         return (
             <div className="trip-app  ">
