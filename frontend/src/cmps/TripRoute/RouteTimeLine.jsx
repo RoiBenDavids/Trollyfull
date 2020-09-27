@@ -5,7 +5,6 @@ import { RouteTimeLinePreview } from './RouteTimeLinePreview'
 
 export function RouteTimeLine({ trip, updateDestinations,allowTrash }) {
     // export class RouteTimeLine extends React.Component {
-  
     return (
         <div  className="route-time-line">
             {trip.destinations.map((destination, idx) => {

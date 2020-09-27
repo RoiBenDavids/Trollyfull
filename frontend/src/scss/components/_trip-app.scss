@@ -1,6 +1,54 @@
 .trip-app{
     .trip-app-area{
         margin-top: 50px;
+        .trip-side-bar{
+            width: 250px;
+            height: 100vh;
+            border-right: 1px solid black;
+            padding: 0 20px;
+            font-size: 1rem;
+            position: fixed;
+            top: 0px;
+            background-color: whitesmoke;
+           
+        }
+        //SIDE BAR MEDIA ----ADD TO TRIP ROUTE MEDIA!!!!
+        @media(max-width:1000px) {
+            .trip-side-bar {
+                left: -250px;
+                transition: left 0.3s;
+                &.open-side-bar{
+                    left: 0;
+                    z-index: 4;
+                }
+            }
+            .trip-app-main{
+                margin: 0;
+            }
+        }
+        .side-bar-bars{
+            position: fixed;
+            z-index: 5;
+            outline: none;
+            border: none;
+            background-color: whitesmoke;
+            width: 40px;
+            height: 40px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            left:0;
+    
+        }
+        @media(max-width:1000px) {
+            .side-bar-bars{
+                display: flex;
+                transition: left 0.3s;
+                &.open-side-bar{
+                    left: 250px;
+                }
+            }
+        }
     }
     .trip-app-main{
         flex: 1;
@@ -8,69 +56,7 @@
         margin-left: 250px;
         
     }
-    .trip-main-img{
-        height: 500px;
-        object-position: center center;
-        object-fit: cover;
-        width: 100%;
-    }
-    .trip-side-bar{
-        width: 250px;
-        height: 100vh;
-        border-right: 1px solid black;
-        padding: 0 20px;
-        font-size: 1rem;
-        position: fixed;
-        top: 0px;
-        background-color: #d6e4fdd3;
-       
-    }
-    .trip-navbar{
-        position: sticky;
-        margin-bottom: 50px;
-        a{
-            height:55px;
-            display: flex;
-            align-items: center;
-        }
-        >a{
-            position: absolute;
-            right: 20px;
-        }
-        .add-user-btn{
-            font-size: x-large;
-            color: gray;
-            :hover{
-                color: #e0abff;
-            }
-        }
-        .trip-routes{
-            flex:1;
-            >a{
-                margin-inline-start: 30px;
-                padding: 20px;
-                &.active{
-                    background-color: $clr11;
-                    box-shadow: inset 0px -1px 7px -4px darken($clr11, 68%), inset  0px 4px 5px lighten($clr11, 6%);
-                }
-            }
-        }
-        .trip-settings{
-            position: absolute;
-            right: 0;
-            top: 60px;
-            background-color: $clr6;
-            height: 0;
-            width: 150px;
-            opacity: 0;
-            transition: height 0.3s,opacity 0.3s;
-            &.open{
-                opacity: 1;
-                height: 150px;
-
-            }
-        }
-    }
+   
 
     .chat-button{
         position: fixed;
@@ -96,10 +82,7 @@
         .chat-header{
             padding: 20px;
             text-align: center;
-            // background-color: $clr6;
             border-bottom: 1px solid $clr11;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
         }
         ::-webkit-scrollbar {
             width: 12px;

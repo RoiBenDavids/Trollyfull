@@ -192,6 +192,7 @@ export class TripAssembly extends Component {
             return
         }
         if (!newTime) return
+        console.log(newTime);
 
         activity.at = newTime
 

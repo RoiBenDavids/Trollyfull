@@ -7,7 +7,7 @@ import { ItemTypes } from '../../services/dndItems.js'
 import { utils } from '../../services/utils'
 
 export function RouteTimeLinePreview({ destination, idx, isLast, changeOrder, updateDestinations,allowTrash }) {
-
+    let helpMeDrop=''
     const [{ isDragging }, drag] = useDrag({
         item: {
             type: ItemTypes.DESTINATION,
@@ -28,14 +28,15 @@ export function RouteTimeLinePreview({ destination, idx, isLast, changeOrder, up
         })
     })
     if(isDragging===true){
-        allowTrash()
+        // allowTrash()
     }
 
+    const _isOver = (isOver)?'is-dragging':''
     return (
         <React.Fragment>
             <div ref={drop} className="time-line-area flex align-center">
                 <div className="route-time-line-context flex align-center ">
-                    <div ref={drag} className={`index-ball dest-${idx} flex align-center justify-center `} ><p>{idx + 1}</p></div>
+                    <div ref={drag} className={`index-ball dest-${idx} flex align-center justify-center  ${_isOver} `} ><p>{idx + 1}</p></div>
                     <div className="time-line-text">
                         <p>{destination.name}</p>
                         <p>{utils.calculateDays(destination.startDate, destination.endDate) - 1} Nights</p>
