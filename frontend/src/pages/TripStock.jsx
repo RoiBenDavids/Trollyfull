@@ -15,7 +15,6 @@ class _TripStock extends Component {
 
     componentDidMount() {
         this.props.loadTrips(this.state.filterBy)
-        console.log(this.state);
     }
 
     getMostOccDests = () => {

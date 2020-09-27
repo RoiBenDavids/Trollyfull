@@ -22,7 +22,6 @@ export class PrevEditActivity extends Component {
     }
 
     async componentDidMount() {
-        console.log(this.props.props);
         const { act, destinations } = this.props.props
         let minTime;
         let maxTime;
@@ -36,26 +35,12 @@ export class PrevEditActivity extends Component {
                 ...act, name: act.name, currency: act.price.currency, price: act.price.amount, at: utils.getIsoTime(act.at),
                 destination: act.destination
             }, minTime, maxTime
-        }, () => console.log(this.state))
+        })
     }
-
-    // componentDidUpdate(prevProps, prevState) {
-    //     const { destinations } = this.props.props
-    //     const { destination } = this.state.activitie
-    //     if (prevState.activitie.destination === destination) return
-    //     if (destination && !this.state.activitie.id) {
-    //         const destIdx = destinations.findIndex(dest => dest.name === destination)
-    //         const minTime = utils.getIsoTime(destinations[destIdx].startDate)
-    //         const maxTime = utils.getIsoTime(destinations[destIdx].endDate)
-    //         this.setState({ minTime, maxTime })
-    //     }
-    // }
-
 
     handleChange = (ev) => {
         const field = ev.target.name;
         let value = ev.target.value;
-        console.log(field, value);
 
         if (field === 'at') {
             let time = value.substring(value.length - 5)
@@ -84,7 +69,6 @@ export class PrevEditActivity extends Component {
     }
 
     handleContentEditable = (ev) => {
-        console.log(ev.target, 'contenteditable');
         const field = ev.currentTarget.dataset.name
         let value = ev.target.innerText
         if (field === 'price') this.setState({ activitie: { ...this.state.activitie, [field]: +value } });
@@ -111,7 +95,6 @@ export class PrevEditActivity extends Component {
     render() {
         const { activitie, minTime, maxTime } = this.state
         const { destinations } = this.props.props
-        console.log(destinations);
         const startTime = utils.getTimeDayStr(new Date(this.state.activitie.at).getTime())
         const endTime = utils.getTimeDayStr(new Date(this.state.activitie.at).getTime() + (this.state.activitie.duration / 2) * 60 * 60 * 1000)
 
@@ -119,10 +102,11 @@ export class PrevEditActivity extends Component {
 
 
             <form className="preview-activity-form flex column" >
+                
                 <h2 contentEditable={true} suppressContentEditableWarning={true} autoCorrect="off" data-name="name" onInput={this.handleContentEditable}>{this.state.activitie.name}</h2>
                 <div className="flex">
-                    <small>in: {this.state.activitie.destination}</small>
-                    <small>{`${startTime}-${endTime}`} <i onClick={() => { this.setState({ isInputOpen: !this.state.isInputOpen }) }} className="fas fa-edit"></i></small>
+                    <small><i className="fas fa-map-marker"></i> {this.state.activitie.destination}</small>
+                    <small><i className="far fa-clock"></i>{`${startTime}-${endTime}`} <i onClick={() => { this.setState({ isInputOpen: !this.state.isInputOpen }) }} className="fas fa-edit"></i></small>
                 </div>
 
                 <ErrorMsg />
@@ -140,6 +124,7 @@ export class PrevEditActivity extends Component {
                     </div>
 
                 </div>
+                {<img src={this.props.props.act.imgUrl} alt="https://teddytennis.com/cyprus/wp-content/uploads/sites/76/2017/11/placeholder.png"/>}
 
                 <h4 htmlFor="notes">Notes</h4>
                 <textarea placeholder="notes" onChange={this.handleChange} name="notes" id="notes" value={this.state.activitie.notes} ></textarea>

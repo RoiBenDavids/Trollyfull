@@ -13,9 +13,10 @@ class _MainNavBar extends Component {
     }
 
     componentDidMount() {
+        const path = this.props.location.pathname.match('/')
+        const match = path && this.props.location.pathname === path[0]
+        if (!match) this.backgroundChanged()
         window.addEventListener('scroll', this.backgroundChanged);
-  
-
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -25,7 +26,6 @@ class _MainNavBar extends Component {
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.backgroundChanged);
-
     }
 
 
@@ -45,8 +45,6 @@ class _MainNavBar extends Component {
                     <Link to="/trip">Trips</Link>
                     <NavLink to="/about" >About</NavLink>
                     {this.props.usersData.loggedInUser ? <UserPreview logout={this.props.logout} user={this.props.usersData.loggedInUser} /> : <div onClick={() => this.props.showModal('login')}>Login</div>}
-                    {/* {this.state.loggedInUser ? <UserPreview logout={this.props.logout} user={this.state.loggedInUser} /> : <div onClick={() => this.props.showModal('login')}>Login</div>} */}
-                    {/* {this.state.loggedInUser ? <UserPreview logout={this.props.logout} user={this.state.loggedInUser} /> : <NavLink to="/loginSignup" >Login</NavLink>} */}
                 </div>
             </div>
         )

@@ -21,7 +21,6 @@ export class EditActivity extends Component {
     }
 
     async componentDidMount() {
-        console.log(this.props.props);
         const { act, destinations } = this.props.props
         let minTime;
         let maxTime;
@@ -36,7 +35,7 @@ export class EditActivity extends Component {
                     ...act, name: act.name, price: act.price.amount, at: utils.getIsoTime(act.at),
                     destination: act.destination
                 }, minTime, maxTime
-            }, () => console.log(this.state))
+            })
         } else {
 
             minTime = utils.getIsoTime(destinations[0].startDate)
@@ -107,12 +106,6 @@ export class EditActivity extends Component {
         activitie.price = { amount: activitie.price, currency: '$' }
         saveAct(this.state.activitie)
     }
-    // checkinput = (ev, name) => {
-    //     console.log(ev.target.innerText, name);
-    //     this.setState({ ...this.state, activitie: { ...this.state.activitie, name: ev.target.innerText } })
-    // }
-
-
     getValidTime = () => {
         return new Date(this.state.activitie.at)
     }

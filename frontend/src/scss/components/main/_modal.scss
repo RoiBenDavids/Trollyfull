@@ -13,8 +13,9 @@
     }
 
     .modal-container{
-        width: 50%;
-        height: fit-content;
+        width: 600px;
+        max-height: 95vh;
+        overflow: auto;
         background-color: #fff;
         border-radius: 5px;
         text-align: center;
