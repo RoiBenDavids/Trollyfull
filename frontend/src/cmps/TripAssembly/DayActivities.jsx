@@ -32,12 +32,12 @@ export function DayActivities({ day, getRowIdx, onRemoveAct, onEdit, destination
                     currActsLength += act.duration
                     return <ActivitiePreview
                         destinations={destinations} onEdit={onEdit} onRemoveAct={onRemoveAct}
-                        getRowIdx={getRowIdx} key={utils.makeId()} act={act}  onOpenDetails={onOpenDetails}/>
+                        getRowIdx={getRowIdx} key={utils.makeId()} act={act} onOpenDetails={onOpenDetails} />
 
                 } else {
                     return <OpenDaySlot
                         destinations={destinations} onEdit={onEdit} onRemoveAct={onRemoveAct}
-                        getRowIdx={getRowIdx} key={utils.makeId()} act={act} onDragMove={onDragMove}  />
+                        getRowIdx={getRowIdx} key={utils.makeId()} act={act} onDragMove={onDragMove} />
                 }
             })}
         </div>

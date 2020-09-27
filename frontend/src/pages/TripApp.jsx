@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Route, Router, Switch, withRouter } from 'react-router-dom'
-import { loadTrip, addTrip, addTripFast } from '../store/actions/tripActions'
+import { loadTrip, addTrip, addTripFast, setTrip } from '../store/actions/tripActions'
 import { closeModal, showModal } from '../store/actions/modalActions'
 // import { TripRoute } from '../cmps/TripRoute'
 import { tripService } from '.././services/tripService'
@@ -15,6 +15,7 @@ import { socketService } from '../services/socketService'
 import { MapContainer } from '../cmps/MainCmps/Map';
 import { closeMsg, showMsg } from '../store/actions/msgActions'
 import { ErrorMsg } from '../cmps/MainCmps/ErrorMsg'
+import { eventBus } from '../services/eventBusService'
 // import locationCevtorRed from 'https://res.cloudinary.com/roidinary/image/upload/v1600377967/locationVectorRed_vzufx4.png'
 
 class _TripApp extends Component {
@@ -29,9 +30,13 @@ class _TripApp extends Component {
     }
 
     async componentDidMount() {
-        const { loadTrip } = this.props
+        const { setTrip, loadTrip, addTrip } = this.props
         socketService.setup();
-        socketService.on('tripUpdated', loadTrip);
+        // socketService.on('tripUpdated', setTrip);
+        // socketService.on('tripUpdated', loadTrip);
+
+
+        socketService.on('tripUpdated', addTrip);
         const { id } = this.props.match.params
         socketService.emit('enter trip', id);
         try {
@@ -44,6 +49,9 @@ class _TripApp extends Component {
         }
         catch (err) {
         }
+        // socketService.emit('tripToUpdate', newTrip);
+
+        // socketService.on('tripUpdated', setTrip);
     }
 
     getMarkersOfDests() {
@@ -53,7 +61,7 @@ class _TripApp extends Component {
 
     }
     componentWillUnmount() {
-        socketService.off('tripUpdated', loadTrip);
+        socketService.off('tripUpdated', this.props.addTrip);
     }
 
     async componentDidUpdate(prevProps, prevState) {
@@ -61,7 +69,11 @@ class _TripApp extends Component {
         if (prevProps.trip === this.props.trip) return
         const markers = this.getMarkersOfDests()
         this.setState({ markers })
-        socketService.on('tripUpdated', loadTrip);
+        // socketService.on('tripUpdated', addTrip);
+        // socketService.on('tripUpdated', loadTrip);
+        // socketService.on('tripUpdated', this.props.setTrip);
+
+        // socketService.emit('tripUpdated', this.props.trip);
     }
 
     updateDestinations = async (destIdxToMove, moveToIdx) => {
@@ -128,14 +140,15 @@ class _TripApp extends Component {
         }
         const newTrip = { ...this.props.trip, activities, destinations }
         await this.props.addTrip(newTrip)
-        socketService.emit('tripToUpdate', newTrip._id);
+        // socketService.emit('tripToUpdate', newTrip);
+        socketService.emit('tripToUpdate', newTrip);
 
     }
 
     updateTripAct = async (activities) => {
-        let newTrip = { ...this.props.trip, activities }
-        await this.props.addTrip(newTrip)
-        socketService.emit('tripToUpdate', newTrip._id);
+        let _newTrip = { ...this.props.trip, activities }
+        let newTrip = await this.props.addTrip(_newTrip)
+        socketService.emit('tripToUpdate', newTrip);
 
     }
 
@@ -149,7 +162,6 @@ class _TripApp extends Component {
         this.setState({ trashOpen: true })
         setTimeout(() => {
             this.denyTrash()
-
         }, 3000)
     }
     denyTrash = () => {
@@ -169,12 +181,13 @@ class _TripApp extends Component {
         newDest.id = utils.makeId()
         newDest.location = { lat: 53.5511, lng: 9.9937 }
         destinations.push(newDest)
-        const newTrip = { ...this.props.trip, destinations }
-        await this.props.addTrip(newTrip)
+        const _newTrip = { ...this.props.trip, destinations }
+        const newTrip = await this.props.addTrip(_newTrip)
         // const markers = this.getMarkersOfDests()
         // console.log(markers);
         // this.setState({ markers })
-        socketService.emit('tripToUpdate', newTrip._id);
+
+        socketService.emit('tripToUpdate', newTrip);
     }
 
     showDay = (day) => {
@@ -184,6 +197,7 @@ class _TripApp extends Component {
             }
             return acc
         }, [])
+        eventBus.emit('markDay', day)
     }
 
     openSideBar = () => {
@@ -215,7 +229,7 @@ class _TripApp extends Component {
                         />
                     </div>
                     <div className="trip-app-main full">
-                        {this.state.markers[0] && <MapContainer markers={this.state.markers} />}
+                        {/* {this.state.markers[0] && <MapContainer markers={this.state.markers} />} */}
                         <TripAssembly
                             showMsg={this.props.showMsg}
                             closeMsg={this.props.closeMsg}
@@ -243,7 +257,9 @@ const mapDispatchToProps = {
     closeModal,
     addTrip,
     showMsg,
-    closeMsg
+    closeMsg,
+    setTrip
+
 
 
 }

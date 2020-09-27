@@ -12,7 +12,8 @@ export const utils = {
     getRandomInt,
     getIsoTime,
     calculateDates,
-    getRandomLatLng
+    getRandomLatLng,
+    setToHourMinuets
 }
 
 function makeId(length = 5) {
@@ -73,6 +74,13 @@ function createMat(cols, rows) {
 function getDateDay(timeStamp) {
     const time = new Date(timeStamp);
     return time.getDate()
+}
+
+function setToHourMinuets(timeStamp,hour, min) {
+    let time = new Date(timeStamp)
+    time.setHours(hour, min)
+    return time.getTime()
+    
 }
 
 

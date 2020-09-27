@@ -26,7 +26,8 @@ function connectSockets(io) {
             // socket.broadcast.emit('typing', data);
         });
         socket.on('tripToUpdate', tripId => {
-            io.to(socket.myTopic).emit('tripUpdated', tripId)
+            socket.broadcast.emit('tripUpdated', tripId)
+            // io.to(socket.myTopic).emit('tripUpdated', tripId)
         });
 
         // socket.on('updateTrip', topic => {

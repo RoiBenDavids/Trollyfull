@@ -100,7 +100,6 @@ export class EditActivity extends Component {
         let datetime = new Date(activitie.at)
         activitie.at = datetime.getTime()
         if (isOccTimeSlot(activitie)) {
-            alert('You aleardy have plans for that date! please choose a different one.')
             return
         }
         activitie.price = { amount: activitie.price, currency: '$' }
@@ -113,6 +112,7 @@ export class EditActivity extends Component {
     render() {
         const { activitie, minTime, maxTime } = this.state
         if (!activitie) return <div>Loading</div>
+        console.log("render -> activitie", activitie)
         const { destinations } = this.props.props
         let minT = new Date(minTime)
         let maxT = new Date(maxTime)
