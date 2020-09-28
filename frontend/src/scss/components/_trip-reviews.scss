@@ -27,18 +27,14 @@ background-color: #8da5e2;
 }
 
 .review-list{
-    margin-block-start: 0;
-    margin-block-end: 0;
-    padding: 60px;
     list-style-type: none;
     align-items: flex-start;
     width: 100%;
+    max-height: 38vh;
+    overflow-y: auto;
     >:nth-child(even){
         background-color: rgba(243, 243, 243, 0.678);
         margin: 0;
-    }
-   > h3{
-        margin: 10px;
     }
     .review{
         justify-content: space-between;
@@ -49,21 +45,15 @@ background-color: #8da5e2;
         padding: 20px;
         font-size: 1rem;
         color: rgb(99, 96, 96);
-
-        
-
         > p{
             margin: 0;
             text-align-last: left;
             color: rgb(95, 93, 93);
             line-height: 1.3rem;
             overflow-wrap: anywhere;
-
-
         }
         .review-details{
         width: 100%;
-        align-items: baseline;
         .rating-star{
             :nth-child(5){
                 flex: 1;
@@ -83,6 +73,10 @@ background-color: #8da5e2;
 }
     
     .review-modal  {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.3s ease-in-out;
+        // visibility: hidden;
         h2{
         width: 100%;
         position: relative;
@@ -95,18 +89,28 @@ background-color: #8da5e2;
             overflow: hidden;
             background-color: #fff;
             border-radius: 5px;
-            padding: 20px;
             text-align: center;
             align-items: center;
             justify-content: space-around;
+            >div{
+                align-items: flex-end;
+            }
         }
-            select,textarea{        
-                padding: 10px;
-                width: 50%;
-                margin: 10px;
+            select,textarea{       
+                
                 border-radius: 5px;
                 border: 1px solid rgb(231, 231, 231);
                 outline: none;
+            }
+            textarea{
+                width: 80%;
+                height: 70px;
+            }
+            select{
+                height: 30px;
+            }
+            input{
+                margin: 0;
             }
             .close-modal{
                 position: absolute;
@@ -122,7 +126,10 @@ background-color: #8da5e2;
                         color: white;
                         box-shadow: 1px 9px 7px 0px #c5bdbd;
                     }
-        
+                }
+                &.open{
+                    // visibility: visible;
+                    height: 150px;
                 }
     }
     

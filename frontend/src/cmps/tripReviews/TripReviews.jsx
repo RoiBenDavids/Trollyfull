@@ -11,48 +11,45 @@ import { reviewActions } from '../../store/actions/reviewActions'
 class _TripReviews extends Component {
 
     state = {
-        trip: '',
         isReviewOpen: false,
     }
 
     async componentDidMount() {
-        const trip = this.props.props
+        // const trip = this.props.props
+        const trip =this.props.trip
         try {
-            await this.setState({ trip })
-            await this.props.loadReviews({ tripId: this.state.trip._id })
+            // await this.setState({ trip })
+            await this.props.loadReviews({ tripId: trip._id })
         }
         catch (err) {
         }
     }
 
     onToggleExpend = () => {
-        this.setState({ isReviewOpen: true })
+        this.setState({ isReviewOpen: !this.state.isReviewOpen})
     }
 
 
     addReview = async (review) => {
-        review.byUserId = this.props.loggedInUser._id
-        review.trip = this.state.trip._id
+        // review.byUserId = this.props.loggedInUser._id
+        review.trip = this.props.trip._id
         await reviewActions.addReview(review)
-        await this.props.loadReviews({ toyId: this.state.toy._id })
+        await this.props.loadReviews({ tripId: this.props.trip._id })
+        this.onToggleExpend()
     }
 
     render() {
-        const { trip } = this.state
+        const { trip } = this.props
         if (!trip) return <p> Loading . . .</p>
 
         return (
             <div className="reviews-page">
-                <TripPreview trip={trip} img={utils.getRandomPic()} style={{ pointerEvents: 'none' }} addClass={'review'}/>
-                <ReviewList reviews={trip.reviews} />
+                <ReviewList reviews={this.props.reviews} />
                 <div className="flex reviews-btns-container">
                     <button className="review-btns styled-button" onClick={this.onToggleExpend}>{this.state.isReviewOpen ? 'Close' : ' Add Review'}</button>
-                    <button className="review-btns styled-button" onClick={() => { this.props.onToggleExpend(); this.props.history.push('/trip') }}>Back</button>
                 </div>
-                    <AddReview addReview={this.addReview} onToggleExpend={this.onToggleExpend} isReviewOpen={this.state.isReviewOpen}/>
-                <Link to={`/trip/${trip._id}/triproute`}>
-                    <button onClick={this.props.closeModal} className="styled-button">Explore this trip</button>
-                </Link>
+                    {/* <AddReview addReview={this.addReview} onToggleExpend={this.onToggleExpend} isReviewOpen={this.state.isReviewOpen}/> */}
+                    <AddReview addReview={this.addReview} isReviewOpen={this.state.isReviewOpen}/>
             </div >
         )
     }
@@ -61,6 +58,7 @@ class _TripReviews extends Component {
 const mapStateToProps = state => {
     return {
         reviews: state.reviewReducer.reviews,
+        trip: state.tripReducer.currTrip
     }
 }
 

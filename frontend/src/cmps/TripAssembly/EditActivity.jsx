@@ -12,7 +12,7 @@ export class EditActivity extends Component {
             labels: ['relax'],
             duration: 1,
             notes: '',
-            price: 0,
+            price: '',
             destination: '',
             id: null
         },
@@ -147,7 +147,6 @@ export class EditActivity extends Component {
                 <input className="styled-input" placeholder="name" name="name" id="name" value={this.state.activitie.name} onChange={this.handleChange}></input>
                 {!activitie.id && <label htmlFor="dest-input">Destination</label>}
                 {!activitie.id && <select value={this.state.activitie.destination} placeholder="destination" name="destination" id="dest-input" onChange={this.handleChange}>
-                    <option value="" disabled selected>Select Destination</option>
                     {destinations.map((dest, idx) => {
                         return <option key={utils.makeId()} value={dest.name}>{dest.name}</option>
 

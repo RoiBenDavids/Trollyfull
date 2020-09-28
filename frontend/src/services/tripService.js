@@ -9,13 +9,13 @@ export const tripService = {
 }
 
 
-const user = {
-    _id: 'u101',
-    fullName: 'Orly Amdadi',
-    userName: 'orly@amdadi.com',
-    password: 'tinkerbell',
-    imgUrl: 'http://some-img',
-}
+// const user = {
+//     _id: 'u101',
+//     fullName: 'Orly Amdadi',
+//     userName: 'orly@amdadi.com',
+//     password: 'tinkerbell',
+//     imgUrl: 'http://some-img',
+// }
 
 async function query(filterBy={name:''}) {
     const queryStr = `?search=${filterBy.name}`;
