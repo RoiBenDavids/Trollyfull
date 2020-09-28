@@ -58,6 +58,13 @@ export class AddDestination extends React.Component {
         ev.preventDefault()
         this.toggleAddDestination()
         this.props.addDestination(this.state.destination)
+        this.setState({
+            destination:{
+                name: '',
+                days: '',
+                location: null
+            }
+        })
 
     }
     toggleAddDestination = () => {

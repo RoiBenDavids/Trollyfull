@@ -5,8 +5,7 @@ import { LongTxt } from '../MainCmps/LongText';
 
 
 export function ReviewPreview({ review }) {
-    const rating = '⭐'.repeat(review.rating);
-    
+
 
     function getStars() {
         let stars = [];
@@ -23,11 +22,13 @@ export function ReviewPreview({ review }) {
     const time = `${new Date(review.createdAt).getDate()}/${new Date(review.createdAt).getMonth() + 1}/${new Date(review.createdAt).getFullYear()}`
     return (
         < React.Fragment >
-            <div className="review-details flex justify-between">
-                <div>{getStars()} </div>
-                <p>{time}</p>
+            <div className="review-details flex justify-between ">
+                <h3>{review.name || 'Traveler'}</h3>
+                <div className="flex column">
+                    <div>{getStars()} </div>
+                    <p>{time}</p>
+                </div>
             </div>
-            <h3>{review.name || 'Traveler'}</h3>
             {review.content && <LongTxt text={review.content} />}
 
         </React.Fragment >

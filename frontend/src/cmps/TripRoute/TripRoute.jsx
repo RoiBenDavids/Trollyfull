@@ -8,8 +8,8 @@ import { AddDestination } from './AddDestiantion';
 import { RouteCalendar } from './RouteCalendar'
 import { RouteTimeLine } from './RouteTimeLine'
 
-export function TripRoute({ trip, updateDestinations, showModal, addDestination, toggleChat,  showDay }) {
-    const [{ isOver }, drop] = useDrop({
+export function TripRoute({ trip, updateDestinations, showModal, addDestination, toggleChat,  showDay ,setDestsMarkers}) {
+    const [{isOn}, drop] = useDrop({
         accept: ItemTypes.DESTINATION,
         drop: (item, monitor) => {
             updateDestinations(item.id, -1)
@@ -29,12 +29,13 @@ export function TripRoute({ trip, updateDestinations, showModal, addDestination,
                 <div className="trip-bar-icons trip-bar-destinations-icons flex justify-between">
                     <AddDestination addDestination={addDestination} />
                     <i ref={drop} className={`fas fa-trash `}></i>
+                    <i className="fas fa-map-marked-alt" onClick={setDestsMarkers}></i>
 
                 </div>
                 <RouteTimeLine trip={trip} updateDestinations={updateDestinations}  />
             </div>
             <div className="trip-bar-icons flex justify-between flex1 align-end">
-                <i className="fas fa-sms"></i>
+                <i className="fas fa-sms" onClick={()=>showModal('trip-reviews')}></i>
                 <i className="fas fa-comments" onClick={toggleChat} ></i>
             </div>
 

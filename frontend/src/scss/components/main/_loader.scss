@@ -6,6 +6,7 @@
       -o-transform: rotate(360deg);
       transform: rotate(360deg);
     }
+   
   }
   
   @keyframes flying {
@@ -35,8 +36,9 @@
    }
   }
   .positioning-container {
+    background-color: white;
     // position: absolute;
-    z-index: 500;
+    z-index: 10000;
     height: 100vh;
     width: 100%;
     text-align: center;

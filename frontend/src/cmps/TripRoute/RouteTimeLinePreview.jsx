@@ -33,7 +33,7 @@ export function RouteTimeLinePreview({ destination, idx, isLast, updateDestinati
     const letFire = isDragging? 'on':'';
     return (
         <React.Fragment>
-            { <div className={`fire-ring ${letFire}`}></div>}
+            { <div className={`fire-ring on ${letFire}`}></div>}
             <div ref={drop} className="time-line-area flex align-center">
                 <div className="route-time-line-context flex align-center ">
                     <div ref={drag} className={`index-ball dest-${idx} flex align-center justify-center  ${_isOver} `} ><p>{idx + 1}</p></div>
