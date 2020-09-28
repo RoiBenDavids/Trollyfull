@@ -11,7 +11,7 @@ class _Loader extends React.Component {
                 <span>LOADING</span>
                     <div className="airplane-container">
                         {/* <span className="fa fa-plane"></span> */}
-                        <img className="plane" src="https://res.cloudinary.com/roidinary/image/upload/v1600624566/Asset_dwekpj.png"></img>
+                        <img className="plane" src="https://res.cloudinary.com/roidinary/image/upload/v1600624566/Asset_dwekpj.png" alt="Loading"></img>
                         
                     </div>
                 </div>

@@ -7,7 +7,7 @@ async function query(filterBy = {}) {
     filterBy.tripId= ObjectId(filterBy.tripId)
     const collection = await dbService.getCollection('review')
     try {
-        var reviews = await collection.find({'aboutTrip':filterBy.tripId}).toArray();
+        var reviews = await collection.find({'trip':filterBy.tripId}).toArray();
         return reviews
     } catch (err) {
         console.log('ERROR: cannot find reviews')
@@ -28,7 +28,7 @@ async function remove(reviewId) {
 
 async function add(review) {
     review.byUserId = ObjectId(review.byUserId);
-    review.aboutTrip = ObjectId(review.aboutTrip);
+    review.trip = ObjectId(review.trip);
     const collection = await dbService.getCollection('review')
     try {
         await collection.insertOne(review);

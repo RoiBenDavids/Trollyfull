@@ -92,7 +92,7 @@ class _AddTrip extends Component {
     handleSelect = async (value) => {
         const results = await geocodeByAddress(value);
         const latlng = await getLatLng(results[0])
-        this.setState({ currTrip: { ...this.state.currTrip,location: latlng, name: value }}, () => { console.log(this.state) })
+        this.setState({ currTrip: { ...this.state.currTrip, location: latlng, name: value } }, () => { console.log(this.state) })
     }
 
     handleInput = (ev, name) => {
@@ -108,6 +108,10 @@ class _AddTrip extends Component {
         }
         else {
             value = new Date(ev).getTime();
+            // if (name === 'startDate') {
+            //     value = utils.setToHourMinuets(value, 7, 0)
+            // } else value = utils.setToHourMinuets(value, 23, 59)
+            // console.log("handleInput -> value", value)
             targetName = name
         }
 

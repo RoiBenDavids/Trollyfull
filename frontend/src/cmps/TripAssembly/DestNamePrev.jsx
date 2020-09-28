@@ -7,7 +7,7 @@ export function DestNamePrev({ dest, updateFreeDays, freeDays, destinations }) {
     const display = (dest.duration) ? '' : 'none'
     return (
 
-        <div className={`dest-name-preview dest-${idx} `} style={{ gridColumn: `span ${dest.duration}`, display: display }}>
+        <div className={`dest-name-preview dest-head-${idx} `} style={{ gridColumn: `span ${dest.duration}`, display: display }}>
             {dest.name}
         </div>
     )

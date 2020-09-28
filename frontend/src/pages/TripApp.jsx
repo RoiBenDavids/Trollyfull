@@ -58,7 +58,11 @@ class _TripApp extends Component {
         return this.props.trip.destinations.map(dest => {
             return { location: dest.location, name: dest.name }
         })
-
+    }
+    setDestsMarkers=()=>{
+        console.log('hooooo');
+        const markers = this.getMarkersOfDests()
+        this.setState({markers})
     }
     componentWillUnmount() {
         socketService.off('tripUpdated', this.props.addTrip);
@@ -158,11 +162,6 @@ class _TripApp extends Component {
     toggleSettings = () => {
         this.setState({ settingsOpen: !this.state.settingsOpen })
     }
-    getMarkers() {
-        return this.props.trip.destinations.map(dest => {
-            return { location: dest.location, name: dest.name }
-        })
-    }
 
     addDestination = async (newDest) => {
         const { destinations } = { ...this.props.trip }
@@ -182,11 +181,12 @@ class _TripApp extends Component {
     showDay = (day) => {
         const actToRender = this.props.trip.activities.reduce((acc, act) => {
             if (new Date(act.at).getDate() === day.day.getDate()) {
-                acc.push(act)
+                acc.push({name:act.name,location:act.location,at:act.at})
             }
             return acc
         }, [])
         eventBus.emit('markDay', day)
+        this.setState({markers:actToRender})
     }
 
     openSideBar = () => {
@@ -211,6 +211,7 @@ class _TripApp extends Component {
                             toggleChat={this.toggleChat}
                             showDay={this.showDay}
                             openSideBar={this.openSideBar}
+                            setDestsMarkers={this.setDestsMarkers}
                         />
                     </div>
                     <div className="trip-app-main full">

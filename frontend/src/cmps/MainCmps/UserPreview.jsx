@@ -13,8 +13,6 @@ export class UserPreview extends Component {
     render() {
         return (
             <React.Fragment>
-
-
                 <div >
                     <img className="user-preview" src={this.props.user.imgUrl} alt={this.props.user.username + 'img'} onClick={this.toggleExpand}/>
                     { <div className={`user-preview-expand flex column justify-around ${this.state.expand?'open':''}`} >

@@ -268,16 +268,21 @@ export class TripAssembly extends Component {
 
 
     getWeekDests = () => {
-        const { page } = this.state
+        const { page, daysCount } = this.state
         var { destinations } = this.props.trip
         const linearDays = this.getLinearTripDays()
-        let minDay = linearDays[page * (this.state.daysCount)]
-        let maxDay = linearDays[(page * (this.state.daysCount)) + ((this.state.daysCount - 1) >= linearDays.length) ? (linearDays.length - 1) : (this.state.daysCount - 1)]
+        let minDay = linearDays[page * (daysCount)]
+        let maxDay = linearDays[(page * (daysCount)) + ((daysCount - 1) >= linearDays.length) ? (linearDays.length - 1) : (daysCount - 1)]
         minDay = utils.setToHourMinuets(minDay, 7, 0)
         maxDay = utils.setToHourMinuets(maxDay, 23, 59)
         return destinations.filter(dest => {
-            return ((dest.startDate >= minDay && dest.startDate <= maxDay) ||
-                (dest.endDate >= minDay && dest.endDate <= maxDay)
+            // let destStart = new Date(dest.startDate).setHours(7, 0)
+            // let destEnd = new Date(dest.endDate).getHours(23, 0)
+            let destStart = new Date(dest.startDate)
+            let destEnd = new Date(dest.endDate)
+            
+            return ((destStart >= minDay && destStart <= maxDay) ||
+                (destEnd >= minDay && destEnd <= maxDay)
             )
 
         })
@@ -299,7 +304,7 @@ export class TripAssembly extends Component {
 
             minDestinations.push({ name: destsNames[i], duration: destsLength[i], time })
         }
-        minDestinations.sort((dest1, dest2) => dest1.time.startDate - dest2.time.startDate)
+        // minDestinations.sort((dest1, dest2) => dest1.time.startDate - dest2.time.startDate)
         return minDestinations
 
 
@@ -358,6 +363,7 @@ export class TripAssembly extends Component {
     getLinearTripDays = () => {
         const linearDays = []
         let { startDate, tripLength } = this.state
+        let ttime = new Date(startDate)
         for (let i = 0; i < tripLength; i++) {
             linearDays.push(startDate + i * 24 * 60 * 60 * 1000)
         }
