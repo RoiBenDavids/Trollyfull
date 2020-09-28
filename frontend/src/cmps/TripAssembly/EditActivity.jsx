@@ -107,6 +107,12 @@ export class EditActivity extends Component {
     }
     getValidTime = () => {
         return new Date(this.state.activitie.at)
+
+        // if (this.state.activitie.at) {
+        //     return new Date(this.state.activitie.at)
+        // } else {
+        //     return new Date(this.state.minTime)
+        // }
     }
 
     render() {
@@ -116,7 +122,14 @@ export class EditActivity extends Component {
         const { destinations } = this.props.props
         let minT = new Date(minTime)
         let maxT = new Date(maxTime)
-        let currDate = new Date(activitie.at)
+        let minTemp = minT.setHours(7, 0)
+        let currDate;
+        if (activitie.at) {
+            currDate = new Date(activitie.at)
+        } else {
+            currDate = new Date(minTemp)
+        }
+        
         let _min = currDate.setHours(7, 0)
         let _max = currDate.setHours(23, 59)
         let min = new Date(_min)
@@ -144,7 +157,8 @@ export class EditActivity extends Component {
                 <DatePicker
                     minDate={minT}
                     maxDate={maxT}
-                    selected={this.getValidTime().getTime()}
+                    selected={this.getValidTime().getTime() || minTemp}
+                    value={this.getValidTime().getTime() || minTemp}
                     minTime={min}
                     maxTime={max}
                     autoComplete="off"
