@@ -5,16 +5,17 @@
     width: 100%;
     margin-bottom: 10px;
    .table-header{
-       background-color: $clr5;
+    //    background-color: $clr5;
       
    }
    tr{
-       border:0.1px solid rgba(128, 128, 128, 0.5)  ;
+    //    border:0.1px solid rgba(128, 128, 128, 0.5)  ;
    }
     td,th{
         padding: 10px 5px;
-        border-right:0.1px solid rgba(128, 128, 128, 0.5) ;
-        overflow-x: hidden
+        // border-right:0.1px solid rgba(128, 128, 128, 0.5) ;
+        overflow-x: hidden;
+        color: #2c2c2c;
     }
 
     td{
@@ -23,16 +24,16 @@
     }
     .start, .full, .end{
         position: absolute;
-        height: 70%;
-        top: 17%;
+        height: 10%;
+        bottom: 0;
         position: absolute;
         z-index: -1;
         
     }
     .start{
         right: 0;
-        border-top-left-radius: 50%;
-        border-bottom-left-radius: 50%;
+        // border-top-left-radius: 50%;
+        // border-bottom-left-radius: 50%;
         width: 45%;
     }
     .full{
@@ -41,8 +42,8 @@
     }
     .end{
         left: 0;
-        border-top-right-radius:50% ;
-        border-bottom-right-radius: 50%;
+        // border-top-right-radius:50% ;
+        // border-bottom-right-radius: 50%;
         width: 45%;
     }
     .faded{

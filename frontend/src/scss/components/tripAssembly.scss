@@ -2,25 +2,32 @@
     color: #454545;
     padding: 70px;
     margin-top: 200px;
-    .paging-assembly {
-        display: flex;
-        width: 15%;
-        margin: 0 auto;
-        justify-content: space-between;
-        align-items: center;
 
+    .destinations-header-wraper {
+        margin-top: 60px;
+        position: relative;
         .toggle-page {
-            background-color: #d8bbff;
-            padding: 10px 15px 10px;
-            margin: 5px;
             border-radius: 50%;
+            position: absolute;
             cursor: pointer;
-
+            color: #cccccc;
             &:hover {
-                background-color: #cda8ff;
+                color: #ec97fd;
             }
         }
     }
+    
+        .next{
+            top: 0;
+            right: -30px;
+        }
+        .prev{
+            top: 0;
+            left: -30px;
+        }
+
+        
+        
     .editActivity {
         position: fixed;
         width: 100px;
@@ -50,7 +57,8 @@
 
         .time-assembly {
             vertical-align: bottom;
-            // bottom: -8%;
+            color: #bebebe;
+
             position: relative;
             span {
                 position: absolute;
@@ -61,8 +69,6 @@
 
     .day-list-assembly {
         display: grid;
-        background-color: #d0d1ff52;
-        
         grid-template-rows: repeat(35, 30px);
 
         > * {
@@ -84,11 +90,12 @@
             }
         }
         .activity-assembly {
-            background-color: #dfcbf6;
-            box-shadow: 0px 0px 0px 1px #a2a2a275;
+            box-shadow: 0px 0px 11px 1px #00000024;
             transition: all 0.4s;
-            height: 100%;
-            cursor: grab;
+            border-radius: 0 0 20px 0;
+            height: 96%;
+            width: 80%;
+            margin: 3px 13px;
             overflow: hidden;
             border: none;
             .dest-color {
@@ -97,8 +104,8 @@
             }
 
             h5 {
-                font-size: smaller;
-                color: #716f72;
+                font-size: 12.9px;
+                color: #797879;
                 margin: 0;
             }
 
@@ -150,9 +157,10 @@
             }
         }
         .literal-day {
-            font-size: 1rem;
-            line-height: 35px;
-            background-color: rgba(255, 250, 241, 0.342);
+            font-size: 0.9rem;
+            z-index: -1;
+            line-height: 28px;
+            background-color: #ececec7d;
             cursor: initial;
             box-shadow: 0px 0px 0.4px 0px #61021e;
         }
@@ -171,8 +179,7 @@
     margin: 0 auto;
     max-width: 85vw;
     line-height: 35px;
-    // background-color: #61aff86b;
-    // box-shadow: -0.05px -0.05px 0 0px black;
+    box-shadow: 0px 6px 7px 0px #4c4c4c36;
 
     // height: 1.6rem;
     display: grid;
@@ -250,68 +257,68 @@
     max-width: 100%;
     text-align-last: left;
     padding: 0 20px 20px;
-    
-    >div{
+
+    > div {
         align-items: baseline;
         width: 100%;
-        div{
+        div {
             width: 50%;
         }
     }
 
-    img{
+    img {
         max-width: 100%;
         height: 300px;
         border-radius: 6px;
         margin: 0 0 15px;
         object-fit: cover;
     }
-    h2,h4 {
-        margin:0;
+    h2,
+    h4 {
+        margin: 0;
     }
 
-    small{
+    small {
         margin-right: 15px;
     }
-    h4{
+    h4 {
         display: inline-block;
         margin-right: 10px;
     }
-    input{
+    input {
         border: none;
         padding: 0 15px;
         height: fit-content;
     }
-    p{
+    p {
         margin-right: 5px;
         width: fit-content;
         display: inline-block;
     }
-    button{
+    button {
         margin: 0 auto;
-        display: block;;
+        display: block;
         text-align-last: center;
     }
-    i{
+    i {
         margin-right: 5px;
     }
-    .fa-edit{
+    .fa-edit {
         cursor: pointer;
-
     }
-    >*{
+    > * {
         margin-bottom: 20px;
     }
 
-    .time-container{
+    .time-container {
         height: 0;
         overflow: hidden;
-        transition-timing-function: ease-in-out;;
+        transition-timing-function: ease-in-out;
         transition: all 0.4s;
         margin: 0;
 
-        &.openHeight{
-            height: 60px ;
+        &.openHeight {
+            height: 60px;
         }
     }
 }
@@ -320,31 +327,31 @@
     display: block;
 }
 .dest-head-0 {
-    border-bottom: 3px solid  #ff78fc;
+    border-bottom: 3px solid #ff78fc;
     //  @include shadow($clr1)
 }
 .dest-head-1 {
-    border-bottom: 3px solid  #dc82fb;
+    border-bottom: 3px solid #dc82fb;
     // background-color: adjust-hue($color: #f3cbef, $degrees: 20deg)
     // @include shadow($clr2)
 }
 .dest-head-2 {
-    border-bottom: 3px solid  #aa67e0;
+    border-bottom: 3px solid #aa67e0;
     // background-color: adjust-hue($color: #D826C7, $degrees: 40deg)
     // @include shadow($clr3)
 }
 .dest-head-3 {
-    border-bottom: 3px solid  #94a3ff;
+    border-bottom: 3px solid #94a3ff;
     // background-color: $clr4;
     // @include shadow($clr4)
 }
 .dest-head-4 {
-    border-bottom: 3px solid  #4e90ff;
+    border-bottom: 3px solid #4e90ff;
     // background-color: $clr5;
     // @include shadow($clr5)
 }
 .dest-head-5 {
-    border-bottom: 3px solid  #1354d8;
+    border-bottom: 3px solid #1354d8;
     // background-color: $clr6;
     // @include shadow($clr6)
 }
@@ -354,7 +361,6 @@
     }
 
     .destinations-header {
-       
         grid-template-columns: repeat(6, minmax(25px, 1fr));
     }
 }

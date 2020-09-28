@@ -280,7 +280,7 @@ export class TripAssembly extends Component {
             // let destEnd = new Date(dest.endDate).getHours(23, 0)
             let destStart = new Date(dest.startDate)
             let destEnd = new Date(dest.endDate)
-            
+
             return ((destStart >= minDay && destStart <= maxDay) ||
                 (destEnd >= minDay && destEnd <= maxDay)
             )
@@ -453,13 +453,16 @@ export class TripAssembly extends Component {
         this.mapDestsToHeaderLength()
         return (
             <div className="assembly-container">
-                <section className="paging-assembly">
-                    <div className="toggle-page" onClick={() => this.onTogglePage('prev')}>{'<'}</div>
-                    <span>{this.state.page + 1}</span>
-                    <div className="toggle-page" onClick={() => this.onTogglePage('next')}>{'>'}</div>
-                </section>
+                {/* <section className="paging-assembly"> */}
+                {/* <span>{this.state.page + 1}</span> */}
+                {/* </section> */}
+                <div className="destinations-header-wraper">
+                    <div className="toggle-page prev" onClick={() => this.onTogglePage('prev')}><i className="fas fa-chevron-circle-left"></i></div>
 
-                <DestinationsHeader daysCount={daysCount} allDestinations={destinations} destinations={minDestinations} />
+                    <div className="toggle-page next" onClick={() => this.onTogglePage('next')}><i className="fas fa-chevron-circle-right"></i></div>
+
+                </div>
+                    <DestinationsHeader daysCount={daysCount} allDestinations={destinations} destinations={minDestinations} />
                 <div className={'trip-assembly-main full'} style={{ gridTemplateColumns: `repeat(${daysCount}, minmax(70px, 1fr))` }}>
                     <DayTimeLine />
                     {dayActs}
