@@ -39,11 +39,17 @@
             padding: 20px;
         }
     }
-    @include for-mobile-layout {
-       flex-direction: column;;
-    }
-    @include for-narrow-layout {
-       flex-direction: row;
+    button {
+        display: none;
+        @include for-mobile-layout {
+            display: block;
+            outline: none;
+            color: #ffffff;
+            z-index: 5;
+            font-size: 1.8rem;
+            border: none;
+            background-color: transparent;
+        }
     }
 }
 
@@ -67,14 +73,60 @@
     mix-blend-mode: inherit;
     background: #222222;
     display: flex !important;
-    // -webkit-transition: all ease-in 0.3s ;
-    // -moz-transition: all ease-in 0.3s ;
     transition: all 0.3s ease;
+}
+
+.navbar-screen {
+    @include for-mobile-layout {
+        &.screen-open {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            position: fixed;
+            top: 0;
+            right: 0;
+        }
+    }
 }
 
 .main-navbar-links {
     > * {
         padding: 10px 0;
+        cursor: pointer;
+    }
+
+    @include for-mobile-layout {
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        background-color: #121212d9;
+        right: 0;
+        width: 230px;
+        height: 100vh;
+        padding: 70px 0;
+        text-align-last: start;
+        justify-content: end;
+        transform: translateX(100%);
+        transition: transform 0.3s;
+        z-index: 3;
+
+        &.mainbar-open {
+            transform: translateX(0);
+            box-shadow: -5px 3px 12px 3px #0000004f;
+        }
+
+        > * {
+            padding: 30px;
+            display: block;
+            margin-right: 0;
+            width: 100%;
+            background-color: inherit;
+            transition: background-color 0.2s;
+        }
+        > *:hover {
+            background-color: rgb(5, 5, 5);
+        }
     }
 }
 

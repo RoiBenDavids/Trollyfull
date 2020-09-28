@@ -133,8 +133,6 @@ export class PrevEditActivity extends Component {
                 <div className={`flex time-container ${this.state.isInputOpen ? 'openHeight' : ''} `}>
                     <div className="flex column">
                         <h4 >Beginning time:</h4>
-
-
                         <input className="styled-input date" type="datetime-local" id="start-time-activity-input" min={minTime} max={maxTime} name="at"
                             onChange={this.handleChange} value={this.state.activitie.at}
                             required="required" id="date-activity-input" />

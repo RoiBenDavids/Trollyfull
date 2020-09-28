@@ -64,12 +64,12 @@ export class TripAssembly extends Component {
                 daysCount = 2
             }
         }
-        
+
         let startDate, endDate
         [startDate, endDate] = [destinations[0].startDate, destinations[destinations.length - 1].endDate]
         const tripLength = utils.calculateDays(startDate, endDate)
-        await this.setState({ ...this.state, tripLength, startDate, endDate, activities, daysCount, page, daysCount },()=>this.loadWeekMat())
-        
+        await this.setState({ ...this.state, tripLength, startDate, endDate, activities, daysCount, page, daysCount }, () => this.loadWeekMat())
+
         await this.setState({ minDestinations: this.getMinDestinations() })
     }
 
@@ -123,7 +123,7 @@ export class TripAssembly extends Component {
 
 
 
-    
+
 
 
 
@@ -469,7 +469,7 @@ export class TripAssembly extends Component {
 
     renderDayActivities(mat) {
         const actPreviews = []
-        
+
         for (let i = 0; i < mat[0].length; i++) {
 
             var col = this.getCol(mat, i)
@@ -479,7 +479,7 @@ export class TripAssembly extends Component {
 
         return actPreviews
     }
-    setFullAssembly =()=>{
+    setFullAssembly = () => {
         this.initiateAssembly(7, 0)
     }
 
@@ -491,15 +491,19 @@ export class TripAssembly extends Component {
         this.mapDestsToHeaderLength()
         return (
             <div className="assembly-container">
-                {daysCount !== 1 && <section className="paging-assembly">
-                    <div className="toggle-page" onClick={() => this.onTogglePage('prev')}>{'<'}</div>
-                    <span>{this.state.page + 1}</span>
-                    <div className="toggle-page" onClick={() => this.onTogglePage('next')}>{'>'}</div>
-                </section>}
-                {daysCount===1 && <section className="full-assembly">
-                        <button className="styled=button" onClick={this.setFullAssembly}>Back</button>
-                    </section>}
 
+               
+                {/* <section className="paging-assembly"> */}
+                {/* <span>{this.state.page + 1}</span> */}
+                {/* </section> */}
+                {daysCount !== 1 && <div className="destinations-header-wraper">
+                    <div className="toggle-page prev" onClick={() => this.onTogglePage('prev')}><i className="fas fa-chevron-circle-left"></i></div>
+
+                    <div className="toggle-page next" onClick={() => this.onTogglePage('next')}><i className="fas fa-chevron-circle-right"></i></div>
+                </div>}
+                {daysCount === 1 && <section className="full-assembly">
+                    <button className="styled=button" onClick={this.setFullAssembly}>Back</button>
+                </section>}
                 <DestinationsHeader daysCount={daysCount} allDestinations={destinations} destinations={minDestinations} />
                 <div className={'trip-assembly-main full'} style={{ gridTemplateColumns: `repeat(${daysCount}, minmax(70px, 1fr))` }}>
                     <DayTimeLine />
