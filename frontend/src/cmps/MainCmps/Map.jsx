@@ -47,7 +47,7 @@ class _MapContainer extends React.Component {
                 this.state.map.fitBounds(bounds)
             }
             else {
-                if (this.state.map && markers[0].location ||markers[0].lat) {
+                if (this.state.map && markers[0] &&  markers[0].location && markers[0].location.lat) {
                     this.state.map.panTo(this.props.markers[0].location)
                     this.state.map.setZoom(10)
 
@@ -102,7 +102,10 @@ class _MapContainer extends React.Component {
                 onClick={this.onMapClicked}
                 onReady={(mapProps, map) => {
                     if (this.state.markers.length > 1) map.fitBounds(this.state.bounds)
-                    else map.panTo(this.state.markers[0].location)
+                    
+                    else {
+                        if (this.state.markers[0]) map.panTo(this.state.markers[0].location)
+                    }
                     this.setState({ map })
                 }}
             >
