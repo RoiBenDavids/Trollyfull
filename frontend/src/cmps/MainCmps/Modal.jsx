@@ -20,7 +20,6 @@ class _Modal extends React.Component {
     }
     componentDidUpdate(prevProps, prevState) {
         const curCmp = this.props.modal.cmp
-        // console.log(prevProps.modal.cmp, curCmp);
         if (prevProps.modal.cmp === curCmp) return
         let dynamicCmp = '';
         let nameToDisplay = '';

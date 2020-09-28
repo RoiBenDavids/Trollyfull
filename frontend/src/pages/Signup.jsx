@@ -21,12 +21,12 @@ export class Signup extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit} className="flex column align-center">
                 <input
                     type='text'
                     name='username'
                     value={this.state.username}
-                    placeholder='Enter Username'
+                    placeholder='Username'
                     onChange={this.handleChange}
                     className='styled-input'
                 />
@@ -34,7 +34,7 @@ export class Signup extends React.Component {
                     type='email'
                     name='email'
                     value={this.state.email}
-                    placeholder='Enter email'
+                    placeholder='email'
                     onChange={this.handleChange}
                     className='styled-input'
                 />
@@ -42,11 +42,11 @@ export class Signup extends React.Component {
                     type='password'
                     name='password'
                     value={this.state.password}
-                    placeholder='Enter password'
+                    placeholder='password'
                     onChange={this.handleChange}
                     className='styled-input'
                 />
-                <button>Sign Up</button>
+                <button className="styled-button">Sign Up</button>
             </form>
         )
     }

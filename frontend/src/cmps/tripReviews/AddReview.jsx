@@ -43,7 +43,6 @@ export class AddReview extends React.Component {
 
     render() {
         const classToAdd = this.props.isReviewOpen ? 'open' : '';
-        console.log(this.props.isReviewOpen);
         return (
             <div className={`review-modal flex ${classToAdd}`}>
                 <form className="flex column " onSubmit={this.onAddReview}>

@@ -33,7 +33,6 @@ export function loadTrip(tripId, flag) {
     }
 }
 export function setTrip(trip) {
-    console.log("setTrip -> trip", trip)
     return async dispatch => {
         dispatch({ type: 'SET_LOADER' })
         dispatch({ type: 'SET_TRIP', trip })

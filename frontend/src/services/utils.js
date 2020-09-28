@@ -79,7 +79,6 @@ function getDateDay(timeStamp) {
 function setToHourMinuets(timeStamp,hour, min) {
     let time = new Date(timeStamp)
     time.setHours(hour, min)
-    console.log("setToHourMinuets -> time", time)
     return time.getTime()
     
 }

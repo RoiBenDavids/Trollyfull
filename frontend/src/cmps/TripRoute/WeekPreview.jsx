@@ -14,7 +14,7 @@ export function WeekPreview({ dates,showDay }) {
 
     return (
         <tr key={utils.makeId()}>
-            {dates.map((date, idx) => <td onClick={()=>showDay(date)} className={`${!date.td?'faded':''}`} key={utils.makeId()}>{new Date(date.day).getDate()}{hotDog(date)}</td>)}
+            {dates.map((date, idx) => <td onClick={()=>showDay(date)} className={`${!date.td?'faded':''}`} key={idx}>{new Date(date.day).getDate()}{hotDog(date)}</td>)}
         </tr>
     )
 

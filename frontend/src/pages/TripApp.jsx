@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Route, Router, Switch, withRouter } from 'react-router-dom'
-import { loadTrip, addTrip, addTripFast, setTrip } from '../store/actions/tripActions'
+import {  withRouter } from 'react-router-dom'
+import { loadTrip, addTrip,  setTrip } from '../store/actions/tripActions'
 import { closeModal, showModal } from '../store/actions/modalActions'
-// import { TripRoute } from '../cmps/TripRoute'
-import { tripService } from '.././services/tripService'
 import { TripAssembly } from '../cmps/TripAssembly/TripAssembly'
-import { TripNavBar } from '../cmps/TripApp/TripNavBar'
 import { TripRoute } from '../cmps/TripRoute/TripRoute'
 import { utils } from '../services/utils'
-import { logDOM } from '@testing-library/react'
 import { Chat } from '../cmps/TripApp/Chat'
 import { socketService } from '../services/socketService'
 import { MapContainer } from '../cmps/MainCmps/Map';
@@ -60,7 +56,6 @@ class _TripApp extends Component {
         })
     }
     setDestsMarkers=()=>{
-        console.log('hooooo');
         const markers = this.getMarkersOfDests()
         this.setState({markers})
     }
@@ -171,9 +166,6 @@ class _TripApp extends Component {
         destinations.push(newDest)
         const _newTrip = { ...this.props.trip, destinations }
         const newTrip = await this.props.addTrip(_newTrip)
-        // const markers = this.getMarkersOfDests()
-        // console.log(markers);
-        // this.setState({ markers })
 
         socketService.emit('tripToUpdate', newTrip);
     }

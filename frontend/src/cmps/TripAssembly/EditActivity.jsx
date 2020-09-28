@@ -118,7 +118,6 @@ export class EditActivity extends Component {
     render() {
         const { activitie, minTime, maxTime } = this.state
         if (!activitie) return <div>Loading</div>
-        console.log("render -> activitie", activitie)
         const { destinations } = this.props.props
         let minT = new Date(minTime)
         let maxT = new Date(maxTime)

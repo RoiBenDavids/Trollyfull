@@ -3,8 +3,8 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { utils } from '../../services/utils';
 
 
-const API_KEY = 'AIzaSyBXIyfwpDtmz9fLAQI-MUqWuhQtc-GQYoo'
-// const API_KEY =''
+// const API_KEY = 'AIzaSyBXIyfwpDtmz9fLAQI-MUqWuhQtc-GQYoo'
+const API_KEY =''
 
 class _MapContainer extends React.Component {
     state = {
@@ -29,14 +29,14 @@ class _MapContainer extends React.Component {
 
     componentDidMount() {
         const {markers,bounds } = this.initiateMarkerABounds()
-        const BASE_IMG_URL = 'https://res.cloudinary.com/roidinary/image/upload/c_scale,w_20/'
+        const BASE_IMG_URL = 'https://res.cloudinary.com/roidinary/image/upload/c_scale,w_40/v1601311538/'
         const imgs = [
-            `${BASE_IMG_URL}v1600380972/locationVector1_xickq3.png`,
-            `${BASE_IMG_URL}v1600381638/locationVector2_jpgbc9.png`,
-            `${BASE_IMG_URL}v1600381638/locationVector3_izhosm.png`,
-            `${BASE_IMG_URL}v1600381638/locationVector4_idbol0.png`,
-            `${BASE_IMG_URL}v1600381638/locationVector5_jjqnfo.png`,
-            `${BASE_IMG_URL}v1600381638/locationVector6_nvbbsq.png`
+            `${BASE_IMG_URL}location1_xebwou.png`,
+            `${BASE_IMG_URL}location2_lxtqsq.png`,
+            `${BASE_IMG_URL}location3_zly9ql.png`,
+            `${BASE_IMG_URL}location4_venppr.png`,
+            `${BASE_IMG_URL}location5_xervod.png`,
+            `${BASE_IMG_URL}location6_fql1xk.png`
         ]
         this.setState({ bounds, markers, imgs })
     }

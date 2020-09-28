@@ -112,9 +112,8 @@ p {
     // @include shadow($clr6)
 }
 .dest-6 {
-    background-color: #0939d8bf;
-    // background-color: $clr7;
-    @include shadow($clr7);
+    background-color: #0a3bdbbf;
+
 }
 // inset 0px -1px 7px -4px #350053, inset 0px 4px 5px #edceff;
 .styled-header {

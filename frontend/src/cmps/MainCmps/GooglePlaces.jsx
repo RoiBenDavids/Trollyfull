@@ -11,7 +11,6 @@ export class GooglePlaces extends Component {
 
     }
     componentDidMount() {
-        console.log(this.props);
     }
     
 
@@ -27,7 +26,6 @@ export class GooglePlaces extends Component {
 
 
     render() {
-        console.log(this.props);
         return (
             <div>
                 <PlacesAutocomplete value={this.props.address} onChange={this.props.handleAddress} onSelect={this.props.handleSelect}>

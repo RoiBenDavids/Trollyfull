@@ -32,12 +32,10 @@ export class AddDestination extends React.Component {
     // }
 
     handleAddress = (name) => {
-        console.log(name);
         this.setState({ destination: { ...this.state.destination, name } }, console.log(this.state))
     }
 
     handleSelect = async (value) => {
-        console.log(value);
         try {
             const results = await geocodeByAddress(value);
             const latlng = await getLatLng(results[0])

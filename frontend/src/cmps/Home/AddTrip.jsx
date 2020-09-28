@@ -86,13 +86,13 @@ class _AddTrip extends Component {
 
 
     handleAddress = (name) => {
-        this.setState({ currTrip: { ...this.state.currTrip, name } }, console.log(this.state))
+        this.setState({ currTrip: { ...this.state.currTrip, name } })
     }
 
     handleSelect = async (value) => {
         const results = await geocodeByAddress(value);
         const latlng = await getLatLng(results[0])
-        this.setState({ currTrip: { ...this.state.currTrip, location: latlng, name: value } }, () => { console.log(this.state) })
+        this.setState({ currTrip: { ...this.state.currTrip, location: latlng, name: value } })
     }
 
     handleInput = (ev, name) => {
