@@ -10,7 +10,6 @@ async function query(filterBy = {}) {
         var reviews = await collection.find({'trip':filterBy.tripId}).toArray();
         return reviews
     } catch (err) {
-        console.log('ERROR: cannot find reviews')
         throw err;
     }
 }
@@ -20,7 +19,6 @@ async function remove(reviewId) {
     try {
         await collection.deleteOne({ "_id": ObjectId(reviewId) })
     } catch (err) {
-        console.log(`ERROR: cannot remove review ${reviewId}`)
         throw err;
     }
 }
@@ -34,7 +32,6 @@ async function add(review) {
         await collection.insertOne(review);
         return review;
     } catch (err) {
-        console.log(`ERROR: cannot insert review`)
         throw err;
     }
 }

@@ -11,6 +11,7 @@ import { logout } from '../../store/actions/userActions'
 class _MainNavBar extends Component {
     state = {
         navBar: '',
+        isNavbarOpen: false
     }
 
     componentDidMount() {
@@ -21,14 +22,14 @@ class _MainNavBar extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.location.pathname !== prevProps.location.pathname){
+        if (this.props.location.pathname !== prevProps.location.pathname) {
             this.backgroundChanged()
-            if(this.props.location.pathname==='/'){
+            if (this.props.location.pathname === '/') {
                 this.props.resetTrip()
             }
         }
 
-        
+
     }
 
 
@@ -45,16 +46,24 @@ class _MainNavBar extends Component {
         } else { this.setState({ navBar: false }) }
     }
 
+    openMainNavbar = () => {
+        this.setState({ isNavbarOpen: !this.state.isNavbarOpen })
+    }
+
     render() {
         return (
-            <div className={'main-navbar flex justify-between align-center full  ' + (this.state.navBar ? 'navBar-background' : '')}>
-                <Link to="/" > <h1 className="logo">Trolly</h1></Link>
-                <div className="flex justify-between main-navbar-links">
-                    <Link to="/trip">Trips</Link>
-                    <NavLink to="/about" >About</NavLink>
-                    {this.props.usersData.loggedInUser ? <UserPreview logout={this.props.logout} user={this.props.usersData.loggedInUser} /> : <div onClick={() => this.props.showModal('login')}>Login</div>}
+            <React.Fragment>
+                <div className={'main-navbar flex justify-between align-center full  ' + (this.state.navBar ? 'navBar-background' : '')}>
+                    <Link to="/" onClick={this.openMainNavbar} > <h1 className="logo">Trolly</h1></Link>
+                    <div className={`flex justify-between main-navbar-links ${this.state.isNavbarOpen ? 'mainbar-open' : ''}`}>
+                        <Link to="/trip"onClick={this.openMainNavbar} >Trips</Link>
+                        <NavLink to="/about" onClick={this.openMainNavbar} >About</NavLink>
+                        {this.props.usersData.loggedInUser ? <UserPreview openMainNavbar={this.openMainNavbar} logout={this.props.logout} user={this.props.usersData.loggedInUser} /> : <div onClick={() => this.props.showModal('login')}>Login</div>}
+                    </div>
+                    <button onClick={this.openMainNavbar}> ☰</button>
                 </div>
-            </div>
+                <div className={`navbar-screen ${this.state.isNavbarOpen ? 'screen-open' : ''}`} onClick={this.openMainNavbar}></div>
+            </React.Fragment>
         )
     }
 }

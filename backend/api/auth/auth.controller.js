@@ -10,7 +10,6 @@ async function login(req, res) {
         req.session.user = user;
         res.json(user)
     } catch (err) {
-        console.log('cannot get in auth controllerr');
         res.status(401).send({ error: err })
     }
 }

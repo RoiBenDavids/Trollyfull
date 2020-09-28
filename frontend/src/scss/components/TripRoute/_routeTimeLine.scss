@@ -14,7 +14,7 @@
             border-radius: 50%;
             &.on{   
                 box-shadow: 0 0 4px red;   
-                animation: fire 1.5s ease-in-out infinite; 
+                // animation: fire 1.5s ease-in-out infinite; 
             }
             @keyframes fire {
                 0% {
@@ -30,18 +30,19 @@
         }
       
         .line{
-            border-left: 2px solid $clr12;
+            border-left: 3px dotted #7d7d7d;
             opacity: 0.5;
             height: 35px;
             margin-inline-start: 19px;
         }
         .index-ball{
             cursor: grab;
-            color: rgb(240, 240, 240);
+            color: rgb(253, 253, 253);
             height: 40px;
             width: 40px;
             border-radius: 50%;
-            margin-right: 10px;
+    box-shadow: 0px 3px 7px #00000045;
+            margin: 5px 10px 5px 0;
             transition: transform 0.2s;
             &.is-dragging{
                 // transform: scaleX(1.5) scaleY(1.5);
@@ -67,11 +68,12 @@
                    text-transform: capitalize;
                    font-weight: bold;
                    line-height: 1.5;
+                   color: #333333;
                 }
                 p:nth-child(2){
                     font-size: 0.8rem;
-                    font-style: italic;
                     letter-spacing: 0.8px;
+                    color: #b0b0b0;
                 }
             }
         }

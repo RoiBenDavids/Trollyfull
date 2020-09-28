@@ -10,20 +10,6 @@ export class GooglePlaces extends Component {
         coordinates: { lat: null, lng: null },
 
     }
-    componentDidMount() {
-    }
-    
-
-    // handleSelect = async (value) => {
-    //     const results = await geocodeByAddress(value);
-    //     const latlng = await getLatLng(results[0])
-    //     this.setState({coordinates:latlng, address:value}, ()=>{console.log(this.state)})
-    // }
-
-    // handleInput = (name) => {
-    //     this.setState({ address: name })
-    // }
-
 
     render() {
         return (

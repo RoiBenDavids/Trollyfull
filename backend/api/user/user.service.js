@@ -20,7 +20,6 @@ async function query(filterBy = {}) {
 
         return users
     } catch (err) {
-        console.log('ERROR: cannot find users')
         throw err;
     }
 }
@@ -32,7 +31,6 @@ async function getById(userId) {
 
         return user
     } catch (err) {
-        console.log(`ERROR: while finding user ${userId}`)
         throw err;
     }
 }
@@ -42,7 +40,6 @@ async function getByEmail(email) {
         const user = await collection.findOne({ email })
         return user
     } catch (err) {
-        console.log(`ERROR: while finding user ${email}`)
         throw err;
     }
 }
@@ -52,7 +49,6 @@ async function remove(userId) {
     try {
         await collection.deleteOne({ "_id": ObjectId(userId) })
     } catch (err) {
-        console.log(`ERROR: cannot remove user ${userId}`)
         throw err;
     }
 }
@@ -65,7 +61,6 @@ async function update(user) {
         await collection.replaceOne({ "_id": user._id }, { $set: user })
         return user
     } catch (err) {
-        console.log(`ERROR: cannot update user ${user._id}`)
         throw err;
     }
 }
@@ -76,7 +71,6 @@ async function add(user) {
         await collection.insertOne(user);
         return user;
     } catch (err) {
-        console.log(`ERROR: cannot insert user`)
         throw err;
     }
 }

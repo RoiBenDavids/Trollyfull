@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { utils } from '../../services/utils'
 
 export class TripFilter extends Component {
 
@@ -11,7 +12,7 @@ export class TripFilter extends Component {
                 <input autoComplete="off" placeholder="Search destination" className="styled-input" name="name" onChange={this.props.handleInput} list="dest-filter" />
                 <datalist onChange={this.props.handleInput} id="dest-filter">
                     {mostOccDests.map(dest => {
-                       return <option value={`${dest}`}></option>
+                       return <option key={utils.makeId()} value={`${dest}`}></option>
                     })}
                 </datalist>
             </div>

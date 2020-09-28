@@ -27,11 +27,8 @@ class _TripApp extends Component {
     async componentDidMount() {
         const { setTrip, loadTrip, addTrip } = this.props
         socketService.setup();
-        // socketService.on('tripUpdated', setTrip);
-        // socketService.on('tripUpdated', loadTrip);
 
 
-        socketService.on('tripUpdated', addTrip);
         const { id } = this.props.match.params
         socketService.emit('enter trip', id);
         try {
@@ -47,7 +44,8 @@ class _TripApp extends Component {
         }
         // socketService.emit('tripToUpdate', newTrip);
 
-        // socketService.on('tripUpdated', setTrip);
+        socketService.on('tripUpdated', setTrip);
+
     }
 
     getMarkersOfDests() {
@@ -60,7 +58,7 @@ class _TripApp extends Component {
         this.setState({markers})
     }
     componentWillUnmount() {
-        socketService.off('tripUpdated', this.props.addTrip);
+        socketService.off('tripUpdated', this.props.setTrip);
     }
 
     async componentDidUpdate(prevProps, prevState) {
@@ -68,9 +66,7 @@ class _TripApp extends Component {
         if (prevProps.trip === this.props.trip) return
         const markers = this.getMarkersOfDests()
         this.setState({ markers })
-        // socketService.on('tripUpdated', addTrip);
-        // socketService.on('tripUpdated', loadTrip);
-        // socketService.on('tripUpdated', this.props.setTrip);
+        
 
         // socketService.emit('tripUpdated', this.props.trip);
     }
@@ -137,9 +133,8 @@ class _TripApp extends Component {
 
             }
         }
-        const newTrip = { ...this.props.trip, activities, destinations }
-        await this.props.addTrip(newTrip)
-        // socketService.emit('tripToUpdate', newTrip);
+        const _newTrip = { ...this.props.trip, activities, destinations }
+        const newTrip = await this.props.addTrip(_newTrip)
         socketService.emit('tripToUpdate', newTrip);
 
     }
@@ -166,8 +161,13 @@ class _TripApp extends Component {
         destinations.push(newDest)
         const _newTrip = { ...this.props.trip, destinations }
         const newTrip = await this.props.addTrip(_newTrip)
-
         socketService.emit('tripToUpdate', newTrip);
+
+
+        // const markers = this.getMarkersOfDests()
+        // console.log(markers);
+
+        // this.setState({ markers })
     }
 
     showDay = (day) => {
@@ -214,6 +214,8 @@ class _TripApp extends Component {
                             trip={trip} updateTripAct={this.updateTripAct}
                             showModal={this.props.showModal}
                             closeModal={this.props.closeModal}
+                            setTrip={this.props.setTrip}
+                            openSideBar={this.openSideBar}
                         />
                     </div>
                 </div>
