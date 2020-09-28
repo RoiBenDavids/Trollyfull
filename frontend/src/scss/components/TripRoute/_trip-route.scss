@@ -1,4 +1,4 @@
-.trip-route{
+.trip-route {
     ::-webkit-scrollbar {
         width: 12px;
     }
@@ -9,14 +9,12 @@
     ::-webkit-scrollbar-thumb {
         border-radius: 10px;
         background: $clr6;
-        }
+    }
     margin-top: 80px;
     height: 100%;
     position: relative;
 
-    
-
-    .trip-bar-icons{
+    .trip-bar-icons {
         width: 100%;
         font-size: 1rem;
         // padding: 20px;
@@ -24,27 +22,30 @@
         color: $clr12;
         position: relative;
         padding: 10px 40px;
-        >*{
+        > * {
             cursor: pointer;
             box-shadow: 0 0 3px 0px #0000003b;
             padding: 10px;
             display: flex;
             justify-content: center;
             background-color: rgb(252, 250, 250);
-             border-radius: 50%;
+            border-radius: 50%;
         }
-        .fa-trash{
+        .fa-trash {
             cursor: default;
-            transition: all 0.5s ;
+            transition: all 0.5s;
             z-index: 5;
         }
-        .trash-open{
+        .trash-open {
             color: red;
             transform: rotate(-30deg);
         }
+        .reviews-btn {
+            height: 38px;
+        }
     }
-    
-    .add-destination{
+
+    .add-destination {
         box-shadow: 0 0 18px 0px #0000003b;
         justify-content: flex-start;
         position: absolute;
@@ -57,55 +58,53 @@
         transition: height 0.5s 0.2s;
         border-radius: 2px;
         padding: 0;
-        >div{
+        > div {
             text-align: center;
             padding: 15px;
         }
-        form{
+        form {
             background-color: whitesmoke;
             padding: 0px;
             height: 0;
-            transition: height 0.3 s,padding 0.3s;
+            transition: height 0.3 s, padding 0.3s;
         }
-        input{
+        input {
             background-color: whitesmoke;
             border: none;
             outline: none;
             margin-bottom: 20px;
             opacity: 0;
             transition: opacity 0.2s 0.2s;
-            &::placeholder{
-                opacity:0
+            &::placeholder {
+                opacity: 0;
             }
         }
-        button{
+        button {
             width: 100%;
             opacity: 0;
             transition: opacity 0.2s 0.3s;
         }
-        .add-destination-footer{
+        .add-destination-footer {
             height: 20px;
             background-color: $clr5;
         }
-        &.form-open{
+        &.form-open {
             visibility: visible;
             z-index: 1;
             height: 30vh;
-            form{
+            form {
                 padding: 15px;
                 height: 100%;
-
             }
-            input{
+            input {
                 opacity: 1;
-                &::placeholder{
-                    opacity:1
+                &::placeholder {
+                    opacity: 1;
                 }
             }
-            button{
-                opacity:1
+            button {
+                opacity: 1;
             }
         }
     }
-    
 }

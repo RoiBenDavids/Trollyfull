@@ -1,32 +1,49 @@
-.user-flow{
-margin: 0 auto;
-justify-content: space-evenly;
+.user-flow {
+    margin: 0 auto 40px;
+    justify-content: space-evenly;
+    max-width: 62%;
 
-max-width: 62%;
-
->div{
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 30px;
+    > div {
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 30px;
     }
-    img{
+    img {
         width: 210px;
         height: 126px;
         object-fit: contain;
+    }
+    .flow-headline {
+        font-weight: bold;
+        font-size: rem(28px);
+        color: #d826c7;
+        font-family: Dosis;
+        padding-bottom: 15px;
+    }
+    .flow-content {
+        font-size: rem(20px);
+        color: rgb(82, 82, 82);
+    }
+
+    > div:nth-child(2) > img {
+        margin-right: 45px;
+    }
+
+    @include for-mobile-layout {
+        max-width: 95%;
+        > div {
+            margin-bottom: 15px;
         }
-        .flow-headline{
-            font-weight: bold;
-            font-size: rem(28px);
-            color:#D826C7 ;
-            font-family: Dosis;
-            padding-bottom: 15px;
+        .flow-headline {
+            font-size: 1.65rem;
         }
-        .flow-content{
-            font-size: rem(20px);
-            color: rgb(82, 82, 82);
+        .flow-content {
+            font-size: 1.15rem;;
         }
 
-        >div:nth-child(2)>img{
-            margin-right: 45px;
+        > div:nth-child(2) > img {
+            margin-right: 0;
         }
+    }
+
 }

@@ -33,7 +33,7 @@ class _HomePage extends Component {
                         <h3>Explore planned trips of professional travelers
                             </h3>
                         <h3>and personalize them</h3>
-                        <Link smooth to="#userFlow" scroll={el => el.scrollIntoView({ behavior: 'smooth', block: 'center' })}>
+                        <Link smooth to="#userFlow" scroll={el => el.scrollIntoView({ behavior: 'smooth', block:  'center'  })}>
                             <button className="styled-button"> Get Started</button>
                         </Link>
                     </div>
@@ -41,9 +41,8 @@ class _HomePage extends Component {
 
                 <div className="main-home-page full">
                     <div className="flow-container">
-                        <div style={{height:'100px'}} ></div>
                         <UserFlow id="userFlow" />
-                        <Link smooth to="#top-rated-trips" scroll={el => el.scrollIntoView({ behavior: 'smooth', block: 'start' })}>
+                        <Link smooth to="#top-rated-trips" scroll={el => el.scrollIntoView({ behavior: 'smooth', block: 'nearest'})}>
                             <button className="styled-button"> Let's Trolly!</button>
                         </Link>
                     </div>
@@ -52,7 +51,7 @@ class _HomePage extends Component {
                         <h2 className="" >Top rated planned trips</h2>
                         <section className="slideShow" >
                             <TripSlider trips={this.props.trips.slice(0, 4)} />
-                        <Link to="/trip"><button className="styled-button to-trip-list"> Show me more</button></Link>
+                            <Link to="/trip"><button className="styled-button to-trip-list"> Show me more</button></Link>
                         </section>
                     </div>
                     <AddTrip />

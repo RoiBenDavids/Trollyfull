@@ -1,42 +1,37 @@
-.home-page{
-    h2{
+.home-page {
+    h2 {
         font-family: Dosis;
         font-size: 3rem;
         text-transform: uppercase;
         text-align: center;
-         margin: 0 auto 30px;
-         color:#D826C7
-        };
+        margin: 0 auto 30px;
+        color: #d826c7;
+    }
 
-    .flow-container{
+    .flow-container {
         margin-bottom: 50px;
     }
-         margin: 0 auto 30px
-        
-        };
-
-        .to-trip-list{
-            display: block;
-            margin: 0 auto;
+    margin: 0 auto 30px;
+    @include for-mobile-layout {
+        h2 {
+            font-size: 2rem;
         }
-
-.trips-pagination{
-    cursor: pointer;
-    // position: absolute;
-   
-}
-.trips-pagination-forward{
+    }
     
 }
 
-.trips-pagination-backward{
-   
-
+.to-trip-list {
+    display: block;
+    margin: 0 auto;
 }
 
+.trips-pagination {
+    cursor: pointer;
+    // position: absolute;
+}
 
-.home-page-hero{
-    height: 718px;
+.home-page-hero {
+    height: 755px;
     background: url(https://cdn.hipwallpaper.com/i/14/16/mQRH5A.jpg);
     object-fit: cover;
     background-repeat: no-repeat;
@@ -44,86 +39,81 @@
     background-position-x: -214px;
     background-position-y: -69px;
     background-position: cente;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+    @include for-mobile-layout {
+        background-position-x: -600px;
+        background-position-y: 0;
+        margin-bottom: 100px;
+    }
 }
 
-.main-home-page{
-    .flow-container{
-        height: 80vh;
-        a{
+.main-home-page {
+    .flow-container {
+        a {
             margin: 0 auto;
-            display: block
+            display: block;
         }
     }
-   .slideShow-area{
-       padding-top: 50px;
-       background-color: lighten(#D826C7, 48%);
-       #top-rated-trips{
-           height: 50px;
-       }
-       h2{
-       }
-   }
+    .slideShow-area {
+        padding: 30px 10px;
+        background-color: lighten(#d826c7, 48%);
+     
+    }
+    > * {
+        margin-bottom: 50px;
+    }
 }
 
-.slideShow{
-    margin: 0 auto;
+.slideShow {
     height: 550px;
-    // width: 100%;
     width: 90vw;
     right: 5%;
     top: 140px;
-    margin-bottom:20px ;
+    margin-bottom: 20px;
 }
 
 .swiper-container {
     align-items: center;
     width: 100%;
-      padding-top: 10px;
-      padding-bottom: 50px;
-
-    
-
+    padding-top: 10px;
+    padding-bottom: 50px;
 }
-.swiper-slide{
+.swiper-slide {
     width: 350px !important;
     margin: 0;
     background: transparent;
     background-position: center;
     background-size: cover;
     height: 450px;
-
 }
-.swiper-pagination-bullet{
+.swiper-pagination-bullet {
     background-color: #e48ae6;
-    .swiper-pagination-bullet-active{
+    .swiper-pagination-bullet-active {
         background-color: #ca39cc !important;
     }
-  }
+}
 
-
-
-
-.swiper-button-prev::after, .swiper-button-next::after{
-    color: rgb(238, 239, 255);
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    color: rgb(212, 7, 161);
     font-size: 1.5rem;
     padding: 10px;
     border-radius: 100px;
 }
 
-.description-section{
+.description-section {
     font-family: Patua;
     border-radius: 10px;
     position: absolute;
-    width: 577px;
+    max-width: 577px;
     padding: 0;
     line-height: 5.4rem;
     top: 253px;
     letter-spacing: 1.9px;
     margin: 0 30px;
     color: white;
-    
-    .styled-button{
+
+    .styled-button {
         box-shadow: none;
         font-size: 1.2rem;
         margin: 0 auto;
@@ -133,33 +123,38 @@
         transition: all 0.3s;
         position: relative;
 
-         &:hover{
-            &::after{
+        &:hover {
+            &::after {
                 padding: 10px 20px 10px 10px;
                 position: absolute;
-                // content: ' →';
-                content: ' ▼';
+                content: "\2192";
+                // content: ' ▼';
                 bottom: -7px;
                 padding: 22px;
-
             }
             box-shadow: none;
-            width: 253px;
+            width: 230px;
             opacity: 1;
-            padding-right: 40px;
-         }
+            padding-right: 11px;
+        }
     }
-    h3{
+    h3 {
         font-weight: normal;
         margin: 0;
         font-size: 2.8125rem;
         text-shadow: 0px 1px #00000066;
-
     }
-    p{
-    font-size: rem(30px);
+    p {
+        font-size: rem(30px);
         font-style: normal;
         color: gray;
         padding-left: 110px;
+    }
+    @include for-mobile-layout {
+        line-height: 3.7rem;
+        top: 180px;
+        h3 {
+            font-size: rem(30px);
+        }
     }
 }

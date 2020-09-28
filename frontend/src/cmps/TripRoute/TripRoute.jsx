@@ -34,7 +34,8 @@ export function TripRoute({ trip, updateDestinations, showModal, addDestination,
                 <RouteTimeLine trip={trip} updateDestinations={updateDestinations}  />
             </div>
             <div className="trip-bar-icons flex justify-between flex1 align-end">
-                <i className="fas fa-sms"></i>
+                <img  className="reviews-btn" src="https://res.cloudinary.com/idanrozen/image/upload/v1601286406/6719970451595452853_wdwgqc.svg" alt=""/>
+                {/* <i className="fas fa-sms"></i> */}
                 <i className="fas fa-comments" onClick={toggleChat} ></i>
             </div>
 

@@ -1,7 +1,6 @@
 .main-container {
     height: fit-content;
     display: grid;
-    grid-template-columns: 20px 1fr 20px;
 
     > * {
         grid-column: 2;
@@ -10,19 +9,27 @@
             grid-column: 1 /-1;
         }
     }
+    @include for-mobile-layout {
+        // grid-template-columns: 5px 1fr 5px;
+
+    }
+
+    @include for-narrow-layout {
+        grid-template-columns: 20px 1fr 20px;
+
+    }
 }
 
-.trip-list{
+.trip-list {
     display: grid;
     grid-gap: 5px;
     align-items: flex-end;
     grid-template-columns: repeat(auto-fit, 300px);
 
+    @include for-mobile-layout {
+        grid-template-columns: repeat(auto-fit,358px);
 
-    // @include for-mobile-layout {
-    //     display: block;
-    //         width: auto;
-    // }
+    }
     // @include for-narrow-layout {
     //     grid-template-columns: repeat(2, 200px);
     // }

@@ -57,9 +57,9 @@ class _TripPreview extends Component {
                 <div className="trip-preview-details">
                     <h3>{trip.tripName}</h3>
                     <div className="flex details-container">
-                        {trip.createdBy && < div className="flex align-center column">
+                        {trip.createdBy && < div className="flex align-center column img-container">
                             <img className="user-img" src={trip.createdBy.imgUrl} alt="user-img" />
-                            <p>By: {trip.createdBy.username}</p>
+                            <p> {trip.createdBy.username}</p>
                         </div>}
                         <div className="flex justify-between column">
                             <p><i className="fas fa-hourglass-half"></i>{days} days</p>

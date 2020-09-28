@@ -1,6 +1,4 @@
-
-.main-navbar{
-
+.main-navbar {
     padding: 20px 40px;
     width: 100%;
     position: fixed;
@@ -9,29 +7,25 @@
     letter-spacing: rem(1.5px);
     mix-blend-mode: hard-light;
     background: linear-gradient(180deg, #4a4949, #595959, #5b5a5a, transparent);
-    // -webkit-transition: all 0.3s ease-in ease-out;
-        // -moz-transition: all 0.3s  ease-in ease-out;
-        // -o-transition: all 0.3s ease-in  ease-out;
-        // -ms-transition: all 0.3s ease-in  ease-out;
-        transition: all 0.7s  ease ;
+    transition: all 0.7s ease;
 
-        .user-preview{
-            height: 28px;
-            width: 29px;
-            border: 2px solid;
-            border-radius: 100px;
-            mix-blend-mode: unset;
-            background: none;
-        }
-    
-    .logo{
+    .user-preview {
+        height: 28px;
+        width: 29px;
+        border: 2px solid;
+        border-radius: 100px;
+        mix-blend-mode: unset;
+        background: none;
+    }
+
+    .logo {
         font-family: kaushan;
         margin: 0;
     }
-    >div>div{
-        position:relative;
+    > div > div {
+        position: relative;
     }
-    .user-preview-expand{
+    .user-preview-expand {
         position: absolute;
         top: 62px;
         right: -21px;
@@ -40,62 +34,61 @@
         overflow: hidden;
         transition: height 0.3s;
         background-color: #e1b5de;
-        &.open{
+        &.open {
             height: 150px;
             padding: 20px;
         }
     }
+    @include for-mobile-layout {
+       flex-direction: column;;
     }
- 
+    @include for-narrow-layout {
+       flex-direction: row;
+    }
+}
 
-   
-.main-navbar-links{
+.main-navbar-links {
     font-size: 1rem;
     text-transform: uppercase;
     flex-grow: 1;
     align-items: center;
     justify-content: flex-end;
-    >*{
-    padding: 0;
-    margin-right: 20px;
+    > * {
+        padding: 0;
+        margin-right: 20px;
     }
-    img{
-        background-blend-mode: unset;;
+    img {
+        background-blend-mode: unset;
     }
-
 }
 
-.navBar-background{
-    
+.navBar-background {
     padding: 5px 40px;
     mix-blend-mode: inherit;
     background: #222222;
-    display: flex!important;
+    display: flex !important;
     // -webkit-transition: all ease-in 0.3s ;
     // -moz-transition: all ease-in 0.3s ;
-        transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.main-navbar-links {
+    > * {
+        padding: 10px 0;
     }
+}
 
-    .main-navbar-links{
-
-        >*{
-            padding: 10px 0;
-        }
-       
-
+.share-trip {
+    padding: 20px;
+    h3 {
+        margin: 0;
     }
-
-    .share-trip{
-        padding: 20px;
-        h3{
-            margin: 0;
-        }
-        button{
-            margin: 5px auto;
-        }
-        img{
+    button {
+        margin: 5px auto;
+    }
+    img {
         width: 270px;
         height: 230px;
         margin: 0 auto;
-        }
     }
+}

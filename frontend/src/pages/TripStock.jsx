@@ -64,7 +64,7 @@ class _TripStock extends Component {
         const mostOccDests = this.getMostOccDests()
         this.getMostOccDests()
         return (
-            <div>
+            <div className="trip-stock">
                 <h2>All Trips plans</h2>
                 <TripFilter mostOccDests={mostOccDests} handleInput={this.handleInput} onsetFilter={this.onsetFilter} />
                 <TripList showModal={this.props.showModal} trips={trips} />
