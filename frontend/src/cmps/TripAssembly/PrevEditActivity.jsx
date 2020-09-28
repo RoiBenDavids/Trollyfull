@@ -109,7 +109,6 @@ export class PrevEditActivity extends Component {
         const startTime = utils.getTimeDayStr(new Date(this.state.activitie.at).getTime())
         const endTime = utils.getTimeDayStr(new Date(this.state.activitie.at).getTime() + (this.state.activitie.duration / 2) * 60 * 60 * 1000)
 
-        console.log("PrevEditActivity -> render -> activitie", activitie)
 
         let minT = new Date(minTime)
         let maxT = new Date(maxTime)

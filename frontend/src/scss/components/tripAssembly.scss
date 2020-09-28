@@ -246,6 +246,11 @@
     }
 }
 
+.full-assembly {
+    width: 100px;
+    margin: 100px;
+}
+
 .preview-activity-form {
     max-width: 100%;
     text-align-last: left;
@@ -303,6 +308,8 @@
         margin-bottom: 20px;
     }
 
+    
+
     .time-container{
         height: 0;
         overflow: hidden;
@@ -320,31 +327,31 @@
     display: block;
 }
 .dest-head-0 {
-    border-bottom: 3px solid  #ff78fc;
+    border-top: 3px solid  #ff78fc;
     //  @include shadow($clr1)
 }
 .dest-head-1 {
-    border-bottom: 3px solid  #dc82fb;
+    border-top: 3px solid  #dc82fb;
     // background-color: adjust-hue($color: #f3cbef, $degrees: 20deg)
     // @include shadow($clr2)
 }
 .dest-head-2 {
-    border-bottom: 3px solid  #aa67e0;
+    border-top: 3px solid  #aa67e0;
     // background-color: adjust-hue($color: #D826C7, $degrees: 40deg)
     // @include shadow($clr3)
 }
 .dest-head-3 {
-    border-bottom: 3px solid  #94a3ff;
+    border-top: 3px solid  #94a3ff;
     // background-color: $clr4;
     // @include shadow($clr4)
 }
 .dest-head-4 {
-    border-bottom: 3px solid  #4e90ff;
+    border-top: 3px solid  #4e90ff;
     // background-color: $clr5;
     // @include shadow($clr5)
 }
 .dest-head-5 {
-    border-bottom: 3px solid  #1354d8;
+    border-top: 3px solid  #1354d8;
     // background-color: $clr6;
     // @include shadow($clr6)
 }

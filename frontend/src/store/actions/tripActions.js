@@ -1,9 +1,6 @@
 import { tripService } from "../../services/tripService"
 import { socketService } from '../../services/socketService'
 
-
-
-
 export function loadTrip(tripId, flag) {
     return async dispatch => {
         try {
@@ -33,7 +30,7 @@ export function loadTrip(tripId, flag) {
     }
 }
 export function setTrip(trip) {
-    console.log("setTrip -> trip", trip)
+    
     return async dispatch => {
         dispatch({ type: 'SET_LOADER' })
         dispatch({ type: 'SET_TRIP', trip })
@@ -51,7 +48,6 @@ export function resetTrip() {
 }
 
 export function loadTrips(filterBy) {
-    // console.log("loadTrips -> filterBy", filterBy)
     return async dispatch => {
         const trips = await tripService.query(filterBy)
         dispatch({ type: 'SET_TRIPS', trips })
@@ -74,9 +70,10 @@ export function addTripFast(trip) {
 export function addTrip(newTrip) {
     return async dispatch => {
         try {
-            // socketService.emit('tripToUpdate', newTrip);
-
+            
             const trip = await tripService.save(newTrip)
+            // socketService.emit('tripToUpdate', trip);
+            // socketService.emit('tripToUpdate', newTrip);
             dispatch({ type: 'EDIT_TRIP', trip })
             return trip
         }

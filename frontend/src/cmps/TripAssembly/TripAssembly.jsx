@@ -19,34 +19,63 @@ export class TripAssembly extends Component {
         minDestinations: null,
         daysCount: 7
     }
-
+    removeBus;
     async componentDidMount() {
-        eventBus.on('markDay', (day) => {
+
+        const _removeBus = eventBus.on('markDay', (day) => {
+            this.setChosenDay(day)
             return
         })
+        this.removeBus = _removeBus
+
         this.initiateAssembly()
     }
 
-    initiateAssembly = async () => {
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.trip === this.props.trip) return
+        this.initiateAssembly(this.state.daysCount, this.state.page)
+    }
+
+    setChosenDay = async (day) => {
+        const linearDaysDates = this.getLinearTripDays().map(timeStamp => {
+            const date = new Date(timeStamp)
+            return date.toLocaleDateString()
+        })
+        const currDayDate = day.day.toLocaleDateString()
+        const page = linearDaysDates.findIndex(date => {
+            return date === currDayDate
+        })
+        this.props.openSideBar()
+        this.initiateAssembly(1, page)
+
+    }
+
+    initiateAssembly = async (daysCount = 7, page = 0) => {
         const { destinations, activities } = this.props.trip
         const windowWidth = window.window.innerWidth
-        let { daysCount } = this.state
-        if (windowWidth <= 900) {
-            daysCount = 5
+        if (daysCount === 7) {
+            if (windowWidth <= 900) {
+                daysCount = 5
+            }
+            if (windowWidth <= 650) {
+                daysCount = 3
+            }
+            if (windowWidth <= 530) {
+                daysCount = 2
+            }
         }
-        if (windowWidth <= 650) {
-            daysCount = 3
-        }
-        if (windowWidth <= 530) {
-            daysCount = 2
-        }
-
+        
         let startDate, endDate
         [startDate, endDate] = [destinations[0].startDate, destinations[destinations.length - 1].endDate]
         const tripLength = utils.calculateDays(startDate, endDate)
-        await this.setState({ tripLength, startDate, endDate, activities, daysCount })
-        await this.loadWeekMat()
+        await this.setState({ ...this.state, tripLength, startDate, endDate, activities, daysCount, page, daysCount },()=>this.loadWeekMat())
+        
         await this.setState({ minDestinations: this.getMinDestinations() })
+    }
+
+
+    omponentWillUnmount() {
+        this.removeBus()
     }
 
 
@@ -94,11 +123,7 @@ export class TripAssembly extends Component {
 
 
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.trip === this.props.trip) return
-        this.initiateAssembly()
-
-    }
+    
 
 
 
@@ -272,15 +297,24 @@ export class TripAssembly extends Component {
         var { destinations } = this.props.trip
         const linearDays = this.getLinearTripDays()
         let minDay = linearDays[page * (daysCount)]
-        let maxDay = linearDays[(page * (daysCount)) + ((daysCount - 1) >= linearDays.length) ? (linearDays.length - 1) : (daysCount - 1)]
+        let idxMaxDay = page * daysCount
+        if (idxMaxDay + daysCount - 1 >= linearDays.length) {
+            idxMaxDay = linearDays.length - 1
+        } else {
+            idxMaxDay += daysCount - 1
+        }
+        let maxDay = linearDays[idxMaxDay]
+        // let maxDay = linearDays[(page * (daysCount)) + ((daysCount) >= linearDays.length) ? (linearDays.length - 1) : (daysCount - 1)]
+        minDay = new Date(minDay)
+        maxDay = new Date(maxDay)
         minDay = utils.setToHourMinuets(minDay, 7, 0)
         maxDay = utils.setToHourMinuets(maxDay, 23, 59)
         return destinations.filter(dest => {
-            // let destStart = new Date(dest.startDate).setHours(7, 0)
-            // let destEnd = new Date(dest.endDate).getHours(23, 0)
             let destStart = new Date(dest.startDate)
             let destEnd = new Date(dest.endDate)
-            
+            destStart = utils.setToHourMinuets(destStart, 10, 0)
+            destEnd = utils.setToHourMinuets(destEnd, 10, 0)
+
             return ((destStart >= minDay && destStart <= maxDay) ||
                 (destEnd >= minDay && destEnd <= maxDay)
             )
@@ -302,6 +336,8 @@ export class TripAssembly extends Component {
                 return dest.name === destsNames[i]
             })
 
+            // if (time) {
+            // }
             minDestinations.push({ name: destsNames[i], duration: destsLength[i], time })
         }
         // minDestinations.sort((dest1, dest2) => dest1.time.startDate - dest2.time.startDate)
@@ -433,8 +469,8 @@ export class TripAssembly extends Component {
 
     renderDayActivities(mat) {
         const actPreviews = []
-
-        for (let i = 0; i < this.state.daysCount; i++) {
+        
+        for (let i = 0; i < mat[0].length; i++) {
 
             var col = this.getCol(mat, i)
             actPreviews.push(<DayActivities onDragMove={this.onDragMove} getTimeFromIdx={this.getTimeFromIdx} destinations={this.props.trip.destinations} onEdit={this.onEdit} onOpenDetails={this.onOpenDetails} onRemoveAct={this.onRemoveAct} getRowIdx={this.getRowIdx} key={utils.makeId()} day={col} />
@@ -443,7 +479,9 @@ export class TripAssembly extends Component {
 
         return actPreviews
     }
-
+    setFullAssembly =()=>{
+        this.initiateAssembly(7, 0)
+    }
 
     render() {
         const { weekMat, minDestinations, daysCount } = this.state
@@ -453,11 +491,14 @@ export class TripAssembly extends Component {
         this.mapDestsToHeaderLength()
         return (
             <div className="assembly-container">
-                <section className="paging-assembly">
+                {daysCount !== 1 && <section className="paging-assembly">
                     <div className="toggle-page" onClick={() => this.onTogglePage('prev')}>{'<'}</div>
                     <span>{this.state.page + 1}</span>
                     <div className="toggle-page" onClick={() => this.onTogglePage('next')}>{'>'}</div>
-                </section>
+                </section>}
+                {daysCount===1 && <section className="full-assembly">
+                        <button className="styled=button" onClick={this.setFullAssembly}>Back</button>
+                    </section>}
 
                 <DestinationsHeader daysCount={daysCount} allDestinations={destinations} destinations={minDestinations} />
                 <div className={'trip-assembly-main full'} style={{ gridTemplateColumns: `repeat(${daysCount}, minmax(70px, 1fr))` }}>

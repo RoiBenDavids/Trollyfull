@@ -37,11 +37,11 @@ export class EditActivity extends Component {
                 }, minTime, maxTime
             })
         } else {
-
             minTime = utils.getIsoTime(destinations[0].startDate)
+            let minT = new Date(minTime)
+            // let newMinT = minT.setHours(7, 0)
             maxTime = utils.getIsoTime(destinations[destinations.length - 1].endDate)
-
-            await this.setState({ activitie: { ...this.state.activitie, destination: destinations[0].name }, minTime, maxTime })
+            this.setState({ activitie: { ...this.state.activitie, destination: destinations[0].name }, minTime, maxTime })
         }
     }
 
@@ -66,28 +66,6 @@ export class EditActivity extends Component {
     handleChange = ({ target }) => {
         const field = target.name;
         let value = target.value;
-
-        // if (field === 'at') {
-        //     let time = value.substring(value.length - 5)
-        //     let hours = +time.split(':')[0]
-        //     let minuets = +time.split(':')[1]
-        //     if (minuets <= 15) {
-        //         minuets = 0
-        //     } else if (minuets >= 45) {
-        //         minuets = 0
-        //         hours += 1
-        //     } else {
-        //         minuets = 30
-        //     }
-        //     if (hours >= 0 && hours < 7) {
-        //         alert('Please choose events between 7:00 AM and 11:30 PM')
-        //         return
-        //     }
-        //     minuets = ((minuets + '').length === 1) ? ('0' + minuets) : (minuets + '')
-        //     hours = ((hours + '').length === 1) ? ('0' + hours) : (hours + '')
-        //     value = value.substring(0, value.length - 5) + `${hours}:${minuets}`
-        // }
-
         if (target.type === 'checkbox') this.setState({ [field]: target.checked });
         else if (target.type === 'number') this.setState({ activitie: { ...this.state.activitie, [field]: +value } });
         else this.setState({ activitie: { ...this.state.activitie, [field]: value } });
@@ -97,6 +75,7 @@ export class EditActivity extends Component {
         ev.preventDefault()
         var { saveAct, isOccTimeSlot } = this.props.props
         const { activitie } = this.state
+        if (!activitie.at) return
         let datetime = new Date(activitie.at)
         activitie.at = datetime.getTime()
         if (isOccTimeSlot(activitie)) {
@@ -107,18 +86,11 @@ export class EditActivity extends Component {
     }
     getValidTime = () => {
         return new Date(this.state.activitie.at)
-
-        // if (this.state.activitie.at) {
-        //     return new Date(this.state.activitie.at)
-        // } else {
-        //     return new Date(this.state.minTime)
-        // }
     }
 
     render() {
         const { activitie, minTime, maxTime } = this.state
         if (!activitie) return <div>Loading</div>
-        console.log("render -> activitie", activitie)
         const { destinations } = this.props.props
         let minT = new Date(minTime)
         let maxT = new Date(maxTime)
@@ -129,7 +101,7 @@ export class EditActivity extends Component {
         } else {
             currDate = new Date(minTemp)
         }
-        
+
         let _min = currDate.setHours(7, 0)
         let _max = currDate.setHours(23, 59)
         let min = new Date(_min)
