@@ -165,7 +165,6 @@ export class PrevEditActivity extends Component {
                 {<img src={this.props.props.act.imgUrl} alt="https://teddytennis.com/cyprus/wp-content/uploads/sites/76/2017/11/placeholder.png"/>}
 
              
-                {/* <h4 htmlFor="notes">Notes</h4> */}
                 <textarea placeholder="Add some notes" onChange={this.handleChange} name="notes" id="notes" value={this.state.activitie.notes} ></textarea>
                 <div className="flex">
                     <h4>Price:</h4>

@@ -2,6 +2,7 @@
     margin: 0 auto 40px;
     justify-content: space-evenly;
     max-width: 62%;
+ 
 
     > div {
         justify-content: space-between;
@@ -30,9 +31,9 @@
     }
 
     @include for-mobile-layout {
-        max-width: 95%;
+        max-width: 90%;
         > div {
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
         .flow-headline {
             font-size: 1.65rem;

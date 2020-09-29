@@ -33,9 +33,10 @@
 
 //views
 @import "./views/home-page.scss";
+@import "./views/about.scss";
 
 
 
 main>*:not(.home-page){
-    padding-top: 13px
+    padding-top: 10px
 }

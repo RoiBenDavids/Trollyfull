@@ -27,19 +27,35 @@
     }
     .user-preview-expand {
         position: absolute;
-        top: 62px;
-        right: -21px;
+        top: 52px;
+        right: -73px;
         width: 140px;
         height: 0;
         overflow: hidden;
         transition: height 0.3s;
-        background-color: #e1b5de;
         &.open {
-            height: 150px;
-            padding: 20px;
+            height: 50px;
+            padding: 0;
+        }
+
+        .logout {
+            width: 100px;
+            box-shadow: none;
+        }
+        @include for-mobile-layout {
+            &.open {
+                top: 66px;
+                right: 82px;
+                width: 129px;
+            }
+
+            .logout {
+                width: 78px;
+                text-align-last: center;
+            }
         }
     }
-    button {
+    .mobile-hamburger {
         display: none;
         @include for-mobile-layout {
             display: block;
@@ -82,7 +98,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.3);
-            z-index: 1;
+            z-index: 15;
             position: fixed;
             top: 0;
             right: 0;

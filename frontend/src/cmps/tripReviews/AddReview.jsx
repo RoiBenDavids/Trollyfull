@@ -39,11 +39,12 @@ export class AddReview extends React.Component {
         })
     }
     setRating = (val) => {
-        this.setState({ reviewToAdd: { ...this.state.reviewToAdd, rating: val } }, ()=>{console.log(this.state)})
+        this.setState({ reviewToAdd: { ...this.state.reviewToAdd, rating: val } }, () => { console.log(this.state) })
     }
 
     render() {
         const classToAdd = this.props.isReviewOpen ? 'open' : '';
+        const currRate = this.state.reviewToAdd.rating
         return (
             <div className={`review-modal flex ${classToAdd}`}>
                 <form className="flex column " onSubmit={this.onAddReview}>
@@ -61,11 +62,11 @@ export class AddReview extends React.Component {
                         </select> */}
 
                         <div className="stars-rate flex">
-                            <i className="fas fa-star star-5" onClick={() => { this.setRating(5) }}></i>
-                            <i className="fas fa-star star-4" onClick={() => { this.setRating(4) }}></i>
-                            <i className="fas fa-star star-3" onClick={() => { this.setRating(3) }}></i>
-                            <i className="fas fa-star star-2" onClick={() => { this.setRating(2) }}></i>
-                            <i className="fas fa-star star-1" onClick={() => { this.setRating(1) }}></i>
+                            <i className={`fas fa-star star-5 ${currRate === 5 ? 'active' : ''}`} onClick={() => { this.setRating(5) }}></i>
+                            <i className={`fas fa-star star-4 ${currRate >= 4 ? 'active' : ''}`} onClick={() => { this.setRating(4) }}></i>
+                            <i className={`fas fa-star star-3 ${currRate >= 3 ? 'active' : ''}`} onClick={() => { this.setRating(3) }}></i>
+                            <i className={`fas fa-star star-2 ${currRate >= 2 ? 'active' : ''}`} onClick={() => { this.setRating(2) }}></i>
+                            <i className={`fas fa-star star-1 ${currRate >= 1 ? 'active' : ''}`} onClick={() => { this.setRating(1) }}></i>
                         </div>
                     </div>
                     <ErrorMsg />

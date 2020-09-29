@@ -26,13 +26,8 @@
     .fa-star {
         color: #d4d1d1;
         cursor: pointer;
-        &::after {
-            // content: counter(item) " ";
-            counter-increment: item;
-            position: absolute;
-            color: #6d6b6b;
-            font-size: x-small;
-            transform: translate(-12px, 5px);
+        &.active {
+            color: #ffb622;
         }
 
         &:hover {

@@ -16,14 +16,15 @@
 
     .modal-container {
         width: 600px;
-        max-width: 97%;
-        max-height: 97%;
+        max-width: 95%;
+        max-height: 95%;
         background-color: #fff;
         border-radius: 5px;
         text-align: center;
         align-items: center;
         justify-content: space-around;
         z-index: 9999;
+        overflow: hidden;
 
         ::-webkit-scrollbar {
             width: 10px;

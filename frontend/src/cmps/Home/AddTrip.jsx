@@ -133,6 +133,7 @@ class _AddTrip extends Component {
                             id="add-dest-name"
                             value={this.state.tripName}
                             required
+                            autocomplete="off"
                             onChange={this.handleInput}
                         />
                     </div>
@@ -149,12 +150,13 @@ class _AddTrip extends Component {
                             id="add-dest-city"
                             value={this.state.currTrip.name}
                             required
+                            autocomplete="off"
                             onChange={this.handleInput}
                         />
                     </div>
                     <div className="flex">
                         <div className="flex column">
-                            <label htmlFor="startdate-dest-input">Start At</label>
+                            <label htmlFor="startdate-dest-input">Start</label>
                             <DatePicker
                                 minDate={startDate}
                                 id="startdate-dest-input"
@@ -167,7 +169,7 @@ class _AddTrip extends Component {
                             />
                         </div>
                         <div className="flex column">
-                            <label htmlFor="enddate-dest-input">End At</label>
+                            <label htmlFor="enddate-dest-input">End </label>
                             <DatePicker
                                 minDate={this.state.currTrip.startDate || Date.now()}
                                 id="enddate-dest-input"

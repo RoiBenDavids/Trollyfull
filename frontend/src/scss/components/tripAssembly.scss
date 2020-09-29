@@ -39,10 +39,8 @@
     position: relative;
     margin: 0 auto;
     display: grid;
-    // overflow-y: scroll;
 
     grid-template-columns: repeat(7, minmax(70px, 1fr));
-    // grid-template-rows: repeat(35);
 
     .time-line-assembly {
         position: absolute;
@@ -73,7 +71,6 @@
             text-align: center;
             position: relative;
             flex-direction: column;
-            // box-shadow: -0.08px -0.08px 0 0px black;
             border: 1px solid #cdcdcd2e;
             justify-content: center;
             p {
@@ -265,6 +262,9 @@
     }
     > div {
         align-items: baseline;
+        @include for-mobile-layout{
+            flex-direction:column ;
+        }
         label {
             text-align-last: left;
         }
@@ -272,7 +272,6 @@
     textarea {
         width: 70%;
         min-height: 100px;
-        // background-color: rgb(240, 240, 240);
         border: none;
     }
     input,
@@ -280,9 +279,11 @@
     select {
         color: #9c9797;
         box-shadow: 0px 7px 7px 2px #8888880d;
-        // background-color: #f9f9f9;
         border-bottom: none;
         font-family: NotoSans;
+        @include for-mobile-layout{
+           margin:10px;
+        }
     }
 }
 
@@ -348,6 +349,8 @@
     h4 {
         display: inline-block;
         margin-right: 10px;
+        
+    
     }
     input {
         border: none;
@@ -381,9 +384,16 @@
         transition-timing-function: ease-in-out;
         transition: all 0.4s;
         margin: 0;
+        @include for-mobile-layout{
+            flex-direction:column ;
+        }
+     
 
         &.openHeight {
             height: 60px;
+            @include for-mobile-layout{
+               height: 116px;;
+            }
         }
     }
     textarea {

@@ -50,19 +50,23 @@ class _MainNavBar extends Component {
         this.setState({ isNavbarOpen: !this.state.isNavbarOpen })
     }
 
+    closemainNavbar =()=>{
+        this.setState({ isNavbarOpen: false })
+    }
+
     render() {
         return (
             <React.Fragment>
                 <div className={'main-navbar flex justify-between align-center full  ' + (this.state.navBar ? 'navBar-background' : '')}>
-                    <Link to="/" onClick={this.openMainNavbar} > <h1 className="logo">Trolly</h1></Link>
+                    <Link to="/" onClick={this.closemainNavbar}> <h1 className="logo">Trolly</h1></Link>
                     <div className={`flex justify-between main-navbar-links ${this.state.isNavbarOpen ? 'mainbar-open' : ''}`}>
-                        <Link to="/trip"onClick={this.openMainNavbar} >Trips</Link>
-                        <NavLink to="/about" onClick={this.openMainNavbar} >About</NavLink>
-                        {this.props.usersData.loggedInUser ? <UserPreview openMainNavbar={this.openMainNavbar} logout={this.props.logout} user={this.props.usersData.loggedInUser} /> : <div onClick={() => this.props.showModal('login')}>Login</div>}
+                        <Link to="/trip"onClick={this.closemainNavbar} >Trips</Link>
+                        <NavLink to="/about" onClick={this.closemainNavbar} >About</NavLink>
+                        {this.props.usersData.loggedInUser ? <UserPreview openMainNavbar={this.closemainNavbar} logout={this.props.logout} user={this.props.usersData.loggedInUser} /> : <div onClick={() => {this.props.showModal('login'); this.closemainNavbar()}}>Login</div>}
                     </div>
-                    <button onClick={this.openMainNavbar}> ☰</button>
+                    <button className="mobile-hamburger " onClick={this.openMainNavbar}> ☰</button>
                 </div>
-                <div className={`navbar-screen ${this.state.isNavbarOpen ? 'screen-open' : ''}`} onClick={this.openMainNavbar}></div>
+                <div className={`navbar-screen ${this.state.isNavbarOpen ? 'screen-open' : ''}`} onClick={this.closemainNavbar}></div>
             </React.Fragment>
         )
     }
