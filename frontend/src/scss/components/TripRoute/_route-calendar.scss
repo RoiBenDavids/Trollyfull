@@ -21,13 +21,7 @@
     td{
         position:relative;
         cursor: pointer;
-        transition: .3s;
-        &:hover {
-            // position: absolute;
-            // top: 5%;
-            // font-size: 1.1rem;
-            box-shadow: 0 0 5px darkgrey;;
-        }
+       
         &:hover .full {
             // height: 13%;
             

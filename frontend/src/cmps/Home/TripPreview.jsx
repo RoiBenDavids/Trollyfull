@@ -9,14 +9,21 @@ import React, { Component } from 'react'
 class _TripPreview extends Component {
 
     async componentDidMount() {
-        // const reviews = await this.props.loadReviews({ tripId: this.props.trip._id })
-        // if (!reviews) reviews = []
-        // this.setState({ reviews })
+        let reviews = await this.props.loadReviews({ tripId: this.props.trip._id })
+        if (!reviews) reviews = []
+        this.setState({ reviews })
 
     }
 
 
     handleClick = () => {
+        // let isMember;
+        // if(this.props.loggedInUser){
+        //    isMember = this.props.trip.members.find(member=>member.id===this.props.loggedInUser._id)
+        // }
+        // if(isMember){
+        //     return
+        // }
         this.props.history.push(`/trip/${this.props.trip._id}/triproute`)
     }
 
@@ -71,7 +78,7 @@ class _TripPreview extends Component {
                                 </div>
 
                             </div>
-                            <p>{`Trollied by Roi and ${utils.getRandomInt(50, 220)} others`}</p>
+                            <p>{`Trollied by ${utils.getRandomName()} and ${utils.getRandomInt(50, 220)} others`}</p>
                         </div>
                     </div>
 
@@ -84,6 +91,7 @@ class _TripPreview extends Component {
 const mapStateToProps = state => {
     return {
         reviews: state.reviewReducer.reviews,
+        loggedInUser: state.userReducer.loggedInUser,
     }
 }
 

@@ -19,6 +19,9 @@
 .justify-start{
     justify-content: flex-start;
 }
+.justify-evenly{
+    justify-content: space-evenly;
+}
 .flex1{
     flex:1;
 }
@@ -29,6 +32,9 @@
 
 .align-center{
     align-items: center;
+}
+.align-baseline{
+    align-items: baseline;
 }
 
 .hide{

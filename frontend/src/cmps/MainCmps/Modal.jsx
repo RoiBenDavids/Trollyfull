@@ -39,7 +39,7 @@ class _Modal extends React.Component {
                 break
             case 'activityDetails':
                 dynamicCmp = <PrevEditActivity props={this.props.modal.props} showMsg={this.props.showMsg}
-                closeMsg={this.props.closeMsg}/>
+                    closeMsg={this.props.closeMsg} />
                 nameToDisplay = 'Activity Details'
                 break
             case 'removeActivity':
@@ -57,8 +57,7 @@ class _Modal extends React.Component {
                 nameToDisplay = 'Add Member'
                 break
             case 'trip-reviews':
-                dynamicCmp = <TripReviews 
-                    closeModal={this.closeModal} />
+                dynamicCmp = <TripReviews showMsg={this.props.showMsg} msg={this.props.msg} closeMsg={this.props.closeMsg} closeModal={this.closeModal} />
                 nameToDisplay = 'Reviews'
                 break
             default:

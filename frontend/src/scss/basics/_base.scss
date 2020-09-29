@@ -22,6 +22,10 @@ p {
     list-style: none;
 }
 
+button,a,input{
+    outline: none;
+}
+
 .ustyled-button {
     border: 0;
     background-color: transparent;
@@ -33,7 +37,11 @@ p {
     border: none;
     height: 40px;
     padding: 20px 5px 5px;
-    border-bottom: 1px solid #dcd0d0;
+    color: #9c9797;
+    box-shadow: 0px 7px 7px 2px #8888880d;
+    border-bottom: none;
+    font-family: NotoSans;
+
     &:focus {
         box-shadow: none;
         outline: none;
@@ -117,6 +125,8 @@ p {
 }
 // inset 0px -1px 7px -4px #350053, inset 0px 4px 5px #edceff;
 .styled-header {
+    font-size: 1.7rem;
+    font-weight: bold;
     background-color: $clr5;
     box-shadow: inset 0px -1px 7px -4px darken($clr5, 68%), inset 0px 4px 5px lighten($clr5, 6%);
 }

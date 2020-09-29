@@ -125,8 +125,8 @@ class _AddTrip extends Component {
         return (
             <div className="flex add-destination-form-wraper">
                 <form className="flex column add-destination-form" onSubmit={this.onSetDestinations}>
+                    <h3>Create your trip</h3>
                     <div className="flex column">
-                        <label htmlFor="add-dest-name">Add name to your trip:</label>
                         <input className="styled-input" type="text"
                             name="tripName"
                             placeholder="Enter Trip Name"
@@ -143,7 +143,6 @@ class _AddTrip extends Component {
                         location={this.state.currTrip.location}
                     /> */}
                     <div className="flex column">
-                        <label htmlFor="add-dest-city">Add Destination:</label>
                         <input className="styled-input" type="text"
                             name="name"
                             placeholder="Enter City Name"
@@ -156,7 +155,6 @@ class _AddTrip extends Component {
                     <div className="flex">
                         <div className="flex column">
                             <label htmlFor="startdate-dest-input">Start At</label>
-
                             <DatePicker
                                 minDate={startDate}
                                 id="startdate-dest-input"

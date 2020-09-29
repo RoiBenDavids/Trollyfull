@@ -37,7 +37,7 @@ export function ActivitiePreview({ act, onRemoveAct, onEdit, destinations, onOpe
                 {/* <p>{act.destination}</p> */}
                 {/* {act.price.amount ? <p>{act.price.currency}{act.price.amount}</p> : ''} */}
                 <div className="activity-assembly-controls flex">
-                    <button onClick={() => { onEdit(act) }} className="edit-activity "><i className="fas fa-edit"></i></button>
+                    {/* <button onClick={() => { onEdit(act) }} className="edit-activity "><i className="fas fa-edit"></i></button> */}
                     <button onClick={() => { onOpenDetails(act) }}><i className="fas fa-info"></i></button>
                     <button onClick={() => { onRemoveAct(act.id) }} className="delete-activity "><i className="fas fa-trash"></i></button>
                 </div>
