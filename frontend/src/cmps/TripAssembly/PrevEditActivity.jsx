@@ -129,7 +129,7 @@ export class PrevEditActivity extends Component {
 
 
             <form className="preview-activity-form flex column" >
-                <h2 contentEditable={true} dir="ltr" suppressContentEditableWarning={true} data-placeholder="Enter activity name" 
+                <h2 contentEditable={true} suppressContentEditableWarning={true} data-placeholder="Enter activity name" 
                 spellCheck="false" style={{direction:'ltr'}} data-name="name" onBlur={this.handleContentEditable}>{this.state.activitie.name}</h2>
                 <div className="flex">
                     <small><i className="fas fa-map-marker"></i> {this.state.activitie.destination}</small>

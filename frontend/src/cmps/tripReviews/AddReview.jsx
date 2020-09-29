@@ -25,7 +25,6 @@ export class AddReview extends React.Component {
 
     onAddReview = (ev) => {
         ev.preventDefault();
-        console.log(this.state.reviewToAdd);
         if (!this.state.reviewToAdd.rating) {
             this.props.showMsg({ msg: 'You must rate this trip first', type: 'input' })
             return
@@ -69,6 +68,7 @@ export class AddReview extends React.Component {
                             <i className="fas fa-star star-1" onClick={() => { this.setRating(1) }}></i>
                         </div>
                     </div>
+                    <ErrorMsg />
                     <textarea id="content" required name="content" placeholder="Enter your review here" ref={this.elInput} onChange={(ev) => { this.onInputChange(ev.target.value, ev.target.name) }}>
                     </textarea>
                     <button className="styled-button">Save</button>

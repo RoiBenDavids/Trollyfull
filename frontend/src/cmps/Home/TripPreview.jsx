@@ -17,6 +17,13 @@ class _TripPreview extends Component {
 
 
     handleClick = () => {
+        // let isMember;
+        // if(this.props.loggedInUser){
+        //    isMember = this.props.trip.members.find(member=>member.id===this.props.loggedInUser._id)
+        // }
+        // if(isMember){
+        //     return
+        // }
         this.props.history.push(`/trip/${this.props.trip._id}/triproute`)
     }
 
@@ -84,6 +91,7 @@ class _TripPreview extends Component {
 const mapStateToProps = state => {
     return {
         reviews: state.reviewReducer.reviews,
+        loggedInUser: state.userReducer.loggedInUser,
     }
 }
 

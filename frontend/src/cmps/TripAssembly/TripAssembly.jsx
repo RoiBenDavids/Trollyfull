@@ -501,8 +501,8 @@ export class TripAssembly extends Component {
 
                     <div className="toggle-page next" onClick={() => this.onTogglePage('next')}><i className="fas fa-chevron-circle-right"></i></div>
                 </div>}
-                {daysCount === 1 && <section className="full-assembly">
-                    <button className="styled=button" onClick={this.setFullAssembly}>Back</button>
+                {daysCount === 1 && <section className="full-assembly ">
+                    <button className="styled-button" onClick={this.setFullAssembly}>Back</button>
                 </section>}
                 <DestinationsHeader daysCount={daysCount} allDestinations={destinations} destinations={minDestinations} />
                 <div className={'trip-assembly-main full'} style={{ gridTemplateColumns: `repeat(${daysCount}, minmax(70px, 1fr))` }}>

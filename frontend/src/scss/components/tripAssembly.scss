@@ -287,8 +287,11 @@
 }
 
 .full-assembly {
-    width: 100px;
-    margin: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 26px;
 }
 
 .preview-activity-form {

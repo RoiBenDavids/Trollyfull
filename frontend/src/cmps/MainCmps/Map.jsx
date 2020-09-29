@@ -4,7 +4,7 @@ import { utils } from '../../services/utils';
 
 
 // const API_KEY = 'AIzaSyBXIyfwpDtmz9fLAQI-MUqWuhQtc-GQYoo'
-const API_KEY =''
+const API_KEY = ''
 
 class _MapContainer extends React.Component {
     state = {
@@ -15,20 +15,20 @@ class _MapContainer extends React.Component {
         showingInfoWindow: false
     }
 
-    initiateMarkerABounds(){
+    initiateMarkerABounds() {
         const markers = [];
         const bounds = new this.props.google.maps.LatLngBounds();
         for (var i = 0; i < this.props.markers.length; i++) {
-            if(!this.props.markers[i].location||!this.props.markers[i].location.lng) continue
+            if (!this.props.markers[i].location || !this.props.markers[i].location.lng) continue
             bounds.extend(new this.props.google.maps.LatLng(this.props.markers[i].location));
             markers.push(this.props.markers[i])
         }
-        return{markers,bounds}
+        return { markers, bounds }
 
     }
 
     componentDidMount() {
-        const {markers,bounds } = this.initiateMarkerABounds()
+        const { markers, bounds } = this.initiateMarkerABounds()
         const BASE_IMG_URL = 'https://res.cloudinary.com/roidinary/image/upload/c_scale,w_40/v1601311538/'
         const imgs = [
             `${BASE_IMG_URL}location1_xebwou.png`,
@@ -42,12 +42,12 @@ class _MapContainer extends React.Component {
     }
     componentDidUpdate(prevProps, prevState) {
         if (this.props.markers !== prevProps.markers) {
-            const {markers,bounds } = this.initiateMarkerABounds()
+            const { markers, bounds } = this.initiateMarkerABounds()
             if (markers.length > 1 && this.state.map) {
                 this.state.map.fitBounds(bounds)
             }
             else {
-                if (this.state.map && markers[0] &&  markers[0].location && markers[0].location.lat) {
+                if (this.state.map && markers[0] && markers[0].location && markers[0].location.lat) {
                     this.state.map.panTo(this.props.markers[0].location)
                     this.state.map.setZoom(10)
 
@@ -76,7 +76,7 @@ class _MapContainer extends React.Component {
             return (<Marker key={utils.makeId()}
                 onClick={this.onMarkerClick}
                 title={marker.name}
-                name={marker.at||''}
+                name={marker.at || ''}
                 position={marker.location}
                 icon={this.state.imgs[idx]}
             >
@@ -102,12 +102,256 @@ class _MapContainer extends React.Component {
                 onClick={this.onMapClicked}
                 onReady={(mapProps, map) => {
                     if (this.state.markers.length > 1) map.fitBounds(this.state.bounds)
-                    
+
                     else {
                         if (this.state.markers[0]) map.panTo(this.state.markers[0].location)
                     }
                     this.setState({ map })
                 }}
+                styles={
+
+                    [{
+                        featureType: "all",
+                        elementType: "labels.text.fill",
+                        stylers: [
+                            {
+                                saturation: 36
+                            },
+                            {
+                                color: "#333333"
+                            },
+                            {
+                                lightness: 40
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "all",
+                        elementType: "labels.text.stroke",
+                        stylers: [
+                            {
+                                visibility: "on"
+                            },
+                            {
+                                color: "#ffffff"
+                            },
+                            {
+                                lightness: 16
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "all",
+                        elementType: "labels.icon",
+                        stylers: [
+                            {
+                                visibility: "off"
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "administrative",
+                        elementType: "geometry.fill",
+                        stylers: [
+                            {
+                                color: "#fefefe"
+                            },
+                            {
+                                lightness: 20
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "administrative",
+                        elementType: "geometry.stroke",
+                        stylers: [
+                            {
+                                color: "#fefefe"
+                            },
+                            {
+                                lightness: 17
+                            },
+                            {
+                                weight: 1.2
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "landscape",
+                        elementType: "geometry",
+                        stylers: [
+                            {
+                                color: "#f5f5f5"
+                            },
+                            {
+                                lightness: 20
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "landscape",
+                        elementType: "geometry.fill",
+                        stylers: [
+                            {
+                                color: "#d5d5d5"
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "landscape.man_made",
+                        elementType: "geometry.fill",
+                        stylers: [
+                            {
+                                color: "#7574c0"
+                            },
+                            {
+                                saturation: "-37"
+                            },
+                            {
+                                lightness: "75"
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "poi",
+                        elementType: "geometry",
+                        stylers: [
+                            {
+                                color: "#f5f5f5"
+                            },
+                            {
+                                lightness: 21
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "poi.business",
+                        elementType: "geometry.fill",
+                        stylers: [
+                            {
+                                color: "#7574c0"
+                            },
+                            {
+                                saturation: "-2"
+                            },
+                            {
+                                lightness: "53"
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "poi.park",
+                        elementType: "geometry",
+                        stylers: [
+                            {
+                                color: "#dedede"
+                            },
+                            {
+                                lightness: 21
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "poi.park",
+                        elementType: "geometry.fill",
+                        stylers: [
+                            {
+                                color: "#7574c0"
+                            },
+                            {
+                                lightness: "69"
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "road.highway",
+                        elementType: "geometry.fill",
+                        stylers: [
+                            {
+                                color: "#7574c0"
+                            },
+                            {
+                                lightness: "25"
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "road.highway",
+                        elementType: "geometry.stroke",
+                        stylers: [
+                            {
+                                color: "#ffffff"
+                            },
+                            {
+                                lightness: 29
+                            },
+                            {
+                                weight: 0.2
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "road.highway",
+                        elementType: "labels.text.fill",
+                        stylers: [
+                            {
+                                lightness: "38"
+                            },
+                            {
+                                color: "#000000"
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "road.arterial",
+                        elementType: "geometry",
+                        stylers: [
+                            {
+                                color: "#ffffff"
+                            },
+                            {
+                                lightness: 18
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "road.local",
+                        elementType: "geometry",
+                        stylers: [
+                            {
+                                color: "#ffffff"
+                            },
+                            {
+                                lightness: 16
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "transit",
+                        elementType: "geometry",
+                        stylers: [
+                            {
+                                color: "#f2f2f2"
+                            },
+                            {
+                                lightness: 19
+                            }
+                        ]
+                    },
+                    {
+                        featureType: "water",
+                        elementType: "geometry",
+                        stylers: [
+                            {
+                                color: "#e9e9e9"
+                            },
+                            {
+                                lightness: 17
+                            }
+                        ]
+                    }
+                    ]
+                }
             >
 
 
