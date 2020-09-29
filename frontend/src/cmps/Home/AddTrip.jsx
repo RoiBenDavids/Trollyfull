@@ -34,11 +34,14 @@ class _AddTrip extends Component {
         ev.preventDefault()
         const newtrip = this.state.currTrip
         newtrip.name = newtrip.name.toLowerCase()
-        if (!this.state.currTrip.startDate && !this.state.currTrip.endDate) {
+        if (!newtrip.startDate && !newtrip.endDate) {
             newtrip.startDate = Date.now()
             newtrip.endDate = Date.now() + 1 * 1000 * 60 * 60 * 24
         }
-
+        newtrip.startDate = (this.state.destinations.length && this.state.destinations[this.state.destinations.length - 1].endDate) || this.state.currTrip.startDate || Date.now()
+        if (!this.state.currTrip.endDate) {
+            newtrip.endDate = (newtrip.startDate)?newtrip.startDate+ 1 * 1000 * 60 * 60 * 24:Date.now()+ 1 * 1000 * 60 * 60 * 24
+        }
         newtrip.id = utils.makeId()
         this.setState({
             destinations: [...this.state.destinations, newtrip],
@@ -107,8 +110,8 @@ class _AddTrip extends Component {
             targetName = ev.target.name
         }
         else {
+
             value = new Date(ev).getTime();
-           
             targetName = name
         }
 
@@ -122,6 +125,7 @@ class _AddTrip extends Component {
     render() {
         const startDate = (this.state.destinations.length && this.state.destinations[this.state.destinations.length - 1].endDate) ||
             Date.now()
+        
         return (
             <div className="flex add-destination-form-wraper">
                 <form className="flex column add-destination-form" onSubmit={this.onSetDestinations}>

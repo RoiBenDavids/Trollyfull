@@ -29,7 +29,7 @@ export class TripAssembly extends Component {
         this.removeBus = _removeBus
 
         this.initiateAssembly()
-        
+
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -242,7 +242,6 @@ export class TripAssembly extends Component {
         const { page } = this.state
         const currWeekDates = this.getLinearTripDays()
         if (j + page * this.state.daysCount >= currWeekDates.length) {
-
             return false
         }
 
@@ -422,7 +421,6 @@ export class TripAssembly extends Component {
         } else {
             slot = (hour - 6) * 2
         }
-
         return slot
     }
 
@@ -466,8 +464,10 @@ export class TripAssembly extends Component {
 
         return actPreviews
     }
+
     setFullAssembly = () => {
         this.initiateAssembly(7, 0)
+        this.props.setDestsMarkers()
     }
 
     render() {
