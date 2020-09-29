@@ -39,16 +39,16 @@ class _LoginSignupPage extends Component {
             return user
         }
     }
-    closeModal() {
+    closeModal=()=> {
         this.props.closeModal()
     }
     render() {
         const tripToRed = this.props.tripId
         return (
             this.state.login ? <Login handleForm={this.handleForm} handleClick={this.props.handleClick}
-                closeModal={() => this.closeModal()} /> :
+                closeModal={this.closeModal} /> :
                 <Signup handleForm={this.handleForm} handleClick={this.props.handleClick}
-                    closeModal={() => this.closeModal()} tripId={this.props.tripId} tripToRed={tripToRed} />
+                    closeModal={this.closeModal} tripId={this.props.tripId} tripToRed={tripToRed} />
         )
     }
 }

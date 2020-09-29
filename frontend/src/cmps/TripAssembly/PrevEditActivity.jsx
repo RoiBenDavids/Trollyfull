@@ -122,7 +122,11 @@ export class PrevEditActivity extends Component {
 
 
             <form className="preview-activity-form flex column" >
-                <h2 contentEditable={true} suppressContentEditableWarning={true} autoCorrect="off" data-name="name" onInput={this.handleContentEditable}>{this.state.activitie.name}</h2>
+                <h2 contentEditable={true}
+                suppressContentEditableWarning={true}
+                spellCheck="false"
+                data-name="name" 
+                onBlur={this.handleContentEditable}>{this.state.activitie.name}</h2>
                 <div className="flex">
                     <small><i className="fas fa-map-marker"></i> {this.state.activitie.destination}</small>
                     <small><i className="far fa-clock"></i>{`${startTime}-${endTime}`} <i onClick={() => { this.setState({ isInputOpen: !this.state.isInputOpen }) }} className="fas fa-edit"></i></small>

@@ -25,7 +25,7 @@ export class Login extends React.Component {
                 <input className="styled-input" type="email" placeholder="email" name="email"></input>
                 <input className="styled-input" type="password" placeholder="password" name="password"></input>
                 <button className="styled-button">Login</button>
-                <p>not a user? please <span onClick={()=>this.props.handleClick('signup')}>sign up</span></p>
+                <p>not a user? please <span  onClick={()=>this.props.handleClick('signup')}>sign up</span></p>
                 {this.state.msg && <p>{this.state.msg}</p>}
             </form>
         )
