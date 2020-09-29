@@ -15,10 +15,8 @@ class _TripReviews extends Component {
     }
 
     async componentDidMount() {
-        // const trip = this.props.props
         const trip =this.props.trip
         try {
-            // await this.setState({ trip })
             await this.props.loadReviews({ tripId: trip._id })
         }
         catch (err) {
@@ -31,7 +29,6 @@ class _TripReviews extends Component {
 
 
     addReview = async (review) => {
-        // review.byUserId = this.props.loggedInUser._id
         review.trip = this.props.trip._id
         await reviewActions.addReview(review)
         await this.props.loadReviews({ tripId: this.props.trip._id })
@@ -48,8 +45,7 @@ class _TripReviews extends Component {
                 <div className="flex reviews-btns-container">
                     <button className="review-btns styled-button" onClick={this.onToggleExpend}>{this.state.isReviewOpen ? 'Close' : ' Add Review'}</button>
                 </div>
-                    {/* <AddReview addReview={this.addReview} onToggleExpend={this.onToggleExpend} isReviewOpen={this.state.isReviewOpen}/> */}
-                    <AddReview addReview={this.addReview} isReviewOpen={this.state.isReviewOpen}/>
+                    <AddReview addReview={this.addReview} msg={this.props.msg} showMsg={this.props.showMsg} closeMsg={this.props.closeMsg}  isReviewOpen={this.state.isReviewOpen}/>
             </div >
         )
     }

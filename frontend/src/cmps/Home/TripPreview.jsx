@@ -9,7 +9,7 @@ import React, { Component } from 'react'
 class _TripPreview extends Component {
 
     async componentDidMount() {
-        const reviews = await this.props.loadReviews({ tripId: this.props.trip._id })
+        let reviews = await this.props.loadReviews({ tripId: this.props.trip._id })
         if (!reviews) reviews = []
         this.setState({ reviews })
 
@@ -71,7 +71,7 @@ class _TripPreview extends Component {
                                 </div>
 
                             </div>
-                            <p>{`Trollied by Roi and ${utils.getRandomInt(50, 220)} others`}</p>
+                            <p>{`Trollied by ${utils.getRandomName()} and ${utils.getRandomInt(50, 220)} others`}</p>
                         </div>
                     </div>
 

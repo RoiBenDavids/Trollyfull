@@ -12,12 +12,16 @@
         border-radius: 5px;
         padding: 40px 10px;
         label {
-            font-family: "roboto", sans-serif;
             color: #434a72;
+            font-size: 1rem;
+            padding: 0 10px;
+        }
+        input{
+            max-width: 50%;
         }
 
         > *:not(button) {
-            padding-bottom: 20px;
+            padding-bottom: 10px;
         }
         > div {
             flex-wrap: wrap;
@@ -29,6 +33,11 @@
         @include for-mobile-layout {
         margin: auto 10px;
         padding: 40px 20px;
+        }
+
+        h3{
+            margin: 0;
+            text-align: center;
         }
     }
 
@@ -43,13 +52,13 @@
 
     .add-dest-img-wraper {
         position: relative;
-        width: 280px;
+        width: 215px;
 
         img {
             border-radius: 0 10px 10px 0;
-            height: 423px;
+            height: 404px;
             width: 100%;
-            top: 22px;
+            top: 12px;
             object-fit: cover;
             position: absolute;
         }

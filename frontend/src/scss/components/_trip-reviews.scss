@@ -1,137 +1,175 @@
-
-.reviews-page{
-    .img-wraper{
+.reviews-page {
+    .img-wraper {
         height: 350px;
     }
-    h2{
-        color:cornflowerblue
+    h2 {
+        color: cornflowerblue;
     }
-    >h2,>p{
-        margin: 10px auto;    }
+    > h2,
+    > p {
+        margin: 10px auto;
+    }
 }
-.addreview-container{
-     width: 100%;
-     text-align-last: center;
-
-}
-
-.reviews-btns-container{
-justify-content: space-around;
-width: 230px;
-margin: 0 auto;
+.addreview-container {
+    width: 100%;
+    text-align-last: center;
 }
 
-.review-btns{
-width: 100px;
-background-color: #8da5e2;
+.reviews-btns-container {
+    justify-content: space-around;
+    width: 230px;
+    margin: 0 auto;
 }
 
-.review-list{
+.stars-rate {
+    flex-direction: row-reverse;
+    .fa-star {
+        color: #d4d1d1;
+        cursor: pointer;
+        &::after {
+            // content: counter(item) " ";
+            counter-increment: item;
+            position: absolute;
+            color: #6d6b6b;
+            font-size: x-small;
+            transform: translate(-12px, 5px);
+        }
+
+        &:hover {
+            color: #ffb622;
+        }
+    }
+
+    .star-5:hover ~ i {
+        color: #ffb622;
+    }
+    .star-4:hover ~ i {
+        color: #ffb622;
+    }
+    .star-3:hover ~ i {
+        color: #ffb622;
+    }
+    .star-2:hover ~ i {
+        color: #ffb622;
+    }
+}
+
+.review-btns {
+    width: 100px;
+    background-color: #8da5e2;
+}
+
+.review-list {
     list-style-type: none;
     align-items: flex-start;
     width: 100%;
     max-height: 38vh;
     overflow-y: auto;
-    >:nth-child(even){
+
+    > :nth-child(even) {
         background-color: rgba(243, 243, 243, 0.678);
         margin: 0;
     }
-    .review{
+    .review {
         justify-content: space-between;
         align-items: flex-start;
         height: fit-content;
         width: 100%;
         border-bottom: 1px solid rgb(226, 225, 225);
         padding: 20px;
-        font-size: 1rem;
+        font-size: 0.9rem;
         color: rgb(99, 96, 96);
-        > p{
+        h3 {
+            margin: 0;
+        }
+        > p {
             margin: 0;
             text-align-last: left;
             color: rgb(95, 93, 93);
             line-height: 1.3rem;
             overflow-wrap: anywhere;
         }
-        .review-details{
-        width: 100%;
-        .rating-star{
-            :nth-child(5){
-                flex: 1;
+        .review-details {
+            width: 100%;
+            align-items: flex-start;
+            .rating-star {
+                :nth-child(5) {
+                    flex: 1;
+                }
+                height: 25px;
+                width: 25px;
+                margin: 2px;
             }
-            height:25px;
-            width: 25px;
-            margin: 2px
-        }
         }
 
-        .expend-description{
+        .expend-description {
             display: block;
             width: fit-content;
             padding: 5px 10px;
         }
     }
 }
-    
-    .review-modal  {
-        height: 0;
-        overflow: hidden;
-        transition: height 0.3s ease-in-out;
-        // visibility: hidden;
-        h2{
+
+.review-modal {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
+
+    h2 {
         width: 100%;
         position: relative;
         text-align: center;
         margin-top: 0;
-        }
-        form {
-            width: 100%;
-            height:100%;
-            overflow: hidden;
-            background-color: #fff;
-            border-radius: 5px;
-            text-align: center;
-            align-items: center;
-            justify-content: space-around;
-            >div{
-                align-items: flex-end;
-            }
-        }
-            select,textarea{       
-                
-                border-radius: 5px;
-                border: 1px solid rgb(231, 231, 231);
-                outline: none;
-            }
-            textarea{
-                width: 80%;
-                height: 70px;
-            }
-            select{
-                height: 30px;
-            }
-            input{
-                margin: 0;
-            }
-            .close-modal{
-                position: absolute;
-                top: 0;
-                right: 0;
-                color: gray;
-                padding: 5px 8px;
-                border-color: #80808029;
-                background-color: #e5e5e5;
-                box-shadow: 0px 3px 3px #00000061;
-                    :hover{
-                        background-color: #b4b4b4;
-                        color: white;
-                        box-shadow: 1px 9px 7px 0px #c5bdbd;
-                    }
-                }
-                &.open{
-                    // visibility: visible;
-                    height: 150px;
-                }
     }
-    
-    
-  
+    form {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: #fff;
+        border-radius: 5px;
+        text-align: center;
+        align-items: center;
+        justify-content: space-around;
+        > div {
+            margin-bottom: 10px;
+            align-items: flex-end;
+            width: 100%;
+            justify-content: space-around;
+        }
+        .styled-button {
+            margin: 0;
+            margin-bottom: 20px;
+        }
+        > * {
+            margin-bottom: 10px;
+        }
+    }
+    textarea {
+        border-radius: 5px;
+        border: 1px solid rgb(231, 231, 231);
+        outline: none;
+        min-height: 50px;
+        width: 72%;
+        height: 70px;
+    }
+
+    .close-modal {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: gray;
+        padding: 5px 8px;
+        border-color: #80808029;
+        background-color: #e5e5e5;
+        box-shadow: 0px 3px 3px #00000061;
+        :hover {
+            background-color: #b4b4b4;
+            color: white;
+            box-shadow: 1px 9px 7px 0px #c5bdbd;
+        }
+    }
+    &.open {
+        // visibility: visible;
+        height: 150px;
+    }
+}

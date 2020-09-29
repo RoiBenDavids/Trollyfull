@@ -13,7 +13,8 @@ export const utils = {
     getIsoTime,
     calculateDates,
     getRandomLatLng,
-    setToHourMinuets
+    setToHourMinuets,
+    getRandomName
 }
 
 function makeId(length = 5) {
@@ -76,11 +77,11 @@ function getDateDay(timeStamp) {
     return time.getDate()
 }
 
-function setToHourMinuets(timeStamp,hour, min) {
+function setToHourMinuets(timeStamp, hour, min) {
     let time = new Date(timeStamp)
     time.setHours(hour, min)
     return time.getTime()
-    
+
 }
 
 
@@ -133,6 +134,43 @@ function getRandomLatLng() {
         { lat: 28.644800, lng: 77.216721 }, //new delhi
     ]
     return locations[getRandomInt(0, locations.length - 1)]
+}
+
+function getRandomName() {
+    const name = [
+        'Moshe544',
+        'Cochava',
+        'Ilanit',
+        'Yaron.B',
+        'J-Lo',
+        'Meni',
+        'QueenB',
+        'Latifa',
+        'Elvis',
+        'Yorgan',
+        'Matilda',
+        'Muki',
+        'Puki',
+        'Alfonso',
+        'Idan',
+        'Roi',
+        'Stav',
+        'Jermi',
+        'Fernandinho',
+        'Messi',
+        'L-James',
+        'Yonit',
+        'Adam',
+        'Eve',
+        'Kelly',
+        'Steve',
+        'Stue',
+        'Laquisha',
+        'Marisa',
+        'Sharon',
+        'Eliyahu'
+    ]
+    return name[getRandomInt(0, name.length - 1)]
 }
 
 

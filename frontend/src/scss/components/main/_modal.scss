@@ -1,5 +1,4 @@
-
-.modal-screen{
+.modal-screen {
     height: 100vh;
     width: 100%;
     background-color: #000000b3;
@@ -8,15 +7,17 @@
     left: 0;
     z-index: 9998;
 
-    &.hide{
+    &.hide {
         display: none;
     }
+    margin-right: 10px;
 
-    .modal-container{
+   
+
+    .modal-container {
         width: 600px;
         max-width: 97%;
         max-height: 97%;
-        overflow: auto;
         background-color: #fff;
         border-radius: 5px;
         text-align: center;
@@ -24,82 +25,64 @@
         justify-content: space-around;
         z-index: 9999;
 
-        .modal-header{
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background-color: rgba(255, 255, 255, 0);
+            border-radius: 10px;
+            margin-right: 10px;
+            background-clip: padding-box;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(90deg, rgb(94, 38, 94), rgb(243, 156, 239), rgb(255, 255, 255));
+            border-radius: 10px;
+            background: $clr6;
+            border: 20px solid transparent;
+        }
+
+        .modal-header {
             width: 100%;
             position: relative;
             text-align: center;
             padding: 20px;
-            margin-bottom: 20px;
-            p{
+            margin-bottom: 10px;
+            p {
                 flex: 1;
             }
-            button{
-                border:none;
+            button {
+                border: none;
                 outline: none;
                 background-color: transparent;
                 position: absolute;
                 top: 37%;
                 right: 10px;
             }
-
         }
-        .modal-content{
-            
+        .modal-content {
+            margin-right: 10px;
+            max-height: 80vh;
+            overflow-y: auto;
         }
-
     }
 }
-.login-form{
+.login-form {
     width: 50%;
-        height: fit-content;
-        padding: 20px;
-        margin: 0 auto;
+    height: fit-content;
+    padding: 20px;
+    margin: 0 auto;
+
+    span {
+        color: blue;
+        cursor: pointer;
+    }
 }
 
-
-// .login-form form {
-//     width: 50%;
-//     height: fit-content;
-//     background-color: #fff;
-//     border-radius: 5px;
-//     padding: 20px;
-//     text-align: center;
-//     align-items: center;
-//     justify-content: space-around;
-// }
-
-// .review-modal input, .review-modal select, .review-modal textarea {
-//     padding: 10px;
-//     width: 50%;
-//     margin: 10px;
-//     border-radius: 5px;
-//     border: 1px solid rgb(231, 231, 231);
-//     outline: none;
-// }
-
-
-// .review-modal .close-modal{
-//     position: absolute;
-//     top: 0;
-//     right: 0;
-//     color: gray;
-//     padding: 5px 8px;
-//     border-color: #80808029;
-//     background-color: #e5e5e5;
-//     box-shadow: 0px 3px 3px #00000061;
-// }
-
-//     .close-modal:hover {
-//         background-color: #b4b4b4;
-//         color: white;
-//         box-shadow: 1px 9px 7px 0px #c5bdbd;
-//     }
-
-.notification-btns{
+.notification-btns {
     width: 100%;
     margin: 0 auto;
     display: block;
-    *{
+    * {
         margin: 0 10px 10px;
         width: 65px;
     }
