@@ -78,7 +78,7 @@ class _TripPreview extends Component {
                                 </div>
 
                             </div>
-                            <p>{`Trollied by Roi and ${utils.getRandomInt(50, 220)} others`}</p>
+                            <p>{`Trollied by ${utils.getRandomName()} and ${utils.getRandomInt(50, 220)} others`}</p>
                         </div>
                     </div>
 

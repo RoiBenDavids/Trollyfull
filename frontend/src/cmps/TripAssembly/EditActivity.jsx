@@ -108,47 +108,45 @@ export class EditActivity extends Component {
         let max = new Date(_max)
         return (
 
-            // <div>
-            //     <p>Name: <span contentEditable={true} suppressContentEditableWarning={true}
-            //         onBlur={(ev)=>{this.checkinput(ev, 'name')}}>{this.state.activitie.name}</span></p>
-
-            // </div>
-
             <form className="edit-activity-form flex column" onSubmit={this.onSaveAct}>
-                <label htmlFor="name">Name</label>
-                <input className="styled-input" placeholder="name" name="name" id="name" value={this.state.activitie.name} onChange={this.handleChange}></input>
-                {!activitie.id && <label htmlFor="dest-input">Destination</label>}
-                {!activitie.id && <select value={this.state.activitie.destination} placeholder="destination" name="destination" id="dest-input" onChange={this.handleChange}>
+                <input className="styled-input" placeholder="Enter activity Name" name="name" id="name" value={this.state.activitie.name} onChange={this.handleChange}></input>
+                {!activitie.id && <div><i className="fas fa-map-marker"></i><select value={this.state.activitie.destination} placeholder="destination" name="destination" id="dest-input" onChange={this.handleChange}>
                     {destinations.map((dest, idx) => {
                         return <option key={utils.makeId()} value={dest.name}>{dest.name}</option>
 
                     })}
-                </select>}
-                <label htmlFor="start-time-activity-input">Time</label>
-                <DatePicker
-                    minDate={minT}
-                    maxDate={maxT}
-                    selected={this.getValidTime().getTime() || minTemp}
-                    value={this.getValidTime().getTime() || minTemp}
-                    minTime={min}
-                    maxTime={max}
-                    autoComplete="off"
-                    className="styled-input"
-                    showTimeSelect
-                    required
-                    showFullMonthYearPicker
-                    dateFormat="Pp"
-                    onChange={time => this.handleTime(time)}
-                />
-                {/* <input className="styled-input" type="datetime-local" id="start-time-activity-input" min={minTime} max={maxTime} name="at"
-                    onChange={this.handleChange} value={this.state.activitie.at}
-                    required="required" id="date-activity-input" /> */}
-                <label htmlFor="duration">Duration (Half hours)</label>
-                <input className="styled-input" placeholder="duration" id="duration" type="number" name="duration" value={this.state.activitie.duration} onChange={this.handleChange}></input>
-                <label htmlFor="notes">Notes</label>
-                <textarea placeholder="notes" onChange={this.handleChange} name="notes" id="notes" value={this.state.activitie.notes} ></textarea>
-                <label htmlFor="price" id="price">Price</label>
-                <input className="styled-input" type="number" placeholder="price" name="price" id="price" onChange={this.handleChange} placeholder="price" value={this.state.activitie.price}></input>
+                </select></div>}
+                <div className="flex">
+                <i className="far fa-clock"></i>
+                    <div className="flex column">
+                        <label htmlFor="start-time-activity-input">Time</label>
+                        <DatePicker
+                            minDate={minT}
+                            maxDate={maxT}
+                            selected={this.getValidTime().getTime() || minTemp}
+                            value={this.getValidTime().getTime() || minTemp}
+                            minTime={min}
+                            maxTime={max}
+                            autoComplete="off"
+                            className="styled-input"
+                            showTimeSelect
+                            required
+                            showFullMonthYearPicker
+                            dateFormat="Pp"
+                            onChange={time => this.handleTime(time)}
+                        />
+                    </div>
+                    <div className="flex column justify-evenly align-baseline">
+                        <label htmlFor="duration">Duration (Half hours)</label>
+                        <input className="styled-input" placeholder="duration" id="duration" type="number" name="duration" value={this.state.activitie.duration} onChange={this.handleChange}></input>
+                    </div>
+                </div>
+                <textarea placeholder="Add some notes" onChange={this.handleChange} name="notes" id="notes" value={this.state.activitie.notes} ></textarea>
+                {/* <label htmlFor="price" id="price">Price</label> */}
+                <div className="flex">
+                    <i className="fas fa-dollar-sign"></i>
+                    <input className="styled-input" type="number" placeholder="price" name="price" id="price" onChange={this.handleChange} placeholder="price" value={this.state.activitie.price}></input>
+                </div>
                 <button className="styled-button" onClick={this.onSaveAct}>Save</button>
             </form>
         )

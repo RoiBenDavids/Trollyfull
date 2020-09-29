@@ -103,16 +103,23 @@ export class PrevEditActivity extends Component {
 
 
     render() {
-        const { activitie, minTime, maxTime } = this.state
-        if (!activitie) return <div>Loading</div>
-        const { destinations } = this.props.props
+
         const startTime = utils.getTimeDayStr(new Date(this.state.activitie.at).getTime())
         const endTime = utils.getTimeDayStr(new Date(this.state.activitie.at).getTime() + (this.state.activitie.duration / 2) * 60 * 60 * 1000)
 
-
+        const { activitie, minTime, maxTime } = this.state
+        if (!activitie) return <div>Loading</div>
+        const { destinations } = this.props.props
         let minT = new Date(minTime)
         let maxT = new Date(maxTime)
-        let currDate = new Date(activitie.at)
+        let minTemp = minT.setHours(7, 0)
+        let currDate;
+        if (activitie.at) {
+            currDate = new Date(activitie.at)
+        } else {
+            currDate = new Date(minTemp)
+        }
+
         let _min = currDate.setHours(7, 0)
         let _max = currDate.setHours(23, 59)
         let min = new Date(_min)
@@ -122,11 +129,8 @@ export class PrevEditActivity extends Component {
 
 
             <form className="preview-activity-form flex column" >
-                <h2 contentEditable={true}
-                suppressContentEditableWarning={true}
-                spellCheck="false"
-                data-name="name" 
-                onBlur={this.handleContentEditable}>{this.state.activitie.name}</h2>
+                <h2 contentEditable={true} suppressContentEditableWarning={true} data-placeholder="Enter activity name" 
+                spellCheck="false" style={{direction:'ltr'}} data-name="name" onBlur={this.handleContentEditable}>{this.state.activitie.name}</h2>
                 <div className="flex">
                     <small><i className="fas fa-map-marker"></i> {this.state.activitie.destination}</small>
                     <small><i className="far fa-clock"></i>{`${startTime}-${endTime}`} <i onClick={() => { this.setState({ isInputOpen: !this.state.isInputOpen }) }} className="fas fa-edit"></i></small>
@@ -137,9 +141,20 @@ export class PrevEditActivity extends Component {
                 <div className={`flex time-container ${this.state.isInputOpen ? 'openHeight' : ''} `}>
                     <div className="flex column">
                         <h4 >Beginning time:</h4>
-                        <input className="styled-input date" type="datetime-local" id="start-time-activity-input" min={minTime} max={maxTime} name="at"
-                            onChange={this.handleChange} value={this.state.activitie.at}
-                            required="required" id="date-activity-input" />
+                        <DatePicker
+                    minDate={minT}
+                    maxDate={maxT}
+                    selected={this.getValidTime().getTime()}
+                    value={this.getValidTime().getTime() || minTemp}
+                    minTime={min}
+                    maxTime={max}
+                    autoComplete="off"
+                    className="styled-input prev-date-picker date"
+                    showTimeSelect
+                    required
+                    dateFormat="Pp"
+                    onChange={time => this.handleTime(time)}
+                />
                     </div>
                     <div className="flex column">
                         <h4 >Duration (Half hours)</h4>
@@ -149,22 +164,9 @@ export class PrevEditActivity extends Component {
                 </div>
                 {<img src={this.props.props.act.imgUrl} alt="https://teddytennis.com/cyprus/wp-content/uploads/sites/76/2017/11/placeholder.png"/>}
 
-                <DatePicker
-                    minDate={minT}
-                    maxDate={maxT}
-                    selected={this.getValidTime().getTime()}
-                    minTime={min}
-                    maxTime={max}
-                    autoComplete="off"
-                    className="styled-input prev-date-picker"
-                    showTimeSelect
-                    required
-                
-                    dateFormat="Pp"
-                    onChange={time => this.handleTime(time)}
-                />
-                <h4 htmlFor="notes">Notes</h4>
-                <textarea placeholder="notes" onChange={this.handleChange} name="notes" id="notes" value={this.state.activitie.notes} ></textarea>
+             
+                {/* <h4 htmlFor="notes">Notes</h4> */}
+                <textarea placeholder="Add some notes" onChange={this.handleChange} name="notes" id="notes" value={this.state.activitie.notes} ></textarea>
                 <div className="flex">
                     <h4>Price:</h4>
                     <p>{this.state.activitie.currency}</p>

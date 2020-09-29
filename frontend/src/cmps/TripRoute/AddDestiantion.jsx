@@ -35,7 +35,7 @@ export class AddDestination extends React.Component {
         try {
             const results = await geocodeByAddress(value);
             const latlng = await getLatLng(results[0])
-            this.setState({ destination: { ...this.state.destination, location: latlng, name: value } })
+            this.setState({ destination: { ...this.state.destination, location: latlng, name: value }})
 
         }
         catch (err) {
@@ -53,7 +53,7 @@ export class AddDestination extends React.Component {
         this.toggleAddDestination()
         this.props.addDestination(this.state.destination)
         this.setState({
-            destination: {
+            destination:{
                 name: '',
                 days: '',
                 location: null
