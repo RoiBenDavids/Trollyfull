@@ -1,5 +1,4 @@
 import { tripService } from "../../services/tripService"
-import { socketService } from '../../services/socketService'
 
 export function loadTrip(tripId, flag) {
     return async dispatch => {
@@ -75,6 +74,17 @@ export function addTrip(newTrip) {
             // socketService.emit('tripToUpdate', trip);
             // socketService.emit('tripToUpdate', newTrip);
             dispatch({ type: 'EDIT_TRIP', trip })
+            return trip
+        }
+        catch (err) {
+        }
+    }
+}
+export function removeTrip(tripId) {
+    return async dispatch => {
+        try {
+            const trip = await tripService.remove(tripId)
+            dispatch({ type: 'REMOVE_TRIP', trip })
             return trip
         }
         catch (err) {

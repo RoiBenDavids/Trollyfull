@@ -35,7 +35,7 @@ export class PrevEditActivity extends Component {
 
             activitie: {
                 ...act, name: act.name, currency: act.price.currency, price: act.price.amount, at: utils.getIsoTime(act.at),
-                destination: act.destination
+                destination: act.destination, duration: act.duration
             }, minTime, maxTime
         })
     }
@@ -50,28 +50,28 @@ export class PrevEditActivity extends Component {
         let value = ev.target.value;
 
         if (field === 'at') {
-            let time = value.substring(value.length - 5)
-            let hours = +time.split(':')[0]
-            let minuets = +time.split(':')[1]
-            if (minuets <= 15) {
-                minuets = 0
-            } else if (minuets >= 45) {
-                minuets = 0
-                hours += 1
-            } else {
-                minuets = 30
-            }
-            if (hours >= 0 && hours < 7) {
-                this.props.showMsg({ type: 'input', msg: 'Please choose events between 7:00 AM and 11:30 PM' })
-                return
-            }
-            minuets = ((minuets + '').length === 1) ? ('0' + minuets) : (minuets + '')
-            hours = ((hours + '').length === 1) ? ('0' + hours) : (hours + '')
-            value = value.substring(0, value.length - 5) + `${hours}:${minuets}`
+            // let time = value.substring(value.length - 5)
+            // let hours = +time.split(':')[0]
+            // let minuets = +time.split(':')[1]
+            // if (minuets <= 15) {
+            //     minuets = 0
+            // } else if (minuets >= 45) {
+            //     minuets = 0
+            //     hours += 1
+            // } else {
+            //     minuets = 30
+            // }
+            // if (hours >= 0 && hours < 7) {
+            //     this.props.showMsg({ type: 'input', msg: 'Please choose events between 7:00 AM and 11:30 PM' })
+            //     return
+            // }
+            // minuets = ((minuets + '').length === 1) ? ('0' + minuets) : (minuets + '')
+            // hours = ((hours + '').length === 1) ? ('0' + hours) : (hours + '')
+            // value = value.substring(0, value.length - 5) + `${hours}:${minuets}`
             this.setState({ activitie: { ...this.state.activitie, [field]: value } });
         }
 
-        else if (field === 'duration') this.setState({ activitie: { ...this.state.activitie, [field]: +value } });
+        else if (field === 'duration') this.setState({ activitie: { ...this.state.activitie, [field]: value } });
         else this.setState({ activitie: { ...this.state.activitie, [field]: value } });
     }
 
@@ -89,6 +89,8 @@ export class PrevEditActivity extends Component {
         const { activitie } = this.state
         let datetime = new Date(activitie.at)
         activitie.at = datetime.getTime()
+        if (!activitie.duration) activitie.duration = 1
+        else if (+activitie.duration) activitie.duration = +activitie.duration
         if (isOccTimeSlot(activitie)) {
             this.props.showMsg({ type: 'input', msg: 'You aleardy have plans for that date! please choose a different one.' })
             return
@@ -109,7 +111,6 @@ export class PrevEditActivity extends Component {
 
         const { activitie, minTime, maxTime } = this.state
         if (!activitie) return <div>Loading</div>
-        const { destinations } = this.props.props
         let minT = new Date(minTime)
         let maxT = new Date(maxTime)
         let minTemp = minT.setHours(7, 0)
@@ -126,8 +127,6 @@ export class PrevEditActivity extends Component {
         let max = new Date(_max)
 
         return (
-
-
             <form className="preview-activity-form flex column" >
                 <h2 contentEditable={true} suppressContentEditableWarning={true} data-placeholder="Enter activity name" 
                 spellCheck="false" style={{direction:'ltr'}} data-name="name" onBlur={this.handleContentEditable}>{this.state.activitie.name}</h2>

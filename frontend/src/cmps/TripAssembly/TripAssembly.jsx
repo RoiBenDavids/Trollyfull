@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { eventBus } from '../../services/eventBusService';
 import { utils } from '../../services/utils';
-import { ErrorMsg } from '../MainCmps/ErrorMsg';
 import { DayActivities } from './DayActivities'
 import { DayTimeLine } from './DayTimeLine';
 import { DestinationsHeader } from './DestinationsHeader';
@@ -29,7 +28,7 @@ export class TripAssembly extends Component {
         this.removeBus = _removeBus
 
         this.initiateAssembly()
-        
+
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -69,7 +68,7 @@ export class TripAssembly extends Component {
         let startDate, endDate
         [startDate, endDate] = [destinations[0].startDate, destinations[destinations.length - 1].endDate]
         const tripLength = utils.calculateDays(startDate, endDate)
-        await this.setState({ ...this.state, tripLength, startDate, endDate, activities, daysCount, page, daysCount }, () => this.loadWeekMat())
+        await this.setState({ ...this.state, tripLength, startDate, endDate, activities, daysCount, page }, () => this.loadWeekMat())
 
         await this.setState({ minDestinations: this.getMinDestinations() })
     }
@@ -161,7 +160,7 @@ export class TripAssembly extends Component {
 
 
     mapActsToDays = () => {
-        const { activities, destinations } = this.props.trip;
+        const { activities } = this.props.trip;
         activities.sort((act1, act2) => act1.at - act2.at)
         let map = activities.reduce((acc, activity) => {
 
@@ -242,7 +241,6 @@ export class TripAssembly extends Component {
         const { page } = this.state
         const currWeekDates = this.getLinearTripDays()
         if (j + page * this.state.daysCount >= currWeekDates.length) {
-
             return false
         }
 
@@ -386,7 +384,6 @@ export class TripAssembly extends Component {
     getLinearTripDays = () => {
         const linearDays = []
         let { startDate, tripLength } = this.state
-        let ttime = new Date(startDate)
         for (let i = 0; i < tripLength; i++) {
             linearDays.push(startDate + i * 24 * 60 * 60 * 1000)
         }
@@ -422,7 +419,6 @@ export class TripAssembly extends Component {
         } else {
             slot = (hour - 6) * 2
         }
-
         return slot
     }
 
@@ -466,8 +462,10 @@ export class TripAssembly extends Component {
 
         return actPreviews
     }
+
     setFullAssembly = () => {
         this.initiateAssembly(7, 0)
+        this.props.setDestsMarkers()
     }
 
     render() {

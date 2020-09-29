@@ -38,8 +38,6 @@ export class EditActivity extends Component {
             })
         } else {
             minTime = utils.getIsoTime(destinations[0].startDate)
-            let minT = new Date(minTime)
-            // let newMinT = minT.setHours(7, 0)
             maxTime = utils.getIsoTime(destinations[destinations.length - 1].endDate)
             this.setState({ activitie: { ...this.state.activitie, destination: destinations[0].name }, minTime, maxTime })
         }

@@ -19,6 +19,13 @@ export function tripReducer(state = initialState, action) {
                     return trip;
                 })
             }
+        case 'REMOVE_TRIP':
+            return {
+                ...state, currTrip: null, trips: state.trips.map(trip => {
+                    if (action.trip._id === !trip._id) return action.trip
+                    return trip;
+                })
+            }
         case 'SET_TRIP':
             return {
                 ...state,

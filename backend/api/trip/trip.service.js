@@ -65,8 +65,13 @@ async function add(trip) {
     }
 }
 
-function remove(trip) {
-    return trip
+async function remove(trip) {
+    const collection = await dbService.getCollection('trip')
+    try {
+        return await collection.deleteOne({ "_id": ObjectId(trip) })
+    } catch (err) {
+        throw err;
+    }
 }
 
 function _buildCriteria(filterBy) {

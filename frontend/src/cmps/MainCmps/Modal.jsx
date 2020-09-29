@@ -9,6 +9,7 @@ import { PrevEditActivity } from '../TripAssembly/PrevEditActivity';
 import { AddReview } from '../tripReviews/AddReview';
 import { TripReviews } from '../tripReviews/TripReviews';
 import { AddMember } from './AddMember';
+import { AlertUser } from './AlertUser';
 import { NotificationMsg } from './NotificationMsg';
 
 class _Modal extends React.Component {
@@ -60,6 +61,10 @@ class _Modal extends React.Component {
                 dynamicCmp = <TripReviews showMsg={this.props.showMsg} msg={this.props.msg} closeMsg={this.props.closeMsg} closeModal={this.closeModal} />
                 nameToDisplay = 'Reviews'
                 break
+            case 'alert-user':
+                dynamicCmp = <AlertUser props={this.props}  closeModal={this.closeModal} />
+                nameToDisplay = 'Welcome!'
+                break
             default:
                 dynamicCmp = <div>proplem loading modal</div>
         }
@@ -81,7 +86,6 @@ class _Modal extends React.Component {
 
 
     render() {
-        const showLoginSignup = this.state.curCmp === 'login' || this.state.curCmp === 'signup' ? true : false;
         return (
             <div className={`modal-screen flex align-center justify-center ${this.props.modal.isShown ? '' : 'hide'}`} onKeyDown={this.checkKey} onMouseDown={this.closeModal}>
                 <div className={`modal-container `} onMouseDown={(ev) => ev.stopPropagation()} >

@@ -1,5 +1,4 @@
 import React from 'react'
-import { utils } from '../../services/utils'
 // var gFreeDays = 14
 export function DestNamePrev({ dest, updateFreeDays, freeDays, destinations }) {
     

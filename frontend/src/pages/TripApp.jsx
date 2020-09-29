@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {  withRouter } from 'react-router-dom'
-import { loadTrip, addTrip,  setTrip } from '../store/actions/tripActions'
+import { withRouter } from 'react-router-dom'
+import { loadTrip, addTrip, setTrip, removeTrip } from '../store/actions/tripActions'
 import { closeModal, showModal } from '../store/actions/modalActions'
 import { TripAssembly } from '../cmps/TripAssembly/TripAssembly'
 import { TripRoute } from '../cmps/TripRoute/TripRoute'
@@ -33,6 +33,9 @@ class _TripApp extends Component {
         socketService.emit('enter trip', id);
         try {
             await loadTrip(id, true)
+            if (this.props.trip.originId) {
+                this.props.showModal('alert-user', this.props.trip)
+            }
             if (this.props.match.params.openSignup === 'true') {
                 this.props.showModal('signup', id)
             }
@@ -48,17 +51,20 @@ class _TripApp extends Component {
 
     }
 
-    getMarkersOfDests() {
+    getMarkersOfDests = () => {
         return this.props.trip.destinations.map(dest => {
             return { location: dest.location, name: dest.name }
         })
     }
-    setDestsMarkers=()=>{
+    setDestsMarkers = () => {
         const markers = this.getMarkersOfDests()
-        this.setState({markers})
+        this.setState({ markers })
     }
-    componentWillUnmount() {
+    async componentWillUnmount() {
         socketService.off('tripUpdated', this.props.setTrip);
+        if (!this.props.loggedInUser && this.props.trip.createdBy.id === 'guest') {
+            await this.props.removeTrip(this.props.trip._id)
+        }
     }
 
     async componentDidUpdate(prevProps, prevState) {
@@ -66,7 +72,7 @@ class _TripApp extends Component {
         if (prevProps.trip === this.props.trip) return
         const markers = this.getMarkersOfDests()
         this.setState({ markers })
-        
+
 
         // socketService.emit('tripUpdated', this.props.trip);
     }
@@ -162,24 +168,18 @@ class _TripApp extends Component {
         const _newTrip = { ...this.props.trip, destinations }
         const newTrip = await this.props.addTrip(_newTrip)
         socketService.emit('tripToUpdate', newTrip);
-
-
-        // const markers = this.getMarkersOfDests()
-        // console.log(markers);
-
-        // this.setState({ markers })
     }
 
     showDay = (day) => {
         if (!day.td) return
         const actToRender = this.props.trip.activities.reduce((acc, act) => {
             if (new Date(act.at).getDate() === day.day.getDate()) {
-                acc.push({name:act.name,location:act.location,at:act.at})
+                acc.push({ name: act.name, location: act.location, at: act.at })
             }
             return acc
         }, [])
         eventBus.emit('markDay', day)
-        this.setState({markers:actToRender})
+        this.setState({ markers: actToRender })
     }
     openSideBar = () => {
         this.setState({ sideBar: !this.state.sideBar })
@@ -188,7 +188,7 @@ class _TripApp extends Component {
     render() {
         const { trip } = this.props
         const sideBarClass = this.state.sideBar ? 'open-side-bar' : ''
-        if (!trip|| !trip.destinations) return <div>Loading....</div>
+        if (!trip || !trip.destinations) return <div>Loading....</div>
         return (
             <div className="trip-app  ">
                 <ErrorMsg />
@@ -216,23 +216,27 @@ class _TripApp extends Component {
                             closeModal={this.props.closeModal}
                             setTrip={this.props.setTrip}
                             openSideBar={this.openSideBar}
+                            setDestsMarkers = {this.setDestsMarkers}
                         />
                     </div>
                 </div>
                 {this.state.isSocketSetup && <Chat chatOpen={this.state.chatOpen} trip={trip} />}
             </div >
         )
+        
     }
 }
 
 
 const mapStateToProps = state => {
     return {
-        trip: state.tripReducer.currTrip
+        trip: state.tripReducer.currTrip,
+        loggedInUser: state.userReducer.loggedInUser
     }
 }
 const mapDispatchToProps = {
     loadTrip,
+    removeTrip,
     showModal,
     closeModal,
     addTrip,

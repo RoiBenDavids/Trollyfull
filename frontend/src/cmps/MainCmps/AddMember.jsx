@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export class AddMember extends Component {

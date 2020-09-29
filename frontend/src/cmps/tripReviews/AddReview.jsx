@@ -39,7 +39,7 @@ export class AddReview extends React.Component {
         })
     }
     setRating = (val) => {
-        this.setState({ reviewToAdd: { ...this.state.reviewToAdd, rating: val } }, () => { console.log(this.state) })
+        this.setState({ reviewToAdd: { ...this.state.reviewToAdd, rating: val } })
     }
 
     render() {
