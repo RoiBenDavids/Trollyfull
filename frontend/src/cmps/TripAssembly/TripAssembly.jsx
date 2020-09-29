@@ -29,6 +29,7 @@ export class TripAssembly extends Component {
         this.removeBus = _removeBus
 
         this.initiateAssembly()
+        
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -120,12 +121,6 @@ export class TripAssembly extends Component {
         await this.setState({ activities })
         await this.props.closeModal()
     }
-
-
-
-
-
-
 
     showDaysName(startTime, mat) {
         for (let j = 0; j < this.state.daysCount; j++) {
@@ -224,9 +219,7 @@ export class TripAssembly extends Component {
         const dest = this.props.trip.destinations.find(_dest => _dest.name === activity.destination)
 
         let newTime = this.getTimeFromIdx(pos)
-        // let check = new Date(newTime)
-        // let endD = new Date(dest.startDate)
-        // let startD = new Date(dest.endDate)
+    
         let destStart = utils.setToHourMinuets(dest.startDate, 6, 0)
         let desEnd = utils.setToHourMinuets(dest.endDate, 23, 59)
         if (newTime < destStart || newTime > desEnd) {
@@ -252,7 +245,6 @@ export class TripAssembly extends Component {
 
             return false
         }
-
 
         const currDayDate = new Date(currWeekDates[j + page * this.state.daysCount])
         if (i % 2 !== 0) {
@@ -304,7 +296,6 @@ export class TripAssembly extends Component {
             idxMaxDay += daysCount - 1
         }
         let maxDay = linearDays[idxMaxDay]
-        // let maxDay = linearDays[(page * (daysCount)) + ((daysCount) >= linearDays.length) ? (linearDays.length - 1) : (daysCount - 1)]
         minDay = new Date(minDay)
         maxDay = new Date(maxDay)
         minDay = utils.setToHourMinuets(minDay, 7, 0)
@@ -325,7 +316,6 @@ export class TripAssembly extends Component {
     getMinDestinations = () => {
 
         const destinations = this.getWeekDests()
-        const { page } = this.state
         const minDestinations = []
         const destsHeadLength = this.mapDestsToHeaderLength()
         const destsNames = Object.keys(destsHeadLength)
@@ -336,11 +326,8 @@ export class TripAssembly extends Component {
                 return dest.name === destsNames[i]
             })
 
-            // if (time) {
-            // }
             minDestinations.push({ name: destsNames[i], duration: destsLength[i], time })
         }
-        // minDestinations.sort((dest1, dest2) => dest1.time.startDate - dest2.time.startDate)
         return minDestinations
 
 
@@ -492,7 +479,7 @@ export class TripAssembly extends Component {
         return (
             <div className="assembly-container">
 
-               
+
                 {/* <section className="paging-assembly"> */}
                 {/* <span>{this.state.page + 1}</span> */}
                 {/* </section> */}

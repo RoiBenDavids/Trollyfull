@@ -16,7 +16,7 @@ function connectSockets(io) {
             io.to(socket.myTopic).emit('chat addMsg', msg)
         })
         socket.on('user typing', data => {
-            io.to(socket.myTopic).emit('isTyping', data)
+            socket.broadcast.to(socket.myTopic).emit('isTyping', data)
         });
         socket.on('stopTyping', data => {
             io.to(socket.myTopic).emit('notTyping', data)

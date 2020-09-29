@@ -20,9 +20,6 @@ export function tripReducer(state = initialState, action) {
                 })
             }
         case 'SET_TRIP':
-            // console.log(state.currTrip);
-            console.log("tripReducer -> action.trip", action.trip)
-            console.log("tripReducer -> state", state)
             return {
                 ...state,
                 currTrip: { ...action.trip }

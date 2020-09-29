@@ -22,14 +22,11 @@ export function DayActivities({ day, getRowIdx, onRemoveAct, onEdit, destination
     }
     let newDay = reCalcPos(day)
 
-    var isAfterActs = false;
-    var currActsLength = 0
+   
     return (
         <div className="day-list-assembly">
-            {newDay.map((act, idx, day) => {
+            {newDay.map((act) => {
                 if (act.id) {
-                    isAfterActs = true
-                    currActsLength += act.duration
                     return <ActivitiePreview
                         destinations={destinations} onEdit={onEdit} onRemoveAct={onRemoveAct}
                         getRowIdx={getRowIdx} key={utils.makeId()} act={act} onOpenDetails={onOpenDetails} />

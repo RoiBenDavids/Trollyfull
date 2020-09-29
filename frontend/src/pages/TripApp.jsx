@@ -171,6 +171,7 @@ class _TripApp extends Component {
     }
 
     showDay = (day) => {
+        if (!day.td) return
         const actToRender = this.props.trip.activities.reduce((acc, act) => {
             if (new Date(act.at).getDate() === day.day.getDate()) {
                 acc.push({name:act.name,location:act.location,at:act.at})
@@ -180,7 +181,6 @@ class _TripApp extends Component {
         eventBus.emit('markDay', day)
         this.setState({markers:actToRender})
     }
-
     openSideBar = () => {
         this.setState({ sideBar: !this.state.sideBar })
     }

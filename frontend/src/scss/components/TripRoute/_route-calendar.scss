@@ -21,6 +21,30 @@
     td{
         position:relative;
         cursor: pointer;
+        transition: .3s;
+        &:hover {
+            // position: absolute;
+            // top: 5%;
+            // font-size: 1.1rem;
+            box-shadow: 0 0 5px darkgrey;;
+        }
+        &:hover .full {
+            // height: 13%;
+            
+            
+        }
+        &:hover .start {
+            // height: 13%;
+            
+            
+        }
+        &:hover .end {
+            // height: 13%;
+            
+            
+        }
+        
+        
     }
     .start, .full, .end{
         position: absolute;
@@ -28,6 +52,9 @@
         bottom: 0;
         position: absolute;
         z-index: -1;
+        transition: height .2s;
+        
+
         
     }
     .start{
@@ -35,16 +62,26 @@
         // border-top-left-radius: 50%;
         // border-bottom-left-radius: 50%;
         width: 45%;
+        &:hover {
+            height: 17%;
+        }
     }
     .full{
         width: 100%;
         left: 0;
+        height: 10%;
+        &:hover {
+            height: 17% !important;
+        }
     }
     .end{
         left: 0;
         // border-top-right-radius:50% ;
         // border-bottom-right-radius: 50%;
         width: 45%;
+        &:hover {
+            height: 17%;
+        }
     }
     .faded{
         opacity: 0.5;

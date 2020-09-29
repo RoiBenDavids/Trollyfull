@@ -9,9 +9,9 @@ import React, { Component } from 'react'
 class _TripPreview extends Component {
 
     async componentDidMount() {
-        const reviews = await this.props.loadReviews({ tripId: this.props.trip._id })
-        if (!reviews) reviews = []
-        this.setState({ reviews })
+        // const reviews = await this.props.loadReviews({ tripId: this.props.trip._id })
+        // if (!reviews) reviews = []
+        // this.setState({ reviews })
 
     }
 
