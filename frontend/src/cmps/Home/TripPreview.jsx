@@ -22,9 +22,9 @@ class _TripPreview extends Component {
         //    isMember = this.props.trip.members.find(member=>member.id===this.props.loggedInUser._id)
         // }
         // if(isMember){
-        //     return
-        // }
-        this.props.history.push(`/trip/${this.props.trip._id}/triproute`)
+            //     return
+            // }
+            this.props.history.push(`/trip/${this.props.trip._id}/triproute`)
     }
 
     getTripPrice = (activities) => {
