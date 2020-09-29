@@ -15,7 +15,7 @@ export class AddMember extends Component {
     }
 
     componentDidMount() {
-    this.setState({value:`http://localhost:3000/#/trip/${this.props.props}/triproute/true`})
+    this.setState({value:`https://trolly-app.herokuapp.com/#/trip/${this.props.props}/triproute/true`})
     }
     
 

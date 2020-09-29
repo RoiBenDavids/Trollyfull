@@ -137,7 +137,7 @@ class _AddTrip extends Component {
                             id="add-dest-name"
                             value={this.state.tripName}
                             required
-                            autocomplete="off"
+                            autoComplete="off"
                             onChange={this.handleInput}
                         />
                     </div>
