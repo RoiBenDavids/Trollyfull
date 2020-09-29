@@ -27,7 +27,7 @@ class _LoginSignupPage extends Component {
                 const [tripToRed, user] = await Promise.all([this.props.loadTrip(tripIdToRed), this.props.signup(props)])
                 tripToRed.members.push({ username: user.username, imgUrl: user.imgUrl, id: user._id })
                 await this.props.addTrip(tripToRed)
-                socketService.emit('tripToUpdate', tripToRed._id);
+                socketService.emit('tripToUpdate', tripToRed);
 
                 this.props.closeModal()
                 return user
