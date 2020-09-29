@@ -11,7 +11,6 @@ export const reviewService = {
 
 
 async function query(filterBy) {
-
     if (filterBy) var queryStr = `?tripId=${filterBy.tripId}`;
     // const reviews = await storageService.query(`review`);
     // return reviews.filter(review => review.aboutTrip === filterBy.tripId)

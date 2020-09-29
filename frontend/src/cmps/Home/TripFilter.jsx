@@ -5,7 +5,7 @@ export class TripFilter extends Component {
 
 
     render() {
-        const { onsetFilter, mostOccDests } = this.props
+        const {  mostOccDests } = this.props
         return (        
             <div className="trip-filter flex" style={this.props.style}>
                 <img src="https://res.cloudinary.com/idanrozen/image/upload/v1601236322/search_ejr7qx.png" alt=""/>

@@ -3,12 +3,19 @@ import { utils } from '../../services/utils'
 import { connect } from 'react-redux'
 
 import { reviewActions } from '../../store/actions/reviewActions'
+import { addTrip } from '../../store/actions/tripActions'
+import { showModal } from '../../store/actions/modalActions'
 
 import React, { Component } from 'react'
 
 class _TripPreview extends Component {
 
-    async componentDidMount() {
+    componentDidMount() {
+        this.loadReviews()
+      
+    }
+
+    async loadReviews(){
         let reviews = await this.props.loadReviews({ tripId: this.props.trip._id })
         if (!reviews) reviews = []
         this.setState({ reviews })
@@ -16,15 +23,26 @@ class _TripPreview extends Component {
     }
 
 
-    handleClick = () => {
-        // let isMember;
-        // if(this.props.loggedInUser){
-        //    isMember = this.props.trip.members.find(member=>member.id===this.props.loggedInUser._id)
-        // }
-        // if(isMember){
-            //     return
-            // }
+    handleClick = async() => {
+        let isMember;
+        const trip={...this.props.trip}
+        if (this.props.loggedInUser) {
+            isMember = this.props.trip.members.find(member => member.id === this.props.loggedInUser._id)
+        }
+        if (isMember) {
             this.props.history.push(`/trip/${this.props.trip._id}/triproute`)
+            return
+        }
+        else{
+            const name = this.props.loggedInUser? this.props.loggedInUser.username:'guest';
+            const originId = trip._id
+            delete trip._id
+            trip.members=[]
+            trip.originId= originId
+            trip.tripName= trip.tripName+' - '+name
+            const newTrip = await this.props.addTrip(trip)
+            this.props.history.push(`/trip/${newTrip._id}/triproute`)
+        }
     }
 
     getTripPrice = (activities) => {
@@ -96,7 +114,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    loadReviews: reviewActions.loadReviews
+    loadReviews: reviewActions.loadReviews,
+    addTrip: addTrip,
+    showModal
 }
 
 export const TripPreview = connect(mapStateToProps, mapDispatchToProps)(withRouter(_TripPreview))

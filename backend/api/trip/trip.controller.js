@@ -28,7 +28,7 @@ async function getTrip(req, res) {
 
 async function deleteTrip(req, res) {
     try {
-        await tripwService.remove(req.params.id)
+        await tripService.remove(req.params.id)
         res.end()
     } catch (err) {
         logger.error('Cannot delete trip', err);
@@ -51,6 +51,15 @@ async function addTrip(req, res) {
                     username: 'Guest',
                     imgUrl: 'https://res.cloudinary.com/idanrozen/image/upload/v1600889656/opinion-sin-imagen_raxn0y.png'
                 }
+            trip.members = req.session.user ? [{
+                id: req.session.user._id,
+                username: req.session.user.username,
+                imgUrl: req.session.user.imgUrl
+            }] : [{
+                    id: 'guest',
+                    username: 'Guest',
+                    imgUrl: 'https://res.cloudinary.com/idanrozen/image/upload/v1600889656/opinion-sin-imagen_raxn0y.png'
+                }]
             trip = await tripService.add(trip)
         }
         res.json(trip)
