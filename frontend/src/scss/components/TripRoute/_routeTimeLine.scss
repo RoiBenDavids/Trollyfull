@@ -8,13 +8,13 @@
         .fire-ring{
             position: absolute;
             height: 36px;
-            width: 34px;
+            width: 35px;
             top: 10px;
-            right: 90px;
+            right: 20px;
             border-radius: 50%;
             &.on{   
                 box-shadow: 0 0 4px red;   
-                // animation: fire 1.5s ease-in-out infinite; 
+                animation: fire 1.5s ease-in-out infinite; 
             }
             @keyframes fire {
                 0% {

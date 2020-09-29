@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { loadTrip, addTrip, setTrip } from '../store/actions/tripActions'
+import { loadTrip, addTrip, setTrip, removeTrip } from '../store/actions/tripActions'
 import { closeModal, showModal } from '../store/actions/modalActions'
 import { TripAssembly } from '../cmps/TripAssembly/TripAssembly'
 import { TripRoute } from '../cmps/TripRoute/TripRoute'
@@ -33,6 +33,9 @@ class _TripApp extends Component {
         socketService.emit('enter trip', id);
         try {
             await loadTrip(id, true)
+            if (this.props.trip.originId) {
+                this.props.showModal('alert-user', this.props.trip)
+            }
             if (this.props.match.params.openSignup === 'true') {
                 this.props.showModal('signup', id)
             }
@@ -57,8 +60,11 @@ class _TripApp extends Component {
         const markers = this.getMarkersOfDests()
         this.setState({ markers })
     }
-    componentWillUnmount() {
+    async componentWillUnmount() {
         socketService.off('tripUpdated', this.props.setTrip);
+        if (!this.props.loggedInUser && this.props.trip.createdBy.id === 'guest') {
+            await this.props.removeTrip(this.props.trip._id)
+        }
     }
 
     async componentDidUpdate(prevProps, prevState) {
@@ -162,12 +168,6 @@ class _TripApp extends Component {
         const _newTrip = { ...this.props.trip, destinations }
         const newTrip = await this.props.addTrip(_newTrip)
         socketService.emit('tripToUpdate', newTrip);
-
-
-        // const markers = this.getMarkersOfDests()
-        // console.log(markers);
-
-        // this.setState({ markers })
     }
 
     showDay = (day) => {
@@ -230,11 +230,13 @@ class _TripApp extends Component {
 
 const mapStateToProps = state => {
     return {
-        trip: state.tripReducer.currTrip
+        trip: state.tripReducer.currTrip,
+        loggedInUser: state.userReducer.loggedInUser
     }
 }
 const mapDispatchToProps = {
     loadTrip,
+    removeTrip,
     showModal,
     closeModal,
     addTrip,

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { utils } from '../../services/utils'
-import { TripPreview } from '../Home/TripPreview'
-import { Link, withRouter } from 'react-router-dom'
+
+import {  withRouter } from 'react-router-dom'
 import { ReviewList } from './ReviewList'
 import { AddReview } from './AddReview'
 import { reviewActions } from '../../store/actions/reviewActions'
@@ -15,9 +14,9 @@ class _TripReviews extends Component {
     }
 
     async componentDidMount() {
-        const trip =this.props.trip
+        const id =this.props.trip.originId?this.props.trip.originId:this.props.trip._id
         try {
-            await this.props.loadReviews({ tripId: trip._id })
+            await this.props.loadReviews({ tripId: id })
         }
         catch (err) {
         }
@@ -29,9 +28,10 @@ class _TripReviews extends Component {
 
 
     addReview = async (review) => {
-        review.trip = this.props.trip._id
+        const id =this.props.trip.originId?this.props.trip.originId:this.props.trip._id
+        review.trip = id
         await reviewActions.addReview(review)
-        await this.props.loadReviews({ tripId: this.props.trip._id })
+        await this.props.loadReviews({ tripId: id})
         this.onToggleExpend()
     }
 

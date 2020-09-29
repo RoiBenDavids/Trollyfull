@@ -11,6 +11,6 @@ router.get('/', getTrips)
 // router.post('/',  requireAuth, addTrip)
 router.put('/:id', addTrip)
 router.post('/', addTrip)
-router.delete('/:id',  requireAuth, deleteTrip)
+router.delete('/:id', deleteTrip)
 
 module.exports = router

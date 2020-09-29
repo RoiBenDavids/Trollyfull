@@ -111,7 +111,6 @@ export class PrevEditActivity extends Component {
 
         const { activitie, minTime, maxTime } = this.state
         if (!activitie) return <div>Loading</div>
-        const { destinations } = this.props.props
         let minT = new Date(minTime)
         let maxT = new Date(maxTime)
         let minTemp = minT.setHours(7, 0)
