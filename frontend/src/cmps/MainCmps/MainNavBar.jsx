@@ -50,7 +50,7 @@ class _MainNavBar extends Component {
         this.setState({ isNavbarOpen: !this.state.isNavbarOpen })
     }
 
-    closemainNavbar =()=>{
+    closemainNavbar = () => {
         this.setState({ isNavbarOpen: false })
     }
 
@@ -60,9 +60,10 @@ class _MainNavBar extends Component {
                 <div className={'main-navbar flex justify-between align-center full  ' + (this.state.navBar ? 'navBar-background' : '')}>
                     <Link to="/" onClick={this.closemainNavbar}> <h1 className="logo">Trolly</h1></Link>
                     <div className={`flex justify-between main-navbar-links ${this.state.isNavbarOpen ? 'mainbar-open' : ''}`}>
-                        <Link to="/trip"onClick={this.closemainNavbar} >Trips</Link>
+                        <Link to="/trip" onClick={this.closemainNavbar} >Trips</Link>
                         <NavLink to="/about" onClick={this.closemainNavbar} >About</NavLink>
-                        {this.props.usersData.loggedInUser ? <UserPreview closemainNavbar={this.closemainNavbar} openMainNavbar={this.closemainNavbar} logout={this.props.logout} user={this.props.usersData.loggedInUser} /> : <div onClick={() => {this.props.showModal('login')}}>Login</div>}
+                        {this.props.usersData.loggedInUser ? <UserPreview closemainNavbar={this.closemainNavbar} openMainNavbar={this.closemainNavbar} logout={this.props.logout} user={this.props.usersData.loggedInUser} /> : <div onClick={() => { this.props.showModal('login') }}>Login</div>}
+
                     </div>
                     <button className="mobile-hamburger " onClick={this.openMainNavbar}> ☰</button>
                 </div>
